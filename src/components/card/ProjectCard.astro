@@ -15,3 +15,21 @@ const { title, description } = Astro.props;
     {description}
   </div>
 </div>
+
+<style>
+  .card {
+    background-color: var(--card-bg); /* Берем переменную из глобальных */
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+  }
+
+  .card:hover {
+    border-color: var(--accent-color);
+  }
+
+  h3 {
+    margin: 0;
+    color: var(--accent-color);
+  }
+</style>
