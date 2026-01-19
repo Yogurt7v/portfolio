@@ -1,0 +1,18 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { projects } from '../data/projects';
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<MainLayout pageTitle={project.title}>
+  <h1>{project.title}</h1>
+  <p>Технологии: {project.tech}</p>
+</MainLayout>

@@ -1,0 +1,23 @@
+---
+const navItems = ['Главная', 'Проекты', 'Обо мне', 'Контакты'];
+---
+
+<nav class="navItemContainer">
+  {
+    navItems.map((item) => (
+      <a href={`/${item.toLowerCase()}`} class="navItemLink">
+        {item}
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .navItemContainer {
+    gap: 10px;
+  }
+
+  .navItemLink {
+    text-decoration: none;
+  }
+</style>
