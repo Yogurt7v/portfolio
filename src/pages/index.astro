@@ -1,7 +1,5 @@
 ---
-import ProjectCard from '../components/card/ProjectCard.astro';
-import MainLayout from '../layouts/MainLayout.astro';
-import { projects } from '../data/projects';
+
 ---
 
 <html lang="en">
@@ -12,16 +10,5 @@ import { projects } from '../data/projects';
     <meta name="generator" content={Astro.generator} />
     <title>Мое портфолио</title>
   </head>
-  <body>
-    <MainLayout pageTitle="Мое портфолио">
-      <ProjectCard
-        title={projects[projects.length - 1].title}
-        description={projects[projects.length - 1].tech}
-      />
-      <ProjectCard
-        title={projects[projects.length - 2].title}
-        description={projects[projects.length - 2].tech}
-      />
-    </MainLayout>
-  </body>
+  <body> </body>
 </html>
