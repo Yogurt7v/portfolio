@@ -57,28 +57,32 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, onHoverOpen
       className="group cursor-pointer bg-glass-white backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden hover:border-white/30 transition-all duration-500 shadow-xl"
     >
       {/* Контейнер изображения */}
-      <div className="aspect-video bg-slate-800 overflow-hidden relative">
-        {/* <img
+      {/* <div className="aspect-video bg-slate-800 overflow-hidden relative"> */}
+      {/* <img
           src={project.screenshots[0]}
           alt={project.title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
         /> */}
 
-        {/* Оверлей при наведении (Glassmorphism эффект) */}
-        <div className="aspect-video relative overflow-hidden bg-slate-900">
-          <AnimatePresence mode="wait">
-            <motion.img
-              key={currentImg}
-              src={project.screenshots[currentImg]}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-              className="w-full h-full object-cover"
-            />
-          </AnimatePresence>
-        </div>
+      {/* Оверлей при наведении (Glassmorphism эффект) */}
+      <div className="aspect-video relative overflow-hidden bg-slate-900">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={currentImg}
+            src={project.screenshots[currentImg]}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="w-full h-full object-cover"
+          />
+        </AnimatePresence>
+
+        {/* Индикатор загрузки видео (визуальный фидбек для пользователя) */}
+        <div className="absolute bottom-0 left-0 h-1 bg-blue-500 transition-all duration-2000 ease-linear w-0 group-hover:w-full" />
       </div>
+      {/* </div> */}
+
       {/* Контентная часть */}
       <div className="p-6">
         <div className="flex justify-between items-start mb-2">
