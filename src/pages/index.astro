@@ -1,5 +1,10 @@
 ---
+import { getCollection } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+import Portfolio from '../components/Portfolio';
 
+const allProjects = await getCollection('projects');
+const projectsData = allProjects[0]?.data || [];
 ---
 
 <html lang="en">
@@ -10,5 +15,17 @@
     <meta name="generator" content={Astro.generator} />
     <title>Мое портфолио</title>
   </head>
-  <body> </body>
+  <body>
+    <MainLayout title="Моё Портфолио">
+      <header class="mb-12">
+        <h1
+          class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent"
+        >
+          Привет, я Frontend Разработчик
+        </h1>
+      </header>
+
+      <Portfolio client:load projects={projectsData} />
+    </MainLayout>
+  </body>
 </html>
