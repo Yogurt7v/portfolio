@@ -3,13 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { PROJECTS_PER_STEP } from '../utils/constants';
 import ProjectCard from './ProjectCard';
 import TechFilters from './TechFilters';
+import Modal from './Modal';
 
 interface Tech {
   name: string;
   icon: string;
 }
 
-interface Project {
+export interface Project {
   id: number;
   title: string;
   description: string;
@@ -17,6 +18,7 @@ interface Project {
   rating?: number;
   screenshots: string[];
   category: string;
+  videoUrl?: string;
 }
 
 interface Props {
@@ -26,6 +28,7 @@ interface Props {
 const Portfolio: React.FC<Props> = ({ projects }) => {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
   const [visibleCount, setVisibleCount] = useState(PROJECTS_PER_STEP);
+  const [previewProject, setPreviewProject] = useState<Project | null>(null);
 
   const lastOneRef = useRef<HTMLDivElement>(null);
 
@@ -98,10 +101,15 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
               key={project.id}
               project={project}
               onClick={setSelectedProject}
+              onHoverOpen={(p) => setPreviewProject(p)}
             />
           ))}
         </AnimatePresence>
       </motion.div>
+
+      {/* Видео-превью Модалка */}
+      <Modal previewProject={previewProject} setPreviewProject={setPreviewProject} />
+
       {visibleCount < filteredProjects.length && (
         <div ref={lastOneRef} className="h-20 flex items-center justify-center mt-10">
           {/* Можно добавить лоадер/спиннер */}

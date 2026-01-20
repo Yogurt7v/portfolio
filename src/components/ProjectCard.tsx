@@ -1,5 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { IMAGE_INTERVAL, MOUSE_TIMER } from '../utils/constants';
 
 interface Tech {
   name: string;
@@ -18,11 +19,35 @@ interface Project {
 interface ProjectCardProps {
   project: Project;
   onClick: (project: Project) => void;
+  onHoverOpen: (project: Project) => void;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, onHoverOpen }) => {
+  const [currentImg, setCurrentImg] = useState(0);
+  const hoverTimer = useRef<NodeJS.Timeout | null>(null);
+
+  // Смена скриншотов
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImg((prev) => (prev + 1) % project.screenshots.length);
+    }, IMAGE_INTERVAL);
+    return () => clearInterval(interval);
+  }, [project.screenshots.length]);
+
+  const handleMouseEnter = () => {
+    hoverTimer.current = setTimeout(() => {
+      onHoverOpen(project);
+    }, MOUSE_TIMER);
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+  };
+
   return (
     <motion.div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       layout
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -33,29 +58,36 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
     >
       {/* Контейнер изображения */}
       <div className="aspect-video bg-slate-800 overflow-hidden relative">
-        <img
+        {/* <img
           src={project.screenshots[0]}
           alt={project.title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-        />
+        /> */}
 
         {/* Оверлей при наведении (Glassmorphism эффект) */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
-          <span className="px-6 py-2 bg-white text-black rounded-full font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-            Подробнее
-          </span>
+        <div className="aspect-video relative overflow-hidden bg-slate-900">
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={currentImg}
+              src={project.screenshots[currentImg]}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="w-full h-full object-cover"
+            />
+          </AnimatePresence>
         </div>
       </div>
-
       {/* Контентная часть */}
       <div className="p-6">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
             {project.title}
           </h3>
-          <span className="text-[10px] uppercase tracking-widest text-slate-500 bg-white/5 px-2 py-1 rounded border border-white/5">
+          {/* <span className="text-[10px] uppercase tracking-widest text-slate-500 bg-white/5 px-2 py-1 rounded border border-white/5">
             {project.category}
-          </span>
+          </span> */}
         </div>
 
         <p className="text-slate-400 text-sm mb-4 line-clamp-2 leading-relaxed">
