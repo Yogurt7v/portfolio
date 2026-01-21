@@ -17,6 +17,7 @@ const Timeline: React.FC = () => {
 
   return (
     <section
+      id="experience"
       ref={containerRef}
       className="relative max-w-6xl mx-auto py-32 px-4 overflow-visible"
     >

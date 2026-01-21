@@ -5,10 +5,8 @@ import Portfolio from '../components/Portfolio';
 import Timeline from '../components/Timeline';
 import Footer from '../components/Footer';
 import Skills from '../components/Skills';
+import Header from '../components/Header';
 import { projects } from '../data/projects';
-
-// const allProjects = await getCollection('projects');
-// const projectsData = allProjects[0]?.data || [];
 ---
 
 <html lang="en">
@@ -21,13 +19,7 @@ import { projects } from '../data/projects';
   </head>
   <body>
     <MainLayout title="Моё Портфолио">
-      <header class="mb-12">
-        <h1
-          class="text-4xl font-bold bg-linear-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent"
-        >
-          Привет, я Frontend Разработчик
-        </h1>
-      </header>
+      <Header client:visible />
       <Portfolio client:load projects={projects} />
       <Timeline client:visible />
       <Skills client:load />
