@@ -2,9 +2,11 @@
 import { getCollection } from 'astro:content';
 import MainLayout from '../layouts/MainLayout.astro';
 import Portfolio from '../components/Portfolio';
+import Timeline from '../components/Timeline';
+import { projects } from '../data/projects';
 
-const allProjects = await getCollection('projects');
-const projectsData = allProjects[0]?.data || [];
+// const allProjects = await getCollection('projects');
+// const projectsData = allProjects[0]?.data || [];
 ---
 
 <html lang="en">
@@ -24,8 +26,8 @@ const projectsData = allProjects[0]?.data || [];
           Привет, я Frontend Разработчик
         </h1>
       </header>
-
-      <Portfolio client:load projects={projectsData} />
+      <Timeline client:visible />
+      <Portfolio client:load projects={projects} />
     </MainLayout>
   </body>
 </html>
