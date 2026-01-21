@@ -71,7 +71,9 @@ const Header: React.FC = () => {
 
           {/* CTA Button */}
           <a
-            href="#contact"
+            href="https://www.hh.ru"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:flex px-5 py-2 bg-white text-black text-xs font-black uppercase rounded-full hover:bg-blue-500 hover:text-white transition-all shadow-lg active:scale-95"
           >
             Hire Me

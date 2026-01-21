@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { aboutMe } from '../data/aboutMe';
 
 const About: React.FC = () => {
   return (
@@ -15,10 +16,11 @@ const About: React.FC = () => {
         >
           {/* Замени 'your-photo.jpg' на путь к твоей фотографии */}
           <img
-            src="your-photo.jpg"
+            src={aboutMe.myPhoto}
             alt="Ваша фотография"
             className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
           />
+
           {/* Декоративный глоу-эффект */}
           <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-screen" />
         </motion.div>
@@ -35,20 +37,12 @@ const About: React.FC = () => {
             Немного <span className="text-blue-500 italic">обо мне</span>
           </h2>
           <p className="text-lg text-slate-300 leading-relaxed mb-6">
-            Привет! Я [Твое Имя], Fullstack-разработчик с [N] годами опыта в создании
-            инновационных веб-решений. Моя страсть — это превращение сложных идей в
-            элегантные и функциональные продукты, которые приносят пользу пользователям.
+            {aboutMe.greetings}
           </p>
           <p className="text-lg text-slate-300 leading-relaxed mb-6">
-            Я специализируюсь на [перечисли свои ключевые технологии, например, React,
-            Node.js, TypeScript] и постоянно стремлюсь к изучению новых технологий, чтобы
-            всегда быть на острие индустрии.
+            {aboutMe.mySkills}
           </p>
-          <p className="text-lg text-slate-300 leading-relaxed">
-            Помимо кодинга, я увлекаюсь [твое хобби, например, игрой на гитаре,
-            фотографией], что помогает мне сохранять креативный подход к работе и находить
-            вдохновение в самых разных областях.
-          </p>
+          <p className="text-lg text-slate-300 leading-relaxed">{aboutMe.hobby}</p>
 
           <div className="mt-10">
             <a
