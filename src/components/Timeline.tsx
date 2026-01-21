@@ -32,12 +32,12 @@ const Timeline: React.FC = () => {
 
       <div className="relative">
         {/* Центральная линия-подложка */}
-        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/5 md:-translate-x-1/2" />
+        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-white/5 md:-translate-x-1/2" />
 
         {/* Активная линия скролла */}
         <motion.div
           style={{ scaleY, originY: 0 }}
-          className="absolute left-8 md:left-1/2 top-0 bottom-0 w-[2px] bg-blue-500 md:-translate-x-1/2 z-10 shadow-[0_0_15px_rgba(59,130,246,0.5)]"
+          className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-blue-500 md:-translate-x-1/2 z-10 shadow-[0_0_15px_rgba(59,130,246,0.5)]"
         />
 
         <div className="space-y-32">
@@ -89,7 +89,7 @@ const Timeline: React.FC = () => {
                   }}
                   className="w-full md:w-[45%] pl-20 md:pl-0"
                 >
-                  <div className="bg-white/[0.03] backdrop-blur-2xl border border-white/10 p-8 rounded-[2.5rem] hover:bg-white/[0.06] hover:border-blue-500/30 transition-all duration-500 shadow-2xl relative group">
+                  <div className="bg-white/3 backdrop-blur-2xl border border-white/10 p-8 rounded-[2.5rem] hover:bg-white/6 hover:border-blue-500/30 transition-all duration-500 shadow-2xl relative group">
                     {/* Мобильный период */}
                     <div className="md:hidden text-blue-500 font-mono text-sm font-bold mb-2">
                       {exp.period}
