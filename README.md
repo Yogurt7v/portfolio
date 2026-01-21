@@ -1,3 +1,8 @@
+задание на завтра
+
+1. добавить виджет с github
+2. сделать Readme
+
 # Astro Starter Kit: Minimal
 
 ```sh

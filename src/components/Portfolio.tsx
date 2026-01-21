@@ -85,7 +85,7 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
   const handleClearFilters = () => setSelectedTechs([]);
 
   return (
-    <section id="projects" className="mt-28">
+    <section id="projects" className="py-8">
       <TechFilters
         allTechs={allTechs}
         selectedTechs={selectedTechs}

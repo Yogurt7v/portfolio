@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { navLinks } from '../data/navLinks';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const scrollToTop = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   // Следим за скроллом, чтобы менять стиль шапки
   useEffect(() => {
@@ -13,14 +22,11 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
   return (
-    <header className="fixed top-0 left-0 right-0 z-100 p-6 transition-all duration-500">
+    <header
+      className="fixed top-0 left-0 right-0 z-100 p-6 transition-all duration-500"
+      id="header"
+    >
       <nav className="max-w-4xl mx-auto">
         <motion.div
           initial={{ y: -100, opacity: 0 }}
@@ -36,7 +42,10 @@ const Header: React.FC = () => {
           `}
         >
           {/* Logo */}
-          <div className="flex items-center gap-2 group cursor-pointer">
+          <div
+            className="flex items-center gap-2 group cursor-pointer"
+            onClick={scrollToTop}
+          >
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white group-hover:rotate-12 transition-transform">
               Y
             </div>

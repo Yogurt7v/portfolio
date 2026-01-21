@@ -5,7 +5,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative py-24 px-4 overflow-hidden" id="contact">
+    <footer className="relative py-8 px-4 overflow-hidden" id="contact">
       <div className="max-w-6xl mx-auto bg-linear-to-br from-blue-950/40 to-black/40 border border-white/10 rounded-[3rem] p-10 md:p-16 backdrop-blur-3xl shadow-2xl relative z-10">
         <div className="text-center relative z-10">
           <motion.h2

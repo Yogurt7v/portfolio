@@ -4,7 +4,7 @@ import { skills } from '../data/skills';
 
 const Skills = () => {
   return (
-    <section className="py-32 px-4 max-w-6xl mx-auto">
+    <section className="py-8 px-4 max-w-6xl mx-auto">
       <h2 className="text-4xl font-bold mb-16 text-center italic uppercase">Stack</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {skills.map((skill, i) => (
