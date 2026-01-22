@@ -46,7 +46,7 @@ const Header: React.FC = () => {
             className="flex items-center gap-2 group cursor-pointer"
             onClick={scrollToTop}
           >
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white group-hover:rotate-12 transition-transform">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white group-hover:rotate-12 group-hover:scale-110 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
               Y
             </div>
             <span className="text-white font-bold tracking-tighter hidden sm:block">
@@ -76,7 +76,7 @@ const Header: React.FC = () => {
             rel="noopener noreferrer"
             className="hidden md:flex px-5 py-2 bg-white text-black text-xs font-black uppercase rounded-full hover:bg-blue-500 hover:text-white transition-all shadow-lg active:scale-95"
           >
-            Hire Me
+            HH.ru
           </a>
         </motion.div>
       </nav>
