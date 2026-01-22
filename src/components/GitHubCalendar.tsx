@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GitHubCalendar } from 'react-github-calendar';
+import { username } from '../data/aboutMe';
 
 const GithubActivity = () => {
-  const username = 'Yogurt7v';
-
   const currentYear = new Date().getFullYear();
-  // const years = [currentYear, currentYear - 1, currentYear - 2, , currentYear - 3];
   const years = [2026, 2025, 2024, 2023];
 
   const [selectedYear, setSelectedYear] = useState(currentYear);

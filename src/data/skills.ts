@@ -1,26 +1,21 @@
-const colors = [
-  'text-cyan-400',
-  'text-blue-500',
-  'text-green-500',
-  'text-white',
-  'text-sky-400',
-  'text-pink-500',
-];
-
-export const getRandomColor = (): string => {
-  const randomIndex = Math.floor(Math.random() * colors.length);
-  return colors[randomIndex];
+const skillColors: Record<string, string> = {
+  React: 'text-cyan-400',
+  TypeScript: 'text-blue-500',
+  'Node.js': 'text-green-500',
+  'Next.js': 'text-white',
+  Tailwind: 'text-sky-400',
+  'Three.js': 'text-pink-500',
 };
 
 export const skills = [
-  { name: 'React', color: getRandomColor(), level: 'Senior' },
-  { name: 'TypeScript', color: getRandomColor(), level: 'Expert' },
-  { name: 'Node.js', color: getRandomColor(), level: 'Middle+' },
-  { name: 'Next.js', color: getRandomColor(), level: 'Senior' },
-  { name: 'Tailwind', color: getRandomColor(), level: 'Expert' },
-  { name: 'Three.js', color: getRandomColor(), level: 'Basic' },
-  { name: 'React', color: getRandomColor(), level: 'Senior' },
-  { name: 'TypeScript', color: getRandomColor(), level: 'Expert' },
-  { name: 'Node.js', color: getRandomColor(), level: 'Middle+' },
-  { name: 'Three.js', color: getRandomColor(), level: 'Basic' },
+  { name: 'React', level: 'Senior' },
+  { name: 'TypeScript', level: 'Expert' },
+  { name: 'Node.js', level: 'Middle+' },
+  { name: 'Next.js', level: 'Senior' },
+  { name: 'Tailwind', level: 'Expert' },
+  { name: 'Three.js', level: 'Basic' },
 ];
+
+export const getSkillColor = (name: string): string => {
+  return skillColors[name] || 'text-white';
+};

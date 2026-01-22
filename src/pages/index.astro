@@ -10,6 +10,7 @@ import {
   GithubSection,
 } from '../components';
 import { projects } from '../data/projects';
+import { skills } from '../data/skills';
 ---
 
 <html lang="ru">
@@ -26,9 +27,8 @@ import { projects } from '../data/projects';
       <About client:load />
       <Portfolio client:visible projects={projects} />
       <GithubSection client:visible />
-      <!-- <GithubStats client:visible /> -->
       <Timeline client:visible />
-      <Skills client:visible />
+      <Skills client:visible skillsArray={skills} />
       <Footer client:visible />
     </MainLayout>
   </body>
