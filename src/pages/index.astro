@@ -1,6 +1,14 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-import { Portfolio, Timeline, Footer, Skills, Header, About } from '../components';
+import {
+  Portfolio,
+  Timeline,
+  Footer,
+  Skills,
+  Header,
+  About,
+  GithubSection,
+} from '../components';
 import { projects } from '../data/projects';
 ---
 
@@ -17,6 +25,8 @@ import { projects } from '../data/projects';
       <Header client:load />
       <About client:load />
       <Portfolio client:visible projects={projects} />
+      <GithubSection client:visible />
+      <!-- <GithubStats client:visible /> -->
       <Timeline client:visible />
       <Skills client:visible />
       <Footer client:visible />

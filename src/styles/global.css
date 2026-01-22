@@ -11,6 +11,18 @@ section[id] {
   scroll-margin-top: 100px;
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.5);
+  border-radius: 10px;
+}
+
 /* Настройка плагинов в v4 делается через обычные CSS правила или @plugin */
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/aspect-ratio";
