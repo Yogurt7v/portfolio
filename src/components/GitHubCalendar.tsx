@@ -58,11 +58,28 @@ const GithubActivity = () => {
                 username={username}
                 year={selectedYear}
                 theme={customTheme}
+                weekStart={1}
                 colorScheme="dark"
                 fontSize={13}
                 blockSize={13}
                 blockMargin={5}
                 showWeekdayLabels
+                labels={{
+                  months: [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec',
+                  ],
+                }}
               />
             </motion.div>
           </AnimatePresence>

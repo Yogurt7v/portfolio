@@ -13,6 +13,36 @@ export function BackgroundGradient() {
 
     // Настройки пятен
     const blobs = [
+      // Основные крупные пятна
+      {
+        x: 0,
+        y: 0,
+        r: 550,
+        color: '#1e3a8a',
+        tx: Math.random() * 1000,
+        ty: Math.random() * 1000,
+        speed: 0.0015,
+      },
+      {
+        x: 0,
+        y: 0,
+        r: 500,
+        color: '#4c1d95',
+        tx: Math.random() * 1000,
+        ty: Math.random() * 1000,
+        speed: 0.002,
+      },
+      {
+        x: 0,
+        y: 0,
+        r: 650,
+        color: '#0f172a',
+        tx: Math.random() * 1000,
+        ty: Math.random() * 1000,
+        speed: 0.001,
+      },
+
+      // Новые дополнительные пятна для детализации
       {
         x: 0,
         y: 0,
@@ -20,31 +50,26 @@ export function BackgroundGradient() {
         color: '#1d4ed8',
         tx: Math.random() * 1000,
         ty: Math.random() * 1000,
-      }, // Синий
+        speed: 0.0025,
+      }, // Яркий синий акцент
       {
         x: 0,
         y: 0,
         r: 350,
-        color: '#7c3aed',
+        color: '#064e3b',
         tx: Math.random() * 1000,
         ty: Math.random() * 1000,
-      }, // Фиолетовый
+        speed: 0.0018,
+      }, // Глубокий изумрудный (почти черный)
       {
         x: 0,
         y: 0,
-        r: 500,
-        color: '#0f172a',
+        r: 450,
+        color: '#312e81',
         tx: Math.random() * 1000,
         ty: Math.random() * 1000,
-      }, // Темный
-      {
-        x: 0,
-        y: 0,
-        r: 300,
-        color: '#0ea5e9',
-        tx: Math.random() * 1000,
-        ty: Math.random() * 1000,
-      }, // Циан
+        speed: 0.0012,
+      }, // Индиго
     ];
 
     const resize = () => {
@@ -54,27 +79,22 @@ export function BackgroundGradient() {
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Заполняем базовый фон (очень темный)
-      ctx.fillStyle = 'rgba(2, 6, 23, 1)'; // Глубокий темный фон
+      ctx.fillStyle = '#020617';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       blobs.forEach((blob) => {
-        // Движение по шуму (имитация)
-        blob.tx += 0.002;
-        blob.ty += 0.002;
+        // Используем индивидуальную скорость каждого пятна
+        blob.tx += blob.speed || 0.002;
+        blob.ty += blob.speed || 0.002;
 
-        // Плавное перемещение координат
         const x = Math.sin(blob.tx) * (canvas.width / 2) + canvas.width / 2;
         const y = Math.cos(blob.ty) * (canvas.height / 2) + canvas.height / 2;
 
-        // Рисуем градиентное пятно
         const gradient = ctx.createRadialGradient(x, y, 0, x, y, blob.r);
         gradient.addColorStop(0, blob.color);
-        gradient.addColorStop(0.5, blob.color + '66'); // 40% прозрачности в середине
         gradient.addColorStop(1, 'transparent');
 
-        ctx.globalCompositeOperation = 'screen'; // Смешивание цветов
+        ctx.globalCompositeOperation = 'screen';
         ctx.fillStyle = gradient;
         ctx.beginPath();
         ctx.arc(x, y, blob.r, 0, Math.PI * 2);
