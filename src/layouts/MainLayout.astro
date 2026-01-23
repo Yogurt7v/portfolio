@@ -1,22 +1,26 @@
 ---
+import { BackgroundGradient } from '../components';
+import '../styles/global.css';
+
 interface Props {
   title: string;
 }
-
-import { BackgroundGradient } from '../components';
-import '../styles/global.css';
-const { title } = Astro.props;
+const { title = 'Портфолио' } = Astro.props;
 ---
 
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 4. Добавляем description для SEO -->
+    <meta name="description" content="Персональный сайт и портфолио" />
+    <!-- 5. Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
-  <body class="bg-slate-900 text-white selection:bg-brand-light/30">
+  <body class="bg-slate-900 text-white selection:bg-brand-light/30 min-h-screen">
     <BackgroundGradient client:only="react" />
-    <main class="max-w-6xl mx-auto px-4 py-8">
+    <main class="mx-auto px-4 py-8 grid place-items-center w-full md:mx-auto">
       <slot />
     </main>
   </body>

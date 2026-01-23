@@ -16,7 +16,7 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
           exit={{ opacity: 0 }}
           // Закрытие при клике на оверлей (фон)
           onClick={() => setPreviewProject(null)}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/60 backdrop-blur-xl cursor-zoom-out"
+          className="fixed inset-0 z-100 flex items-center justify-center p-6 bg-black/60 backdrop-blur-xl cursor-zoom-out"
         >
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
@@ -48,7 +48,7 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
               />
 
               {/* Информация внизу */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black via-black/60 to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-8 bg-linear-to-t from-black via-black/60 to-transparent">
                 <h2 className="text-3xl font-bold text-white">{previewProject.title}</h2>
                 <div className="flex items-center gap-2 mt-2 text-blue-400">
                   <div className="w-2 h-2 bg-current rounded-full animate-pulse" />

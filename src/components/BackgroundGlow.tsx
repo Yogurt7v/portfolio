@@ -122,12 +122,11 @@ export function BackgroundGradient() {
       <canvas
         ref={canvasRef}
         style={{
-          filter: 'blur(100px)',
-          transform: 'scale(1.2)',
+          filter: 'blur(60px)',
           width: '100%',
           height: '100%',
-          display: 'block',
         }}
+        className="md:blur-[120px]"
       />
       {/* Полупрозрачная маска поверх канваса для лучшей читаемости текста */}
       <div className="absolute inset-0 bg-slate-950/40 pointer-events-none" />

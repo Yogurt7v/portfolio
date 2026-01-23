@@ -78,14 +78,10 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
     );
   };
 
-  const setSelectedProject = () => {
-    return;
-  };
-
   const handleClearFilters = () => setSelectedTechs([]);
 
   return (
-    <section id="projects" className="py-8">
+    <section id="projects" className="py-8 max-w-6xl mx-auto px-4">
       <TechFilters
         allTechs={allTechs}
         selectedTechs={selectedTechs}
@@ -94,13 +90,13 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
       />
 
       {/* Сетка проектов с анимацией */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <motion.div layout className="grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-8">
         <AnimatePresence mode="popLayout">
           {displayedProjects.map((project) => (
             <ProjectCard
               key={project.id}
               project={project}
-              onClick={setSelectedProject}
+              onClick={(p) => setPreviewProject(p)}
               onHoverOpen={(p) => setPreviewProject(p)}
             />
           ))}
