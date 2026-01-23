@@ -6,7 +6,7 @@ const About: React.FC = () => {
   return (
     <section
       id="about"
-      className="relative py-8  mt-8 px-4 overflow-hidden max-w-6xl mx-auto "
+      className="relative py-6 mt-10 px-4 overflow-hidden max-w-6xl mx-auto "
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         {/* Левая колонка: Фотография */}
