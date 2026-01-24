@@ -17,11 +17,11 @@ const Header: React.FC = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
-    
+
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -50,10 +50,15 @@ const Header: React.FC = () => {
           `}
         >
           {/* GRID — ключевой момент */}
-          <div className={`grid ${isMobile ? 'grid-cols-2' : 'grid-cols-3'} items-center`}>
+          <div
+            className={`grid ${isMobile ? 'grid-cols-2' : 'grid-cols-3'} items-center`}
+          >
             {/* LEFT */}
-            <div className="flex items-center gap-2 cursor-pointer" onClick={scrollToTop}>
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white">
+            <div
+              className="flex items-center gap-2 group cursor-pointer"
+              onClick={scrollToTop}
+            >
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white group-hover:rotate-12 transition-transform duration-500 ease-in-out ">
                 Y
               </div>
               <span className="text-white font-bold tracking-tight">

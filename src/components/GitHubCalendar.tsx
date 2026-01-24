@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { GitHubCalendar } from 'react-github-calendar';
 import { username } from '../data/aboutMe';
+import { CHANGE_YEAR_INTERVAL } from '../data/experience';
 
 const GithubActivity = () => {
   const currentYear = new Date().getFullYear();
@@ -11,6 +12,18 @@ const GithubActivity = () => {
   const customTheme = {
     dark: ['#ffffff05', '#0c4a6e', '#075985', '#0369a1', '#0ea5e9'],
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSelectedYear((prevYear) => {
+        const currentIndex = years.indexOf(prevYear);
+        const nextIndex = (currentIndex + 1) % years.length;
+        return years[nextIndex];
+      });
+    }, CHANGE_YEAR_INTERVAL);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="hidden xl:grid py-24 px-4 mx-auto" id="github">
@@ -38,12 +51,11 @@ const GithubActivity = () => {
           </div>
         </div>
 
-        {/* 🔒 Фиксируем размеры */}
         <motion.div
           layout
           className="overflow-hidden"
           style={{
-            minHeight: 220, // 🔥 ключевой момент
+            minHeight: 180,
           }}
           animate={{ opacity: 1 }}
           initial={{ opacity: 0 }}
@@ -59,6 +71,7 @@ const GithubActivity = () => {
             blockSize={13}
             blockMargin={5}
             showWeekdayLabels
+            showTotalCount={false}
           />
         </motion.div>
       </div>
