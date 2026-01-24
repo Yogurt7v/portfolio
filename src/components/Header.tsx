@@ -32,15 +32,15 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 px-4 md:px-6 ">
-      <div className="flex justify-center w-90 max-w-5xl">
+    <header className="fixed top-0 inset-x-0 z-50 px-4 md:px-6">
+      <div className="flex justify-center">
         <motion.nav
           initial={{ y: -80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className={`
-            mt-4
-            px-5 py-3 border rounded-3xl
+            mt-4 ${isMobile ? 'w-[90%]' : 'w-full max-w-5xl'}
+            px-5 py-3 border ${isMobile ? 'rounded-3xl' : 'rounded-full'}
             transition-all duration-500
             ${
               isScrolled || isOpen
@@ -50,7 +50,7 @@ const Header: React.FC = () => {
           `}
         >
           {/* GRID — ключевой момент */}
-          <div className="grid grid-cols-2 items-center">
+          <div className={`grid ${isMobile ? 'grid-cols-2' : 'grid-cols-3'} items-center`}>
             {/* LEFT */}
             <div className="flex items-center gap-2 cursor-pointer" onClick={scrollToTop}>
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white">
@@ -62,7 +62,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* CENTER (desktop only) */}
-            {!isMobile &&<ul className="hidden md:flex justify-center gap-6">
+            <ul className="hidden md:flex justify-center gap-6">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <a
@@ -74,11 +74,10 @@ const Header: React.FC = () => {
                   </a>
                 </li>
               ))}
-            </ul>}
+            </ul>
 
             {/* RIGHT */}
             <div className="flex justify-end items-center gap-3">
-              {!isMobile && 
               <a
                 href="https://www.hh.ru"
                 target="_blank"
@@ -86,7 +85,7 @@ const Header: React.FC = () => {
                 className="hidden md:inline-flex px-5 py-2 bg-white text-black text-xs font-black uppercase rounded-full hover:bg-blue-500 hover:text-white transition-all"
               >
                 HH.ru
-              </a>}
+              </a>
 
               {/* Burger */}
               <button
@@ -107,31 +106,33 @@ const Header: React.FC = () => {
           </div>
 
           {/* MOBILE MENU */}
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="md:hidden mt-4 p-6"
-              >
-                <ul className="flex flex-col items-center gap-6">
-                  {navLinks.map((link) => (
-                    <li key={link.name}>
-                      <a
-                        href={link.href}
-                        onClick={() => setIsOpen(false)}
-                        className="text-sm uppercase tracking-widest text-slate-300 hover:text-white font-bold"
-                      >
-                        {link.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {isMobile && (
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="mt-4 p-6"
+                >
+                  <ul className="flex flex-col items-center gap-6">
+                    {navLinks.map((link) => (
+                      <li key={link.name}>
+                        <a
+                          href={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className="text-sm uppercase tracking-widest text-slate-300 hover:text-white font-bold"
+                        >
+                          {link.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          )}
         </motion.nav>
       </div>
     </header>
