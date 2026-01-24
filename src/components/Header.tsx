@@ -5,11 +5,24 @@ import { navLinks } from '../data/navLinks';
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const scrollToTop = (e: React.MouseEvent) => {
@@ -19,15 +32,15 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 px-4 md:px-6">
-      <div className="flex justify-center">
+    <header className="fixed top-0 inset-x-0 z-50 px-4 md:px-6 ">
+      <div className="flex justify-center w-90 max-w-5xl">
         <motion.nav
           initial={{ y: -80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className={`
-            mt-4 w-full max-w-5xl
-            px-5 py-3 rounded-full border
+            mt-4
+            px-5 py-3 border rounded-3xl
             transition-all duration-500
             ${
               isScrolled || isOpen
@@ -37,7 +50,7 @@ const Header: React.FC = () => {
           `}
         >
           {/* GRID — ключевой момент */}
-          <div className="grid grid-cols-3 items-center">
+          <div className="grid grid-cols-2 items-center">
             {/* LEFT */}
             <div className="flex items-center gap-2 cursor-pointer" onClick={scrollToTop}>
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white">
@@ -49,7 +62,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* CENTER (desktop only) */}
-            <ul className="hidden md:flex justify-center gap-6">
+            {!isMobile &&<ul className="hidden md:flex justify-center gap-6">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <a
@@ -61,10 +74,11 @@ const Header: React.FC = () => {
                   </a>
                 </li>
               ))}
-            </ul>
+            </ul>}
 
             {/* RIGHT */}
             <div className="flex justify-end items-center gap-3">
+              {!isMobile && 
               <a
                 href="https://www.hh.ru"
                 target="_blank"
@@ -72,7 +86,7 @@ const Header: React.FC = () => {
                 className="hidden md:inline-flex px-5 py-2 bg-white text-black text-xs font-black uppercase rounded-full hover:bg-blue-500 hover:text-white transition-all"
               >
                 HH.ru
-              </a>
+              </a>}
 
               {/* Burger */}
               <button

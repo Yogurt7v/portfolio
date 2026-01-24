@@ -26,3 +26,9 @@ section[id] {
 /* Настройка плагинов в v4 делается через обычные CSS правила или @plugin */
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/aspect-ratio";
+
+/* Оптимизация для мобильных устройств */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
