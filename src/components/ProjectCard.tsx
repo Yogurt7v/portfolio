@@ -4,7 +4,6 @@ import { IMAGE_INTERVAL, MOUSE_TIMER } from '../utils/constants';
 
 interface Tech {
   name: string;
-  icon: string;
 }
 
 interface Project {

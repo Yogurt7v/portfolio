@@ -14,7 +14,6 @@ const Footer = () => {
             transition={{ delay: 0.2, duration: 0.8 }}
             className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight tracking-tighter"
           >
-            ГОТОВЫ К СЛЕДУЮЩЕМУ ВЫЗОВУ? <br />
             ДАВАЙТЕ ОБЩАТЬСЯ!
           </motion.h2>
           <motion.p
@@ -34,7 +33,7 @@ const Footer = () => {
             className="flex flex-wrap justify-center gap-6 mb-20"
           >
             <a
-              href="mailto:your.email@example.com"
+              href="mailto:egorov-2k@yandex.ru"
               className="px-8 py-4 bg-blue-600 text-white rounded-full font-bold text-lg shadow-xl hover:bg-blue-700 hover:scale-105 transition-all duration-300 flex items-center gap-2"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -44,7 +43,7 @@ const Footer = () => {
               Написать на почту
             </a>
             <a
-              href="https://t.me/yourusername"
+              href="https://t.me/yogurt7v"
               className="px-8 py-4 bg-slate-800 text-white rounded-full font-bold text-lg shadow-xl hover:bg-slate-700 hover:scale-105 transition-all duration-300 flex items-center gap-2"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -57,13 +56,17 @@ const Footer = () => {
 
         {/* Нижняя секция с копирайтом и ссылками */}
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-white/50 text-xs font-medium uppercase tracking-wider">
-          <p>© {currentYear} Твое Имя. Все права защищены.</p>
+          <p>© {currentYear} Egorov Sergey. Все права защищены.</p>
           <div className="flex gap-8">
-            <a href="#" className="hover:text-white transition-colors">
+            <a
+              href="https://github.com/Yogurt7v"
+              target="_blank"
+              className="hover:text-white transition-colors"
+            >
               GitHub
             </a>
-            <a href="#" className="hover:text-white transition-colors">
-              LinkedIn
+            <a href="#" target="_blank" className="hover:text-white transition-colors">
+              !!!LinkedIn
             </a>
           </div>
         </div>

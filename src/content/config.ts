@@ -16,7 +16,6 @@ const projects = defineCollection({
       techStack: z.array(
         z.object({
           name: z.string(),
-          icon: z.string(),
         }),
       ),
       githubUrl: z.string().url().optional(),

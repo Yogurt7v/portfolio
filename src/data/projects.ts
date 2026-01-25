@@ -10,15 +10,12 @@ export const projects = [
     techStack: [
       {
         name: 'React',
-        icon: 'react-icon',
       },
       {
         name: 'Redux',
-        icon: 'redux-icon',
       },
       {
         name: 'TypeScript',
-        icon: 'ts-icon',
       },
     ],
     category: 'Frontend',
@@ -30,10 +27,38 @@ export const projects = [
     description: 'Библиотека кнопок и инпутов на Tailwind.',
     date: '2023-12-05',
     screenshots: ['/images/uikit.png'],
+    videoUrl: 'https://youtube.com/yogurt7v',
     techStack: [
       {
         name: 'Tailwind',
-        icon: 'tailwind-icon',
+      },
+    ],
+    category: 'UI Components',
+    isFeatured: false,
+  },
+  {
+    id: 3,
+    title: 'Портфолио',
+    description:
+      'Портфолио Frontend-разработчика: создание веб-приложений на React, TypeScript и Astro. Чистый код, адаптивная верстка и современный UX/UI. Мои проекты и технический стек',
+    date: '2026-01-25',
+    screenshots: ['/images/portfolio.png'],
+    videoUrl: 'https://youtube.com/yogurt7v',
+    techStack: [
+      {
+        name: 'Astro js',
+      },
+      {
+        name: 'React',
+      },
+      {
+        name: 'Typescript',
+      },
+      {
+        name: 'Framer Motion',
+      },
+      {
+        name: 'Tailwind',
       },
     ],
     category: 'UI Components',

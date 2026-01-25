@@ -9,6 +9,8 @@ export interface ExperienceItem {
 
 export const CHANGE_YEAR_INTERVAL = 5000;
 
+export const YEAR_EXP = 3;
+
 export const experienceData: ExperienceItem[] = [
   {
     period: '2023 - Present',

@@ -7,7 +7,6 @@ import Modal from './Modal';
 
 interface Tech {
   name: string;
-  icon: string;
 }
 
 export interface Project {
@@ -92,14 +91,16 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
       {/* Сетка проектов с анимацией */}
       <motion.div layout className="grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-8">
         <AnimatePresence mode="popLayout">
-          {displayedProjects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onClick={(p) => setPreviewProject(p)}
-              onHoverOpen={(p) => setPreviewProject(p)}
-            />
-          ))}
+          {displayedProjects
+            .sort((a, b) => b.id - a.id)
+            .map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onClick={(p) => setPreviewProject(p)}
+                onHoverOpen={(p) => setPreviewProject(p)}
+              />
+            ))}
         </AnimatePresence>
       </motion.div>
 

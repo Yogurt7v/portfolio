@@ -26,7 +26,7 @@ const GithubActivity = () => {
   }, []);
 
   return (
-    <section className="hidden xl:grid py-24 px-4 mx-auto" id="github">
+    <section className="hidden xl:grid max-w-6xl py-24 px-4 mx-auto" id="github">
       <div className="bg-white/2 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-8 md:p-12 shadow-2xl">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
