@@ -93,4 +93,51 @@ export const projects = [
     gitHubLink: 'https://github.com/Yogurt7v/QuickChat',
     link: 'https://quickchat-fac82.web.app/',
   },
+  {
+    id: 4,
+    title: 'Cooking Book',
+    description:
+      'Простенькая практика книги рецептов с регистрацией и добавлением новых рецептов и ингредиентов',
+    date: '2025-08-20',
+    screenshots: [
+      '/images/cook/1.webp',
+      '/images/cook/2.webp',
+      '/images/cook/3.webp',
+      '/images/cook/4.webp',
+      '/images/cook/5.webp',
+    ],
+    videoUrl: '/images/cook/cook.mp4',
+    techStack: [
+      {
+        name: 'Next 15',
+      },
+      {
+        name: 'Framer Motion',
+      },
+      {
+        name: 'Next-auth',
+      },
+      {
+        name: 'Zod',
+      },
+      {
+        name: 'zustand',
+      },
+      {
+        name: 'Prisma',
+      },
+      {
+        name: 'HeroUi',
+      },
+      {
+        name: 'Typescript',
+      },
+      {
+        name: 'Tailwind',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: '',
+    link: '',
+  },
 ];
