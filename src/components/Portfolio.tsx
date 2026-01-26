@@ -18,6 +18,7 @@ export interface Project {
   screenshots: string[];
   category: string;
   videoUrl?: string;
+  link?: string;
 }
 
 interface Props {

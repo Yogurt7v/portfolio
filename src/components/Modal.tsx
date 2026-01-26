@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import type { Project } from './Portfolio';
+import VideoPlayer from './VideoPlayer';
 
 interface ModalProps {
   previewProject: Project | null;
@@ -38,24 +39,28 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
             </button>
 
             <div className="aspect-video bg-black relative">
-              <video
-                src={previewProject.videoUrl || '/videos/placeholder.mp4'}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              />
+              <div className="w-full mb-8">
+                <VideoPlayer
+                  src={previewProject.videoUrl!}
+                  poster={previewProject.screenshots[0]}
+                  className="aspect-video shadow-2xl border border-white/10"
+                />
+              </div>
 
               {/* Информация внизу */}
               <div className="absolute bottom-0 left-0 right-0 p-8 bg-linear-to-t from-black via-black/60 to-transparent">
                 <h2 className="text-3xl font-bold text-white">{previewProject.title}</h2>
-                <div className="flex items-center gap-2 mt-2 text-blue-400">
-                  <div className="w-2 h-2 bg-current rounded-full animate-pulse" />
-                  <span className="text-sm font-medium uppercase tracking-wider">
-                    Live Preview
-                  </span>
-                </div>
+                {previewProject.link && (
+                  <div className="flex items-center gap-2 mt-2 text-blue-400">
+                    <div className="w-2 h-2 bg-current rounded-full animate-pulse" />
+                    <a
+                      href={previewProject.link}
+                      className="text-sm font-medium uppercase tracking-wider"
+                    >
+                      Live Preview
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>
