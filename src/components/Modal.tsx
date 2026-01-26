@@ -55,6 +55,7 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
                     <div className="w-2 h-2 bg-current rounded-full animate-pulse" />
                     <a
                       href={previewProject.link}
+                      target="blank"
                       className="text-sm font-medium uppercase tracking-wider"
                     >
                       Live Preview

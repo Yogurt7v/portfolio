@@ -18,6 +18,7 @@ export interface Project {
   screenshots: string[];
   category: string;
   videoUrl?: string;
+  gitHubLink?: string;
   link?: string;
 }
 
@@ -93,7 +94,7 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
       <motion.div layout className="grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-8">
         <AnimatePresence mode="popLayout">
           {displayedProjects
-            .sort((a, b) => b.id - a.id)
+            // .sort((a, b) => b.id - a.id)
             .map((project) => (
               <ProjectCard
                 key={project.id}

@@ -93,7 +93,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, onHoverOpen
           </span> */}
         </div>
 
-        <p className="text-slate-400 text-sm mb-4 line-clamp-2 leading-relaxed">
+        <p className="text-slate-400 text-sm mb-4 line-clamp-8 leading-relaxed">
           {project.description}
         </p>
 
