@@ -86,7 +86,10 @@ export const projects = [
         name: 'Markdown',
       },
       {
-        name: 'Dnd-kit',
+        name: 'CI/CD',
+      },
+      {
+        name: 'Dnd-Kit',
       },
     ],
     isFeatured: true,
@@ -109,7 +112,7 @@ export const projects = [
     videoUrl: '/images/cook/cook.mp4',
     techStack: [
       {
-        name: 'Next 15',
+        name: 'Next',
       },
       {
         name: 'Framer Motion',
@@ -121,7 +124,7 @@ export const projects = [
         name: 'Zod',
       },
       {
-        name: 'zustand',
+        name: 'Zustand',
       },
       {
         name: 'Prisma',
@@ -137,6 +140,100 @@ export const projects = [
       },
     ],
     isFeatured: false,
+    gitHubLink: '',
+    link: '',
+  },
+  {
+    id: 5,
+    title: 'Astro tutorial',
+    description:
+      'Пройденная практика Astro. Проект представляет собой персональный блог, созданный с использованием фреймворка Astro. Блог посвящен изучению и экспериментам с Astro, а также публикации записей о веб-разработке.',
+    date: '2025-11-04',
+    screenshots: ['/images/astro/1.webp', '/images/astro/2.webp', '/images/astro/3.webp'],
+    videoUrl: '/images/astro/astro.mp4',
+    techStack: [
+      {
+        name: 'Astro',
+      },
+      {
+        name: 'React',
+      },
+      {
+        name: 'Preact',
+      },
+      {
+        name: 'Markdown',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: 'https://github.com/Yogurt7v/Astro-tutorial',
+    link: '',
+  },
+  {
+    id: 6,
+    title: 'Forms',
+    description:
+      'Полнофункциональная платформа для создания и управления формами с системой аутентификации пользователей. Backend реализован на NestJS с PostgreSQL и JWT-аутентификацией, Frontend — на Next.js с TypeScript и Tailwind CSS. Проект включает drag-and-drop конструктор форм, аналитику ответов, экспорт данных и поддерживает Google OAuth, полную контейнеризацию через Docker с CI/CD на GitLab.',
+    date: '2025-04-30',
+    screenshots: [
+      '/images/forms/1.webp',
+      '/images/forms/2.webp',
+      '/images/forms/3.webp',
+      '/images/forms/4.webp',
+      '/images/forms/5.webp',
+    ],
+    videoUrl: '/images/forms/forms.mp4',
+    techStack: [
+      {
+        name: 'Jest',
+      },
+      {
+        name: 'Cypress',
+      },
+      {
+        name: 'Nest',
+      },
+      {
+        name: 'Docker',
+      },
+      {
+        name: 'PostgreSQL',
+      },
+      {
+        name: 'Next',
+      },
+      {
+        name: 'Dnd-Kit',
+      },
+      {
+        name: 'Radix-UI',
+      },
+      {
+        name: 'Axios',
+      },
+      {
+        name: 'Next-Auth',
+      },
+      {
+        name: 'Zod',
+      },
+      {
+        name: 'Zustand',
+      },
+      {
+        name: 'Typescript',
+      },
+      {
+        name: 'CI/CD',
+      },
+      {
+        name: 'Tailwind',
+      },
+      {
+        name: 'Gitlab',
+      },
+    ],
+    isFeatured: true,
     gitHubLink: '',
     link: '',
   },
