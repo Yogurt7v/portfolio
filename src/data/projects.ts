@@ -237,4 +237,111 @@ export const projects = [
     gitHubLink: '',
     link: '',
   },
+  {
+    id: 7,
+    title: 'Real Estate API',
+    description:
+      'Этот проект представляет собой REST API на базе NestJS для управления недвижимостью (real estate). Он позволяет пользователям регистрироваться, аутентифицироваться, создавать и управлять объявлениями о недвижимости, а также взаимодействовать с ними (лайки).',
+    date: '2025-04-30',
+    screenshots: ['/images/real-state/1.webp'],
+    videoUrl: '',
+    techStack: [
+      {
+        name: 'Jest',
+      },
+
+      {
+        name: 'Nest',
+      },
+
+      {
+        name: 'PostgreSQL',
+      },
+
+      {
+        name: 'Google OAuth',
+      },
+      {
+        name: 'JWT',
+      },
+      {
+        name: 'TypeORM',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: 'https://github.com/Yogurt7v/NestJS',
+    link: '',
+  },
+  {
+    id: 8,
+    title: 'Todo Redux',
+    description:
+      'Современное приложение для управления задачами в стиле Material Design, созданное с использованием React и Redux. Отличается красивым градиентным фоном, адаптивным дизайном и постоянным хранением данных.',
+    date: '2025-04-30',
+    screenshots: [
+      '/images/todo-redux/1.webp',
+      '/images/todo-redux/2.webp',
+      '/images/todo-redux/3.webp',
+      '/images/todo-redux/4.webp',
+    ],
+    videoUrl: '/images/todo-redux/todo-redux.mp4',
+    techStack: [
+      {
+        name: 'Vite',
+      },
+
+      {
+        name: 'React',
+      },
+
+      {
+        name: 'Redux',
+      },
+
+      {
+        name: 'Google OAuth',
+      },
+      {
+        name: 'JWT',
+      },
+      {
+        name: 'TypeORM',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: 'https://github.com/Yogurt7v/NestJS',
+    link: '',
+  },
+  {
+    id: 9,
+    title: 'ArtGen',
+    description:
+      'Проект ArtGenDeploy - это деплоймент-система для веб-приложения генератора искусства. Проект написан на чистом JavaScrypt  и демонстрации интеграции CI/CD, Docker-контейнеризации и автоматизации развертывания веб-приложений.',
+    date: '2024-10-31',
+    screenshots: ['/images/art/1.webp', '/images/art/2.webp', '/images/art/3.webp'],
+    videoUrl: '/images/art/art.mp4',
+    techStack: [
+      {
+        name: 'JavaScrypt',
+      },
+
+      {
+        name: 'Docker',
+      },
+
+      {
+        name: 'Nginx',
+      },
+
+      {
+        name: 'Certbot',
+      },
+      {
+        name: 'CI/CD',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: '',
+    link: '',
+  },
 ];
