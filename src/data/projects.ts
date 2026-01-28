@@ -408,9 +408,9 @@ export const projects = [
       'Полнофункциональное веб-приложение для создания и управления мероприятиями, построенное с использованием современных технологий React.',
     date: '2024-09-18',
     screenshots: [
+      '/images/meet/1.webp',
       '/images/meet/2.webp',
       '/images/meet/3.webp',
-      '/images/meet/1.webp',
       '/images/meet/4.webp',
     ],
     videoUrl: '/images/meet/meet.mp4',
@@ -442,6 +442,46 @@ export const projects = [
     ],
     isFeatured: false,
     gitHubLink: 'https://github.com/Yogurt7v/NextApp-SqLite',
+    link: '',
+  },
+  {
+    id: 13,
+    title: 'Meet Hub',
+    description:
+      'React-приложение для управления контактами, построенное с использованием TypeScript, Redux и Bootstrap. Этот проект позволяет пользователям просматривать, фильтровать и организовывать контакты, включая группировку по категориям и ведение списка избранных. Наполнение рандомное',
+    date: '2024-07-28',
+    screenshots: [
+      '/images/contacts/1.webp',
+      '/images/contacts/2.webp',
+      '/images/contacts/3.webp',
+      '/images/contacts/4.webp',
+    ],
+    videoUrl: '/images/contacts/contacts.mp4',
+    techStack: [
+      {
+        name: 'React',
+      },
+      {
+        name: 'Axios',
+      },
+      {
+        name: 'Bootstrap',
+      },
+      {
+        name: 'Formik',
+      },
+      {
+        name: 'Typescript',
+      },
+      {
+        name: 'Redux',
+      },
+      {
+        name: 'Web-Vitals',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: '',
     link: '',
   },
 ];
