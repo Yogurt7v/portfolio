@@ -369,4 +369,79 @@ export const projects = [
     gitHubLink: 'https://github.com/Yogurt7v/react-draggable',
     link: '',
   },
+  {
+    id: 11,
+    title: 'Quiz Component',
+    description:
+      'Интерактивное приложение-викторина, созданное с использованием React, TypeScript и Material-UI. Поддерживает различные типы вопросов, включая вопросы с множественным выбором, текстовым вводом и чекбоксами, с таймером и отслеживанием прогресса.',
+    date: '2024-10-02',
+    screenshots: [
+      '/images/quiz/1.webp',
+      '/images/quiz/2.webp',
+      '/images/quiz/3.webp',
+      '/images/quiz/4.webp',
+    ],
+    videoUrl: '/images/quiz/quiz.mp4',
+    techStack: [
+      {
+        name: 'React',
+      },
+      {
+        name: 'Vite',
+      },
+
+      {
+        name: 'Typescript',
+      },
+      {
+        name: 'Material UI',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: '',
+    link: '',
+  },
+  {
+    id: 12,
+    title: 'Meet Hub',
+    description:
+      'Полнофункциональное веб-приложение для создания и управления мероприятиями, построенное с использованием современных технологий React.',
+    date: '2024-09-18',
+    screenshots: [
+      '/images/meet/2.webp',
+      '/images/meet/3.webp',
+      '/images/meet/1.webp',
+      '/images/meet/4.webp',
+    ],
+    videoUrl: '/images/meet/meet.mp4',
+    techStack: [
+      {
+        name: 'React',
+      },
+      {
+        name: 'Next',
+      },
+      {
+        name: 'NextAuth',
+      },
+      {
+        name: 'Typescript',
+      },
+      {
+        name: 'Tailwind',
+      },
+      {
+        name: 'tRPC',
+      },
+      {
+        name: 'Prisma',
+      },
+      {
+        name: 'SQLite',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: 'https://github.com/Yogurt7v/NextApp-SqLite',
+    link: '',
+  },
 ];
