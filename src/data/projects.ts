@@ -341,7 +341,32 @@ export const projects = [
       },
     ],
     isFeatured: false,
-    gitHubLink: '',
+    gitHubLink: 'https://github.com/Yogurt7v/Art-Generator',
+    link: '',
+  },
+  {
+    id: 10,
+    title: 'Yandex Test',
+    description:
+      'Тестовое задание Яндекс. Необходимо сделать перемещение объектов с полки в корзину. ',
+    date: '2024-10-10',
+    screenshots: [
+      '/images/yandex/1.webp',
+      '/images/yandex/2.webp',
+      '/images/yandex/3.webp',
+    ],
+    videoUrl: '/images/yandex/yandex.mp4',
+    techStack: [
+      {
+        name: 'React',
+      },
+
+      {
+        name: 'Draggable',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: 'https://github.com/Yogurt7v/react-draggable',
     link: '',
   },
 ];
