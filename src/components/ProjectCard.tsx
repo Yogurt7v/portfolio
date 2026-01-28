@@ -97,12 +97,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, onHoverOpen
           {project.description}
         </p>
 
-        {/* Стек технологий */}
+        {/* ТЕХНОЛОГИИ */}
         <div className="flex flex-wrap gap-2 mt-auto">
           {project.techStack.map((tech) => (
             <span
               key={tech.name}
-              className="text-[11px] font-medium bg-blue-500/10 text-blue-300 border border-blue-500/20 px-2 py-1 rounded-md"
+              className="text-[10px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-1 rounded-full shadow-sm"
             >
               {tech.name}
             </span>
