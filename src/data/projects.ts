@@ -581,7 +581,7 @@ export const projects = [
     id: 17,
     title: 'Telegram Bot',
     description: 'Telegram-бот на Node.js и фреймворке Grammy. ',
-    date: '2024-06-13',
+    date: '2024-06-10',
     screenshots: ['/images/telegram-bot/1.webp'],
     videoUrl: '',
     techStack: [
