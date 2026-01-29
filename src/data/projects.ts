@@ -515,4 +515,32 @@ export const projects = [
     gitHubLink: 'https://github.com/Yogurt7v/Rick-MortyPWA.git',
     link: '',
   },
+  {
+    id: 15,
+    title: 'Weather Sounds',
+    description:
+      'Weather Sounds — веб-приложение для прослушивания звуков погоды (лето, дождь, зима) с фоновыми картинками под каждый тип.',
+    date: '2024-06-26',
+    screenshots: [
+      '/images/weather/1.webp',
+      '/images/weather/2.webp',
+      '/images/weather/3.webp',
+      '/images/weather/4.webp',
+    ],
+    videoUrl: '/images/weather/weather.mp4',
+    techStack: [
+      {
+        name: 'TypeScript',
+      },
+      {
+        name: 'Webpack',
+      },
+      {
+        name: 'Create React App',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: 'https://github.com/Yogurt7v/WeatherSounds.git',
+    link: '',
+  },
 ];
