@@ -43,6 +43,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, onHoverOpen
     if (hoverTimer.current) clearTimeout(hoverTimer.current);
   };
 
+  const getRandomDuration = () => Math.random() * 0.7 + 0.1;
+
   return (
     <motion.div
       onMouseEnter={handleMouseEnter}
@@ -55,14 +57,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, onHoverOpen
       onClick={() => onClick(project)}
       className="group cursor-pointer bg-glass-white backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden hover:border-white/30 transition-all duration-500 shadow-xl"
     >
-      {/* Контейнер изображения */}
-      {/* <div className="aspect-video bg-slate-800 overflow-hidden relative"> */}
-      {/* <img
-          src={project.screenshots[0]}
-          alt={project.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-        /> */}
-
       {/* Оверлей при наведении (Glassmorphism эффект) */}
       <div className="aspect-video relative overflow-hidden bg-slate-900">
         <AnimatePresence mode="wait">
@@ -72,7 +66,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, onHoverOpen
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: getRandomDuration() }}
             className="w-full h-full object-cover"
           />
         </AnimatePresence>
