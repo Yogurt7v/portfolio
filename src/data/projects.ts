@@ -543,4 +543,38 @@ export const projects = [
     gitHubLink: 'https://github.com/Yogurt7v/WeatherSounds.git',
     link: '',
   },
+  {
+    id: 16,
+    title: 'Todo Tanstack',
+    description:
+      'React Query Practice — учебное приложение на React для работы с серверным состоянием через TanStack React Query (ранее React Query).',
+    date: '2024-06-13',
+    screenshots: [
+      '/images/todo-tanstack/1.webp',
+      '/images/todo-tanstack/2.webp',
+      '/images/todo-tanstack/3.webp',
+      '/images/todo-tanstack/4.webp',
+    ],
+    videoUrl: '/images/todo-tanstack/todo.mp4',
+    techStack: [
+      {
+        name: 'Vite',
+      },
+      {
+        name: 'React',
+      },
+      {
+        name: 'Axios',
+      },
+      {
+        name: 'Tanstack',
+      },
+      {
+        name: 'Typescript',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: '',
+    link: '',
+  },
 ];
