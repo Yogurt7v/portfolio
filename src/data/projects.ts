@@ -484,4 +484,35 @@ export const projects = [
     gitHubLink: '',
     link: '',
   },
+  {
+    id: 14,
+    title: 'Rick and Morty PWA',
+    description:
+      'Это прогрессивное веб-приложение (PWA), созданное на React с использованием Vite, для изучения вселенной Rick and Morty.',
+    date: '2024-07-22',
+    screenshots: [
+      '/images/rick/1.webp',
+      '/images/rick/2.webp',
+      '/images/rick/3.webp',
+      '/images/rick/4.webp',
+    ],
+    videoUrl: '/images/rick/rick.mp4',
+    techStack: [
+      {
+        name: 'React',
+      },
+      {
+        name: 'Vite',
+      },
+      {
+        name: 'Material UI',
+      },
+      {
+        name: 'PWA',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: 'https://github.com/Yogurt7v/Rick-MortyPWA.git',
+    link: '',
+  },
 ];
