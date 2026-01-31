@@ -633,7 +633,8 @@ export const projects = [
   {
     id: 19,
     title: 'Fast Burger Delivery',
-    description: '',
+    description:
+      'Full-stack веб-приложение: интернет-магазин с панелью администратора, корзиной, заказами, отзывами и промокодами.',
     date: '2024-06-09',
     screenshots: [
       '/images/burger/1.webp',
@@ -644,23 +645,26 @@ export const projects = [
     videoUrl: '/images/burger/burger.webp',
     techStack: [
       {
-        name: 'Next',
+        name: 'Node.js',
       },
       {
-        name: 'NextAuth',
+        name: 'MongoDB',
       },
       {
-        name: 'PostgreSQL',
+        name: 'Mongoose',
       },
       {
-        name: 'TypeScript',
+        name: 'React',
       },
       {
-        name: 'Tailwind',
+        name: 'Redux',
+      },
+      {
+        name: 'React Hook Form',
       },
     ],
-    isFeatured: false,
-    gitHubLink: '',
+    isFeatured: true,
+    gitHubLink: 'https://github.com/username/diplom',
     link: '',
   },
 ];

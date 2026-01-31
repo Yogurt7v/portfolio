@@ -6,3 +6,4 @@ export { default as Header } from './Header';
 export { default as About } from './About';
 export { default as GithubSection } from './GitHubCalendar';
 export { default as BackgroundGradient } from './BackgroundGlow';
+export { default as Loader } from './Loader';

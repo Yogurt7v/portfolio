@@ -4,6 +4,7 @@ import { PROJECTS_PER_STEP } from '../utils/constants';
 import ProjectCard from './ProjectCard';
 import TechFilters from './TechFilters';
 import Modal from './Modal';
+import Loader from './Loader';
 
 interface Tech {
   name: string;
@@ -111,8 +112,7 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
 
       {visibleCount < filteredProjects.length && (
         <div ref={lastOneRef} className="h-20 flex items-center justify-center mt-10">
-          {/* Можно добавить лоадер/спиннер */}
-          <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <Loader />
         </div>
       )}
     </section>
