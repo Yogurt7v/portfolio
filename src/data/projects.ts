@@ -35,9 +35,9 @@ export const projects = [
   },
   {
     id: 2,
-    title: 'QuickChat',
+    title: 'Check Repeat',
     description:
-      'QuickChat — это полнофункциональное приложение для чата с поддержкой регистрации пользователей, создания личных бесед и обмена сообщениями в реальном времени. Приложение использует Firebase для аутентификации и хранения данных, обеспечивая мгновенную синхронизацию сообщений между всеми участниками.',
+      'Check Repeat — это приложение для проверок дубликатов счетов-фактур. Проверяются списки полученных/выданных счетов-фактур на совпадения по суммам, по датам, по номерам и по контрагентам. Выстраиваются таблицы совпадений с фильтром по контрагенту для удобства проверки.',
     date: '2026-01-18',
     screenshots: [
       '/images/check/ch1.webp',
@@ -590,6 +590,73 @@ export const projects = [
       },
       {
         name: 'Grammy',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: '',
+    link: '',
+  },
+  {
+    id: 18,
+    title: 'Next.js Dashboard',
+    description:
+      'Это учебный проект по созданию дашборда с использованием Next.js. Приложение включает аутентификацию, управление клиентами, счетами и дашборд с аналитикой.',
+    date: '2024-06-09',
+    screenshots: [
+      '/images/next-tutorial/1.webp',
+      '/images/next-tutorial/2.webp',
+      '/images/next-tutorial/3.webp',
+      '/images/next-tutorial/4.webp',
+    ],
+    videoUrl: '/images/next-tutorial/next.webp',
+    techStack: [
+      {
+        name: 'Next',
+      },
+      {
+        name: 'NextAuth',
+      },
+      {
+        name: 'PostgreSQL',
+      },
+      {
+        name: 'TypeScript',
+      },
+      {
+        name: 'Tailwind',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: '',
+    link: '',
+  },
+  {
+    id: 19,
+    title: 'Fast Burger Delivery',
+    description: '',
+    date: '2024-06-09',
+    screenshots: [
+      '/images/burger/1.webp',
+      '/images/burger/2.webp',
+      '/images/burger/3.webp',
+      '/images/burger/4.webp',
+    ],
+    videoUrl: '/images/burger/burger.webp',
+    techStack: [
+      {
+        name: 'Next',
+      },
+      {
+        name: 'NextAuth',
+      },
+      {
+        name: 'PostgreSQL',
+      },
+      {
+        name: 'TypeScript',
+      },
+      {
+        name: 'Tailwind',
       },
     ],
     isFeatured: false,
