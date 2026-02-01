@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROJECTS_PER_STEP } from '../utils/constants';
 import ProjectCard from './ProjectCard';
@@ -14,13 +14,14 @@ export interface Project {
   id: number;
   title: string;
   description: string;
+  date: string;
   techStack: Tech[];
   rating?: number;
   screenshots: string[];
-  category: string;
   videoUrl?: string;
   gitHubLink?: string;
   link?: string;
+  isFeatured: boolean;
 }
 
 interface Props {
@@ -29,12 +30,18 @@ interface Props {
 
 const Portfolio: React.FC<Props> = ({ projects }) => {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
-  const [visibleCount, setVisibleCount] = useState(PROJECTS_PER_STEP);
   const [previewProject, setPreviewProject] = useState<Project | null>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
-  const lastOneRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const dragTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  //Получаем список всех уникальных технологий
+  // Получаем список всех уникальных технологий
   const allTechs = useMemo(() => {
     if (!projects?.length) return [];
     return Array.from(
@@ -42,48 +49,386 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
     );
   }, [projects]);
 
-  // Фильтрация
+  // Фильтрация проектов
   const filteredProjects = useMemo(() => {
-    setVisibleCount(PROJECTS_PER_STEP);
-
     if (selectedTechs.length === 0) return projects;
-
     return projects.filter((project) =>
       project.techStack.some((tech) => selectedTechs.includes(tech.name)),
     );
   }, [selectedTechs, projects]);
 
-  const displayedProjects = filteredProjects.slice(0, visibleCount);
-
-  // Intersection Observer
+  // Автопрокрутка слайдера
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const target = entries[0];
-        if (target.isIntersecting && visibleCount < filteredProjects.length) {
-          setVisibleCount((prev) => prev + PROJECTS_PER_STEP);
-        }
-      },
-      { threshold: 1.0 },
-    );
+    if (!isAutoPlaying || filteredProjects.length <= 1) return;
 
-    if (lastOneRef.current) {
-      observer.observe(lastOneRef.current);
+    const nextSlide = () => {
+      setCurrentSlide((prev) => (prev + 1) % filteredProjects.length);
+    };
+
+    autoPlayRef.current = setInterval(nextSlide, 5000); // Прокрутка каждые 5 секунд
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [isAutoPlaying, filteredProjects.length]);
+
+  // Обработчик начала перетаскивания
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (!sliderRef.current) return;
+    setIsDragging(true);
+    setDragStartX(e.pageX - sliderRef.current.offsetLeft);
+    setScrollLeft(sliderRef.current.scrollLeft);
+    sliderRef.current.style.cursor = 'grabbing';
+    setIsAutoPlaying(false);
+  }, []);
+
+  // Обработчик перемещения мыши при перетаскивании
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (!isDragging || !sliderRef.current) return;
+      e.preventDefault();
+      const x = e.pageX - sliderRef.current.offsetLeft;
+      const walk = (x - dragStartX) * 2;
+      sliderRef.current.scrollLeft = scrollLeft - walk;
+    },
+    [isDragging, dragStartX, scrollLeft],
+  );
+
+  // Обработчик окончания перетаскивания
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+    if (sliderRef.current) {
+      sliderRef.current.style.cursor = 'grab';
     }
 
-    return () => observer.disconnect();
-  }, [visibleCount, filteredProjects.length]);
+    // Возобновляем автопрокрутку через 3 секунды после перетаскивания
+    if (dragTimeoutRef.current) {
+      clearTimeout(dragTimeoutRef.current);
+    }
+    dragTimeoutRef.current = setTimeout(() => {
+      setIsAutoPlaying(true);
+    }, 3000);
+  }, []);
 
-  const toggleTech = (tech: string) => {
+  // Обработчик клика по индикатору
+  const goToSlide = useCallback((index: number) => {
+    setCurrentSlide(index);
+    setIsAutoPlaying(false);
+
+    // Возобновляем автопрокрутку через 3 секунды после ручного переключения
+    if (dragTimeoutRef.current) {
+      clearTimeout(dragTimeoutRef.current);
+    }
+    dragTimeoutRef.current = setTimeout(() => {
+      setIsAutoPlaying(true);
+    }, 3000);
+  }, []);
+
+  // Прокрутка к текущему слайду
+  useEffect(() => {
+    if (!sliderRef.current || filteredProjects.length === 0) return;
+
+    const cardWidth = 410; // Ширина карточки + отступы
+    const scrollPosition = currentSlide * cardWidth;
+
+    sliderRef.current.scrollTo({
+      left: scrollPosition,
+      behavior: 'smooth',
+    });
+  }, [currentSlide, filteredProjects.length]);
+
+  // Обработчики фильтров
+  const toggleTech = useCallback((tech: string) => {
     setSelectedTechs((prev) =>
       prev.includes(tech) ? prev.filter((item) => item !== tech) : [...prev, tech],
     );
-  };
+    setCurrentSlide(0); // Сброс к первому слайду при изменении фильтров
+    setIsAutoPlaying(true);
+  }, []);
 
-  const handleClearFilters = () => setSelectedTechs([]);
+  const handleClearFilters = useCallback(() => {
+    setSelectedTechs([]);
+    setCurrentSlide(0);
+    setIsAutoPlaying(true);
+  }, []);
+
+  // Кнопки навигации
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % filteredProjects.length);
+    setIsAutoPlaying(false);
+
+    if (dragTimeoutRef.current) {
+      clearTimeout(dragTimeoutRef.current);
+    }
+    dragTimeoutRef.current = setTimeout(() => {
+      setIsAutoPlaying(true);
+    }, 3000);
+  }, [filteredProjects.length]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev === 0 ? filteredProjects.length - 1 : prev - 1));
+    setIsAutoPlaying(false);
+
+    if (dragTimeoutRef.current) {
+      clearTimeout(dragTimeoutRef.current);
+    }
+    dragTimeoutRef.current = setTimeout(() => {
+      setIsAutoPlaying(true);
+    }, 3000);
+  }, [filteredProjects.length]);
+
+  // Очистка таймеров при размонтировании
+  useEffect(() => {
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+      if (dragTimeoutRef.current) {
+        clearTimeout(dragTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <section id="projects" className="py-8 max-w-6xl mx-auto px-4">
+    <section id="projects" className="py-12 max-w-5xl mx-auto px-4">
+      {/* Контейнер горизонтального слайдера */}
+      <div className="relative">
+        {/* Кнопки навигации */}
+        {filteredProjects.length > 1 && (
+          <>
+            <button
+              onClick={prevSlide}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 p-3 bg-linear-to-r from-slate-900/90 to-transparent hover:from-slate-800/90 text-white rounded-full transition-all duration-300 hover:scale-110"
+              aria-label="Предыдущий проект"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+
+            <button
+              onClick={nextSlide}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 p-3 bg-linear-to-l from-slate-900/90 to-transparent hover:from-slate-800/90 text-white rounded-full transition-all duration-300 hover:scale-110"
+              aria-label="Следующий проект"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </>
+        )}
+
+        {/* Горизонтальный слайдер */}
+        <div
+          ref={sliderRef}
+          className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory py-8 px-5 cursor-grab active:cursor-grabbing"
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseUp}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+          }}
+        >
+          {filteredProjects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              className="shrink-0 w-100 mx-4 snap-start"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{
+                opacity: index === currentSlide ? 1 : 0.6,
+                y: 0,
+                scale: index === currentSlide ? 1.02 : 0.98,
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              <ProjectCard
+                project={project}
+                isActive={index === currentSlide}
+                onClick={(p) => setPreviewProject(p)}
+                onHoverOpen={(p) => setPreviewProject(p)}
+              />
+            </motion.div>
+          ))}
+
+          {/* Пустой элемент для правильного отступа в конце */}
+          <div className="shrink-0 w-4" />
+        </div>
+
+        {/* Индикаторы слайдов */}
+        {filteredProjects.length > 1 && (
+          <div className="flex justify-center items-center gap-2 mt-8">
+            {filteredProjects.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className="relative group"
+                aria-label={`Перейти к проекту ${index + 1}`}
+              >
+                {/* Фоновая точка */}
+                <div
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentSlide
+                      ? 'bg-blue-500'
+                      : 'bg-white/20 hover:bg-white/40'
+                  }`}
+                />
+
+                {/* Анимация для текущего слайда */}
+                {index === currentSlide && (
+                  <motion.div
+                    className="absolute inset-0 rounded-full border-2 border-blue-400"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1.5 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
+
+                {/* Индикатор автопрокрутки */}
+                {index === currentSlide && isAutoPlaying && (
+                  <motion.div
+                    className="absolute inset-0 rounded-full border border-blue-300"
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        )}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            {/* <h2 className="text-3xl font-bold text-white mb-2">
+            Проекты
+            <span className="ml-2 text-blue-400">({filteredProjects.length})</span>
+          </h2> */}
+            <p className="text-slate-400 text-sm">
+              {isAutoPlaying ? 'Автопрокрутка включена' : 'Автопрокрутка приостановлена'}
+            </p>
+          </div>
+
+          {/* Кнопки управления автопрокруткой */}
+          <button
+            onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+            className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-colors flex items-center gap-2"
+          >
+            {isAutoPlaying ? (
+              <>
+                <svg
+                  className="w-5 h-5 text-blue-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span className="text-slate-300">Пауза</span>
+              </>
+            ) : (
+              <>
+                <svg
+                  className="w-5 h-5 text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span className="text-slate-300">Воспроизвести</span>
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* Счетчик слайдов */}
+        <div className="text-center mt-4">
+          <span className="text-sm text-slate-400">
+            {currentSlide + 1} / {filteredProjects.length}
+          </span>
+        </div>
+      </div>
+
+      {/* Инструкция по использованию */}
+      {/* <div className="mt-8 p-4 bg-white/5 border border-white/10 rounded-lg">
+        <div className="flex items-center justify-center gap-6 text-sm text-slate-400">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+            <span>Текущий проект</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 9l4-4 4 4m0 6l-4 4-4-4"
+              />
+            </svg>
+            <span>Кликните на карточку для подробностей</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+              />
+            </svg>
+            <span>Перетащите для ручной прокрутки</span>
+          </div>
+        </div>
+      </div> */}
       <TechFilters
         allTechs={allTechs}
         selectedTechs={selectedTechs}
@@ -91,30 +436,8 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
         onClear={handleClearFilters}
       />
 
-      {/* Сетка проектов с анимацией */}
-      <motion.div layout className="grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-8">
-        <AnimatePresence mode="popLayout">
-          {displayedProjects
-            // .sort((a, b) => b.id - a.id)
-            .map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onClick={(p) => setPreviewProject(p)}
-                onHoverOpen={(p) => setPreviewProject(p)}
-              />
-            ))}
-        </AnimatePresence>
-      </motion.div>
-
       {/* Видео-превью Модалка */}
       <Modal previewProject={previewProject} setPreviewProject={setPreviewProject} />
-
-      {visibleCount < filteredProjects.length && (
-        <div ref={lastOneRef} className="h-20 flex items-center justify-center mt-10">
-          <Loader />
-        </div>
-      )}
     </section>
   );
 };

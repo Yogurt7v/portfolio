@@ -17,52 +17,222 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
           exit={{ opacity: 0 }}
           // Закрытие при клике на оверлей (фон)
           onClick={() => setPreviewProject(null)}
-          className="fixed inset-0 z-100 flex items-center justify-center p-6 bg-black/60 backdrop-blur-xl cursor-zoom-out"
+          className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-xl cursor-zoom-out overflow-y-auto"
         >
           <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
+            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             // Останавливаем всплытие клика, чтобы модалка не закрывалась при нажатии на само видео
             onClick={(e) => e.stopPropagation()}
-            onMouseLeave={() => setPreviewProject(null)}
-            className="relative bg-slate-900 border border-white/20 rounded-[2.5rem] overflow-hidden w-full max-w-4xl shadow-[0_0_50px_rgba(0,0,0,0.5)] cursor-default"
+            className="relative bg-gradient-to-br from-slate-900 to-slate-800 border border-white/20 rounded-[2rem] overflow-hidden w-full max-w-5xl shadow-2xl shadow-black/50 cursor-default my-auto"
           >
             {/* Кнопка закрытия ВНУТРИ div */}
-            <button
+            <motion.button
+              initial={{ opacity: 0, rotate: -90 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              transition={{ delay: 0.2 }}
               onClick={() => setPreviewProject(null)}
-              className="absolute top-6 right-6 z-50 w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/20 border border-white/10 rounded-full backdrop-blur-md transition-all group"
+              className="absolute top-4 right-4 z-50 w-10 h-10 flex items-center justify-center bg-black/60 hover:bg-white/20 border border-white/10 rounded-full backdrop-blur-md transition-all group hover:scale-110"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
               <span className="text-white text-xl transition-transform group-hover:rotate-90 duration-300">
                 ✕
               </span>
-            </button>
+            </motion.button>
 
+            {/* Видео вверху */}
             <div className="aspect-video bg-black relative">
-              <div className="w-full mb-8">
-                <VideoPlayer
-                  src={previewProject.videoUrl!}
-                  poster={previewProject.screenshots[0]}
-                  className="aspect-video shadow-2xl border border-white/10"
-                />
+              <VideoPlayer
+                src={previewProject.videoUrl!}
+                poster={previewProject.screenshots[0]}
+                className="aspect-video w-full h-full object-cover"
+              />
+
+              {/* Градиентный оверлей снизу видео */}
+              <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-900 to-transparent" />
+            </div>
+
+            {/* Контент под видео */}
+            <div className="p-6 sm:p-8">
+              {/* Заголовок и мета-информация */}
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
+                <div className="flex-1">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+                    {previewProject.title}
+                  </h2>
+
+                  {/* Технологии */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {previewProject.techStack.map((tech) => (
+                      <span
+                        key={tech.name}
+                        className="px-3 py-1 text-xs font-medium bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 border border-blue-500/30 rounded-full"
+                      >
+                        {tech.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Ссылки */}
+                <div className="flex flex-wrap gap-3">
+                  {previewProject.link && (
+                    <motion.a
+                      href={previewProject.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white text-sm font-medium rounded-lg transition-all duration-300"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                      Live Preview
+                    </motion.a>
+                  )}
+
+                  {previewProject.gitHubLink && (
+                    <motion.a
+                      href={previewProject.gitHubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-sm font-medium rounded-lg transition-all duration-300"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                      </svg>
+                      GitHub
+                    </motion.a>
+                  )}
+                </div>
               </div>
 
-              {/* Информация внизу */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 bg-linear-to-t from-black via-black/60 to-transparent">
-                <h2 className="text-3xl font-bold text-white">{previewProject.title}</h2>
-                {previewProject.link && (
-                  <div className="flex items-center gap-2 mt-2 text-blue-400">
-                    <div className="w-2 h-2 bg-current rounded-full animate-pulse" />
-                    <a
-                      href={previewProject.link}
-                      target="blank"
-                      className="text-sm font-medium uppercase tracking-wider"
+              {/* Описание проекта */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mb-8"
+              >
+                <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                  <svg
+                    className="w-5 h-5 text-blue-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  О проекте
+                </h3>
+                <div className="p-4 bg-white/5 border border-white/10 rounded-xl backdrop-blur-sm">
+                  <p className="text-slate-300 leading-relaxed whitespace-pre-line">
+                    {previewProject.description}
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Скриншоты */}
+              {previewProject.screenshots.length > 1 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="mb-6"
+                >
+                  <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                    <svg
+                      className="w-5 h-5 text-blue-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      Live Preview
-                    </a>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                    Скриншоты
+                  </h3>
+                  <div className="flex gap-3 overflow-x-auto pb-2">
+                    {previewProject.screenshots.map((screenshot, index) => (
+                      <motion.div
+                        key={index}
+                        whileHover={{ scale: 1.05 }}
+                        className="flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border border-white/10"
+                      >
+                        <img
+                          src={screenshot}
+                          alt={`Скриншот ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Дополнительная информация */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="flex flex-wrap gap-6 pt-4 border-t border-white/10"
+              >
+                {previewProject.category && (
+                  <div>
+                    <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">
+                      Категория
+                    </div>
+                    <div className="text-sm text-white font-medium">
+                      {previewProject.category}
+                    </div>
                   </div>
                 )}
-              </div>
+
+                {previewProject.rating && (
+                  <div>
+                    <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">
+                      Рейтинг
+                    </div>
+                    <div className="flex items-center gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <svg
+                          key={i}
+                          className={`w-4 h-4 ${i < previewProject.rating! ? 'text-yellow-400 fill-yellow-400' : 'text-slate-600'}`}
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
             </div>
           </motion.div>
         </motion.div>

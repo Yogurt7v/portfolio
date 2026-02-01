@@ -553,7 +553,6 @@ export const projects = [
       '/images/todo-tanstack/1.webp',
       '/images/todo-tanstack/2.webp',
       '/images/todo-tanstack/3.webp',
-      '/images/todo-tanstack/4.webp',
     ],
     videoUrl: '/images/todo-tanstack/todo.mp4',
     techStack: [
@@ -665,6 +664,65 @@ export const projects = [
     ],
     isFeatured: true,
     gitHubLink: 'https://github.com/username/diplom',
+    link: '',
+  },
+  {
+    id: 20,
+    title: 'My Blog Practice App',
+    description:
+      'Небольшое учебное приложение-блог на React/Redux со стилями на `styled-components`. В качестве бэкенда используется `json-server` на порту 3004.',
+    date: '2024-03-01',
+    screenshots: ['/images/blog/1.webp', '/images/blog/2.webp', '/images/blog/3.webp'],
+    videoUrl: '/images/blog/blog.webp',
+    techStack: [
+      {
+        name: 'React',
+      },
+      {
+        name: 'React Router',
+      },
+      {
+        name: 'Styled Components',
+      },
+      {
+        name: 'React Hook Form',
+      },
+      {
+        name: 'Json-Server',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: 'https://github.com/Yogurt7v/Blog',
+    link: '',
+  },
+  {
+    id: 21,
+    title: 'Captcha Generator',
+    description:
+      'Компонент генерации CAPTCHA из 6 символов, шум на canvas, проверка ввода, обновление по кнопке и после проверки.',
+    date: '2024-03-01',
+    screenshots: [
+      '/images/captcha/1.webp',
+      '/images/captcha/2.webp',
+      '/images/captcha/3.webp',
+    ],
+    videoUrl: '/images/captcha/captcha.webp',
+    techStack: [
+      {
+        name: 'HTML5',
+      },
+      {
+        name: 'CSS3',
+      },
+      {
+        name: 'JavaScript',
+      },
+      {
+        name: 'Canvas',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: 'https://github.com/Yogurt7v/Captcha-Image-with-noise',
     link: '',
   },
 ];
