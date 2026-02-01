@@ -607,7 +607,7 @@ export const projects = [
       '/images/next-tutorial/3.webp',
       '/images/next-tutorial/4.webp',
     ],
-    videoUrl: '/images/next-tutorial/next.webp',
+    videoUrl: '/images/next-tutorial/next.mp4',
     techStack: [
       {
         name: 'Next',
@@ -641,7 +641,7 @@ export const projects = [
       '/images/burger/3.webp',
       '/images/burger/4.webp',
     ],
-    videoUrl: '/images/burger/burger.webp',
+    videoUrl: '/images/burger/burger.mp4',
     techStack: [
       {
         name: 'Node.js',
@@ -673,7 +673,7 @@ export const projects = [
       'Небольшое учебное приложение-блог на React/Redux со стилями на `styled-components`. В качестве бэкенда используется `json-server` на порту 3004.',
     date: '2024-03-01',
     screenshots: ['/images/blog/1.webp', '/images/blog/2.webp', '/images/blog/3.webp'],
-    videoUrl: '/images/blog/blog.webp',
+    videoUrl: '/images/blog/blog.mp4',
     techStack: [
       {
         name: 'React',
@@ -706,7 +706,7 @@ export const projects = [
       '/images/captcha/2.webp',
       '/images/captcha/3.webp',
     ],
-    videoUrl: '/images/captcha/captcha.webp',
+    videoUrl: '/images/captcha/captcha.mp4',
     techStack: [
       {
         name: 'HTML5',
@@ -723,6 +723,157 @@ export const projects = [
     ],
     isFeatured: false,
     gitHubLink: 'https://github.com/Yogurt7v/Captcha-Image-with-noise',
+    link: '',
+  },
+  {
+    id: 22,
+    title: 'Voice to Text',
+    description:
+      'Voice to Text - это одностраничное приложение, которое позволяет распознавать голос и выводить распознанный текст на экран. Пользователь может выбрать язык распознавания из списка (включая русский, английский и множество других), запустить запись, увидеть результат и сохранить его в текстовый файл.',
+    date: '2023-12-18',
+    screenshots: ['/images/voice/1.webp', '/images/voice/2.webp', '/images/voice/3.webp'],
+    videoUrl: '',
+    techStack: [
+      {
+        name: 'HTML5',
+      },
+      {
+        name: 'CSS3',
+      },
+      {
+        name: 'JavaScript',
+      },
+      {
+        name: 'Web Speech API',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: '',
+    link: '',
+  },
+  {
+    id: 23,
+    title: 'Firebase Todo',
+    description:
+      'Небольшое приложение‑список дел на React 18 с синхронизацией через Firebase Realtime Database (модульный SDK v9).Добавление, редактирование и удаление задач. Онлайн‑синхронизация в реальном времени. Поиск и сортировка. Адаптивная верстка и улучшенные стили',
+    date: '2023-12-11',
+    screenshots: [
+      '/images/firebase-todo/1.webp',
+      '/images/firebase-todo/2.webp',
+      '/images/firebase-todo/3.webp',
+    ],
+    videoUrl: '/images/firebase-todo/todo.mp4',
+    techStack: [
+      {
+        name: 'React',
+      },
+      {
+        name: 'CSS Modules',
+      },
+      {
+        name: 'JavaScript',
+      },
+      {
+        name: 'Create React App',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink:
+      'https://github.com/Yogurt7v/https---github.com-Yogurt7v-BackupToDoList.git',
+    link: '',
+  },
+  {
+    id: 24,
+    title: 'XOXO',
+    description: 'Простая игра «Крестики‑Нолики» на React с Redux и Tailwind CSS.',
+    date: '2023-09-17',
+    screenshots: ['/images/xoxo/1.webp', '/images/xoxo/2.webp', '/images/xoxo/3.webp'],
+    videoUrl: '/images/xoxo/xoxo.mp4',
+    techStack: [
+      {
+        name: 'React',
+      },
+      {
+        name: 'Redux',
+      },
+      {
+        name: 'Tailwind',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: 'https://github.com/Yogurt7v/React-OX',
+    link: '',
+  },
+  {
+    id: 25,
+    title: 'Login Page',
+    description:
+      'Это только фронтенд‑шаблон. Подключите его к вашему бэкенду или провайдеру аутентификации при необходимости.',
+    date: '2023-09-21',
+    screenshots: ['/images/login/1.webp', '/images/login/2.webp', '/images/login/3.webp'],
+    videoUrl: '/images/login/login.mp4',
+    techStack: [
+      {
+        name: 'HTML',
+      },
+      {
+        name: 'CSS',
+      },
+      {
+        name: 'JavaScrypt',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: '',
+    link: '',
+  },
+  {
+    id: 26,
+    title: 'Simple Game',
+    description:
+      'Небольшая браузерная игра: загадайте число от 1 до 100 и попытайтесь угадать его за 10 попыток. Игра подсказывает, больше или меньше было ваше предположение. По завершении появляется полноэкранный оверлей с большой кнопкой «Играем» для быстрого старта новой партии.',
+    date: '2023-09-07',
+    screenshots: [
+      '/images/simple/1.webp',
+      '/images/simple/2.webp',
+      '/images/simple/3.webp',
+    ],
+    videoUrl: '/images/simple/simple.mp4',
+    techStack: [
+      {
+        name: 'HTML',
+      },
+      {
+        name: 'CSS',
+      },
+      {
+        name: 'JavaScrypt',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: '',
+    link: '',
+  },
+  {
+    id: 27,
+    title: 'Encryptor',
+    description: 'Простой веб-проект для шифрования и дешифрования данных в браузере.',
+    date: '2023-10-25',
+    screenshots: ['/images/encryptor/1.webp', '/images/encryptor/2.webp'],
+    videoUrl: '/images/encryptor/encryptor.mp4',
+    techStack: [
+      {
+        name: 'HTML',
+      },
+      {
+        name: 'CSS',
+      },
+      {
+        name: 'JavaScrypt',
+      },
+    ],
+    isFeatured: false,
+    gitHubLink: '',
     link: '',
   },
 ];
