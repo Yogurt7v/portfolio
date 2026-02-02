@@ -7,3 +7,4 @@ export { default as About } from './About';
 export { default as GithubSection } from './GitHubCalendar';
 export { default as BackgroundGradient } from './BackgroundGlow';
 export { default as Loader } from './Loader';
+export { default as Achievements } from './Achievements';

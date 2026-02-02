@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import ContactModal from './ContactModal';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   return (
     <footer className="relative py-8 px-4 overflow-hidden max-w-6xl mx-auto" id="contact">
@@ -32,8 +34,8 @@ const Footer = () => {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="flex flex-wrap justify-center gap-6 mb-20"
           >
-            <a
-              href="mailto:egorov-2k@yandex.ru"
+            <button
+              onClick={() => setIsContactOpen(true)}
               className="px-8 py-4 bg-blue-600 text-white rounded-full font-bold text-lg shadow-xl hover:bg-blue-700 hover:scale-105 transition-all duration-300 flex items-center gap-2"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -41,7 +43,7 @@ const Footer = () => {
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
               </svg>
               Написать на почту
-            </a>
+            </button>
             <a
               href="https://t.me/yogurt7v"
               className="px-8 py-4 bg-slate-800 text-white rounded-full font-bold text-lg shadow-xl hover:bg-slate-700 hover:scale-105 transition-all duration-300 flex items-center gap-2"
@@ -71,6 +73,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </footer>
   );
 };

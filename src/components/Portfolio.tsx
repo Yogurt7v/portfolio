@@ -379,56 +379,8 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
             )}
           </button>
         </div>
-
-        {/* Счетчик слайдов */}
-        <div className="text-center mt-4">
-          <span className="text-sm text-slate-400">
-            {currentSlide + 1} / {filteredProjects.length}
-          </span>
-        </div>
       </div>
 
-      {/* Инструкция по использованию */}
-      {/* <div className="mt-8 p-4 bg-white/5 border border-white/10 rounded-lg">
-        <div className="flex items-center justify-center gap-6 text-sm text-slate-400">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span>Текущий проект</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 9l4-4 4 4m0 6l-4 4-4-4"
-              />
-            </svg>
-            <span>Кликните на карточку для подробностей</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-              />
-            </svg>
-            <span>Перетащите для ручной прокрутки</span>
-          </div>
-        </div>
-      </div> */}
       <TechFilters
         allTechs={allTechs}
         selectedTechs={selectedTechs}
