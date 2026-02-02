@@ -118,7 +118,7 @@ export const projects = [
         name: 'Framer Motion',
       },
       {
-        name: 'Next-auth',
+        name: 'Next-Auth',
       },
       {
         name: 'Zod',
@@ -316,13 +316,13 @@ export const projects = [
     id: 9,
     title: 'ArtGen',
     description:
-      'Проект ArtGenDeploy - это деплоймент-система для веб-приложения генератора искусства. Проект написан на чистом JavaScrypt  и демонстрации интеграции CI/CD, Docker-контейнеризации и автоматизации развертывания веб-приложений.',
+      'Проект ArtGenDeploy - это деплоймент-система для веб-приложения генератора искусства. Проект написан на чистом JavaScript  и демонстрации интеграции CI/CD, Docker-контейнеризации и автоматизации развертывания веб-приложений.',
     date: '2024-10-31',
     screenshots: ['/images/art/1.webp', '/images/art/2.webp', '/images/art/3.webp'],
     videoUrl: '/images/art/art.mp4',
     techStack: [
       {
-        name: 'JavaScrypt',
+        name: 'JavaScript',
       },
 
       {
@@ -422,7 +422,7 @@ export const projects = [
         name: 'Next',
       },
       {
-        name: 'NextAuth',
+        name: 'Next-Auth',
       },
       {
         name: 'Typescript',
@@ -613,7 +613,7 @@ export const projects = [
         name: 'Next',
       },
       {
-        name: 'NextAuth',
+        name: 'Next-Auth',
       },
       {
         name: 'PostgreSQL',
@@ -810,7 +810,7 @@ export const projects = [
     description:
       'Это только фронтенд‑шаблон. Подключите его к вашему бэкенду или провайдеру аутентификации при необходимости.',
     date: '2023-09-21',
-    screenshots: ['/images/login/1.webp', '/images/login/2.webp', '/images/login/3.webp'],
+    screenshots: ['/images/login/1.webp', '/images/login/2.webp'],
     videoUrl: '/images/login/login.mp4',
     techStack: [
       {
@@ -820,7 +820,7 @@ export const projects = [
         name: 'CSS',
       },
       {
-        name: 'JavaScrypt',
+        name: 'JavaScript',
       },
     ],
     isFeatured: false,
@@ -847,7 +847,7 @@ export const projects = [
         name: 'CSS',
       },
       {
-        name: 'JavaScrypt',
+        name: 'JavaScript',
       },
     ],
     isFeatured: false,
@@ -869,7 +869,7 @@ export const projects = [
         name: 'CSS',
       },
       {
-        name: 'JavaScrypt',
+        name: 'JavaScript',
       },
     ],
     isFeatured: false,
