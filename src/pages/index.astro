@@ -11,6 +11,7 @@ import {
 } from '../components';
 import { projects } from '../data/projects';
 import { skills } from '../data/skills';
+import Achievements from '../components/Achievements';
 ---
 
 <html lang="ru">
@@ -29,6 +30,7 @@ import { skills } from '../data/skills';
       <GithubSection client:visible />
       <Timeline client:visible />
       <Skills client:visible skillsArray={skills} />
+      <Achievements client:visible />
       <Footer client:visible />
     </MainLayout>
   </body>

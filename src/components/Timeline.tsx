@@ -27,7 +27,7 @@ const Timeline: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           className="text-6xl font-black text-white italic uppercase tracking-tighter"
         >
-          Experience
+          Experience<span className="text-blue-500 mx-2">.</span>
         </motion.h2>
       </div>
 

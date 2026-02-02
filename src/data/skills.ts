@@ -14,6 +14,7 @@ export const skills = [
   { name: 'Next.js', level: 'Senior' },
   { name: 'Tailwind', level: 'Expert' },
   { name: 'Three.js', level: 'Basic' },
+  { name: 'Angular', level: 'Basic' },
 ];
 
 export const getSkillColor = (name: string): string => {
