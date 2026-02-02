@@ -14,7 +14,7 @@ export const projects = [
     videoUrl: '/images/portfolio/portfolio.mp4',
     techStack: [
       {
-        name: 'Astro js',
+        name: 'Astro JS',
       },
       {
         name: 'React',
@@ -153,7 +153,7 @@ export const projects = [
     videoUrl: '/images/astro/astro.mp4',
     techStack: [
       {
-        name: 'Astro',
+        name: 'Astro JS',
       },
       {
         name: 'React',
@@ -585,7 +585,7 @@ export const projects = [
     videoUrl: '',
     techStack: [
       {
-        name: 'Node',
+        name: 'Node.js',
       },
       {
         name: 'Grammy',
@@ -712,7 +712,7 @@ export const projects = [
         name: 'HTML5',
       },
       {
-        name: 'CSS3',
+        name: 'CSS',
       },
       {
         name: 'JavaScript',
@@ -738,7 +738,7 @@ export const projects = [
         name: 'HTML5',
       },
       {
-        name: 'CSS3',
+        name: 'CSS',
       },
       {
         name: 'JavaScript',

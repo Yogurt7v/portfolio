@@ -138,12 +138,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
 
         {/* Описание */}
-        <p className="text-slate-400 text-sm mb-6 line-clamp-5 leading-relaxed grow">
+        <p className="text-slate-400 text-sm mb-6 line-clamp-4 leading-relaxed grow">
           {project.description}
         </p>
 
         {/* Технологии */}
-        <div className="flex flex-wrap gap-2 mt-auto">
+        <div className="flex flex-wrap gap-2 mt-auto pb-4">
           {project.techStack.map((tech) => (
             <span
               key={tech.name}

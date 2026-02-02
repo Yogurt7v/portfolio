@@ -17,7 +17,7 @@ const TechFilters: React.FC<TechFiltersProps> = ({
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
 
   return (
-    <div className="relative">
+    <div className="relative ">
       {/* Фоновый градиентный блик */}
       <div
         className="absolute inset-0 bg-linear-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 
@@ -26,20 +26,14 @@ const TechFilters: React.FC<TechFiltersProps> = ({
       />
 
       <div
-        className="flex flex-wrap items-center gap-3 mb-12 p-6 
+        className="flex flex-wrap items-center justify-center gap-3 mb-12 p-6 
                      bg-linear-to-r from-slate-900/60 via-slate-800/30 to-slate-900/60
                      backdrop-blur-2xl border border-white/10 
                      rounded-3xl shadow-2xl shadow-black/50
                      relative overflow-hidden group"
       >
-        {/* Внутренние блики */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-0 right-0 h-20 bg-linear-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <div className="absolute bottom-0 left-0 right-0 h-20 bg-linear-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        </div>
-
         {/* Технологии */}
-        {allTechs.map((tech) => (
+        {allTechs.sort().map((tech) => (
           <motion.button
             key={tech}
             onClick={() => onToggle(tech)}
