@@ -152,46 +152,43 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
                 </div>
               </motion.div>
               {/* Скриншоты */}
-              {previewProject.screenshots.length > 1 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="mb-6"
-                >
-                  <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-                    <svg
-                      className="w-5 h-5 text-blue-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+              <div className="flex gap-4 pb-2 px-4">
+                {previewProject.screenshots.map((screenshot, index) => (
+                  <motion.div
+                    key={index}
+                    whileHover={{
+                      scale: 3,
+                      y: -100,
+                      zIndex: 50,
+                    }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 350,
+                      damping: 25,
+                      mass: 0.7,
+                    }}
+                    className="relative flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border border-white/10
+                 cursor-pointer origin-left hover:shadow-2xl hover:shadow-black/80
+                 hover:overflow-visible group"
+                    style={{ transformOrigin: 'left center' }}
+                  >
+                    <img
+                      src={screenshot}
+                      alt={`Скриншот ${index + 1}`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+
+                    {/* Упрощенный оверлей */}
+                    {/* <div
+                      className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent 
+                     opacity-0 group-hover:opacity-100 transition-opacity duration-300
+                     flex items-end p-3 pointer-events-none"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                    Скриншоты
-                  </h3>
-                  <div className="flex gap-3 overflow-x-auto pb-2">
-                    {previewProject.screenshots.map((screenshot, index) => (
-                      <motion.div
-                        key={index}
-                        whileHover={{ scale: 1.05 }}
-                        className="flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border border-white/10"
-                      >
-                        <img
-                          src={screenshot}
-                          alt={`Скриншот ${index + 1}`}
-                          className="w-full h-full object-cover"
-                        />
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
+                      <span className="text-xs text-white font-medium">#{index + 1}</span>
+                    </div> */}
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </motion.div>
