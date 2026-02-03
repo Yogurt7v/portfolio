@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import VideoPlayer from './VideoPlayer';
 import type { Project } from './ProjectCard';
@@ -8,6 +9,41 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
+  const [selectedScreenshotIndex, setSelectedScreenshotIndex] = useState<number | null>(
+    null,
+  );
+  const [isScreenshotModalOpen, setIsScreenshotModalOpen] = useState(false);
+
+  const openScreenshotModal = (index: number) => {
+    setSelectedScreenshotIndex(index);
+    setIsScreenshotModalOpen(true);
+  };
+
+  const closeScreenshotModal = () => {
+    setIsScreenshotModalOpen(false);
+    setSelectedScreenshotIndex(null);
+  };
+
+  const goToPreviousScreenshot = () => {
+    if (selectedScreenshotIndex !== null && previewProject) {
+      const newIndex =
+        selectedScreenshotIndex > 0
+          ? selectedScreenshotIndex - 1
+          : previewProject.screenshots.length - 1;
+      setSelectedScreenshotIndex(newIndex);
+    }
+  };
+
+  const goToNextScreenshot = () => {
+    if (selectedScreenshotIndex !== null && previewProject) {
+      const newIndex =
+        selectedScreenshotIndex < previewProject.screenshots.length - 1
+          ? selectedScreenshotIndex + 1
+          : 0;
+      setSelectedScreenshotIndex(newIndex);
+    }
+  };
+
   return (
     <AnimatePresence>
       {previewProject && (
@@ -157,8 +193,8 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
                   <motion.div
                     key={index}
                     whileHover={{
-                      scale: 4,
-                      y: -150,
+                      scale: 1.2,
+                      y: -20,
                       zIndex: 50,
                     }}
                     transition={{
@@ -171,6 +207,7 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
                  cursor-pointer origin-left hover:shadow-2xl hover:shadow-black/80
                  hover:overflow-visible group"
                     style={{ transformOrigin: 'left center' }}
+                    onClick={() => openScreenshotModal(index)}
                   >
                     <img
                       src={screenshot}
@@ -193,6 +230,114 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
           </motion.div>
         </motion.div>
       )}
+
+      {/* Full-size screenshot modal */}
+      <AnimatePresence>
+        {isScreenshotModalOpen && selectedScreenshotIndex !== null && previewProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeScreenshotModal}
+            className="fixed inset-0 z-110 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl cursor-zoom-out"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-4xl max-h-full"
+            >
+              {/* Close button */}
+              <motion.button
+                initial={{ opacity: 0, rotate: -90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                transition={{ delay: 0.2 }}
+                onClick={closeScreenshotModal}
+                className="absolute top-4 right-4 z-50 w-10 h-10 flex items-center justify-center bg-black/60 hover:bg-white/20 border border-white/10 rounded-full backdrop-blur-md transition-all group hover:scale-110"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-white text-xl transition-transform group-hover:rotate-90 duration-300">
+                  ✕
+                </span>
+              </motion.button>
+
+              {/* Previous button */}
+              {previewProject.screenshots.length > 1 && (
+                <motion.button
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                  onClick={goToPreviousScreenshot}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 w-12 h-12 flex items-center justify-center bg-black/60 hover:bg-white/20 border border-white/10 rounded-full backdrop-blur-md transition-all group hover:scale-110"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <svg
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                </motion.button>
+              )}
+
+              {/* Next button */}
+              {previewProject.screenshots.length > 1 && (
+                <motion.button
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                  onClick={goToNextScreenshot}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 z-50 w-12 h-12 flex items-center justify-center bg-black/60 hover:bg-white/20 border border-white/10 rounded-full backdrop-blur-md transition-all group hover:scale-110"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <svg
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </motion.button>
+              )}
+
+              {/* Image */}
+              <motion.img
+                key={selectedScreenshotIndex}
+                src={previewProject.screenshots[selectedScreenshotIndex]}
+                alt={`Скриншот ${selectedScreenshotIndex + 1}`}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                className="max-w-full max-h-full object-contain rounded-lg"
+              />
+
+              {/* Image counter */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/60 text-white px-3 py-1 rounded-full text-sm backdrop-blur-md">
+                {selectedScreenshotIndex + 1} / {previewProject.screenshots.length}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </AnimatePresence>
   );
 };
