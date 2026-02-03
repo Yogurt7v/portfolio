@@ -62,7 +62,3 @@ section[id] {
 .animate-shimmer {
   animation: shimmer 1.5s ease-out infinite;
 }
-
-/* Настройка плагинов в v4 делается через обычные CSS правила или @plugin */
-@plugin "@tailwindcss/typography";
-@plugin "@tailwindcss/aspect-ratio";

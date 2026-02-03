@@ -157,12 +157,12 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
                   <motion.div
                     key={index}
                     whileHover={{
-                      scale: 3,
-                      y: -100,
+                      scale: 4,
+                      y: -150,
                       zIndex: 50,
                     }}
                     transition={{
-                      type: 'spring',
+                      type: 'tween',
                       stiffness: 350,
                       damping: 25,
                       mass: 0.7,
