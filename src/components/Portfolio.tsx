@@ -1,21 +1,11 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import ProjectCard from './ProjectCard';
+import ProjectCard, { type Project } from './ProjectCard';
 import TechFilters from './TechFilters';
 import Modal from './Modal';
 
 interface Tech {
   name: string;
-}
-
-export interface Project {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-  techStack: Tech[];
-  screenshots: string[];
-  isFeatured: boolean;
 }
 
 interface Props {

@@ -640,6 +640,11 @@ export const projects = [
       '/images/burger/2.webp',
       '/images/burger/3.webp',
       '/images/burger/4.webp',
+      '/images/burger/5.webp',
+      '/images/burger/6.webp',
+      '/images/burger/7.webp',
+      '/images/burger/8.webp',
+      '/images/burger/9.webp',
     ],
     videoUrl: '/images/burger/burger.mp4',
     techStack: [
