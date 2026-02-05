@@ -19,20 +19,24 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [previewProject, setPreviewProject] = useState<Project | null>(null);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isFeatured, setIsFeatured] = useState(false);
 
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
 
   const allTechs = useMemo(
-    () => Array.from(new Set(projects.flatMap((p) => p.techStack.map((t) => t.name)))),
+    () => Array.from(projects.flatMap((p) => p.techStack.map((t) => t.name))),
     [projects],
   );
 
   const filteredProjects = useMemo(() => {
-    if (!selectedTechs.length) return projects;
-    return projects.filter((p) =>
-      p.techStack.some((t) => selectedTechs.includes(t.name)),
-    );
-  }, [projects, selectedTechs]);
+    if (selectedTechs.length > 0) {
+      return projects.filter((project) =>
+        project.techStack.some((tech) => selectedTechs.includes(tech.name)),
+      );
+    }
+
+    return isFeatured ? projects.filter((project) => project.isFeatured) : projects;
+  }, [projects, selectedTechs, isFeatured]);
 
   useEffect(() => {
     if (!isAutoPlaying || filteredProjects.length <= 1) return;
@@ -61,12 +65,25 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
       prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech],
     );
     setCurrentSlide(0);
+    // 🔥 При выборе технологии отключаем режим "Лучшее"
+    if (isFeatured) {
+      setIsFeatured(false);
+    }
   };
+
+  const toggleBestFilter = useCallback(() => {
+    setIsFeatured((prev) => !prev);
+    // 🔥 При переключении режима сбрасываем выбранные технологии
+    setSelectedTechs([]);
+    setCurrentSlide(0);
+  }, [isFeatured]);
 
   return (
     <section id="projects" className="py-12 max-w-6xl mx-auto">
       {/* FILTERS */}
       <TechFilters
+        bestFilter={toggleBestFilter}
+        isBestMode={isFeatured}
         allTechs={allTechs}
         selectedTechs={selectedTechs}
         onToggle={toggleTech}

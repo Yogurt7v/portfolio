@@ -60,9 +60,8 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            // Останавливаем всплытие клика, чтобы модалка не закрывалась при нажатии на само видео
             onClick={(e) => e.stopPropagation()}
-            className="relative bg-gradient-to-br from-slate-900 to-slate-800 border border-white/20 rounded-[2rem] overflow-hidden w-full max-w-5xl shadow-2xl shadow-black/50 cursor-default my-auto"
+            className="relative bg-linear-to-br from-slate-900 to-slate-800 border border-white/20 rounded-4xl overflow-hidden w-full max-w-5xl shadow-2xl shadow-black/50 cursor-default my-auto"
           >
             {/* Кнопка закрытия ВНУТРИ div */}
             <motion.button
@@ -88,7 +87,7 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
               />
 
               {/* Градиентный оверлей снизу видео */}
-              <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-900 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-slate-900 to-transparent" />
             </div>
 
             {/* Контент под видео */}
@@ -105,7 +104,7 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
                     {previewProject.techStack.map((tech) => (
                       <span
                         key={tech.name}
-                        className="px-3 py-1 text-xs font-medium bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 border border-blue-500/30 rounded-full"
+                        className="px-3 py-1 text-xs font-medium bg-linear-to-r from-blue-500/20 to-purple-500/20 text-blue-300 border border-blue-500/30 rounded-full"
                       >
                         {tech.name}
                       </span>
@@ -120,7 +119,7 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
                       href={previewProject.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white text-sm font-medium rounded-lg transition-all duration-300"
+                      className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white text-sm font-medium rounded-lg transition-all duration-300"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -203,7 +202,7 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
                       damping: 25,
                       mass: 0.7,
                     }}
-                    className="relative flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border border-white/10
+                    className="relative shrink-0 w-32 h-20 rounded-lg overflow-hidden border border-white/10
                  cursor-pointer origin-left hover:shadow-2xl hover:shadow-black/80
                  hover:overflow-visible group"
                     style={{ transformOrigin: 'left center' }}
@@ -214,15 +213,6 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
                       alt={`Скриншот ${index + 1}`}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
-
-                    {/* Упрощенный оверлей */}
-                    {/* <div
-                      className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent 
-                     opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                     flex items-end p-3 pointer-events-none"
-                    >
-                      <span className="text-xs text-white font-medium">#{index + 1}</span>
-                    </div> */}
                   </motion.div>
                 ))}
               </div>
@@ -231,7 +221,7 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
         </motion.div>
       )}
 
-      {/* Full-size screenshot modal */}
+      {/* Full-size modal */}
       <AnimatePresence>
         {isScreenshotModalOpen && selectedScreenshotIndex !== null && previewProject && (
           <motion.div
