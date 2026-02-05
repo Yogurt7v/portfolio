@@ -52,12 +52,12 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
 
   const next = useCallback(() => {
     setCurrentSlide((p) => (p + 1) % filteredProjects.length);
-    setIsAutoPlaying(false);
+    setIsAutoPlaying(true);
   }, [filteredProjects.length]);
 
   const prev = useCallback(() => {
     setCurrentSlide((p) => (p === 0 ? filteredProjects.length - 1 : p - 1));
-    setIsAutoPlaying(false);
+    setIsAutoPlaying(true);
   }, [filteredProjects.length]);
 
   const toggleTech = (tech: string) => {
@@ -91,8 +91,14 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
       />
 
       {/* SLIDER */}
-      <div className="relative overflow-hidden">
+      <div
+        className="relative overflow-hidden p-6 size-full bg-linear-to-r from-slate-900/60 via-slate-800/30 to-slate-900/60
+                   backdrop-blur-2xl border border-white/10 
+                   rounded-3xl shadow-2xl shadow-black/50
+                   "
+      >
         {/* TRACK */}
+
         <motion.div
           className="flex gap-6 cursor-grab active:cursor-grabbing pb-8"
           drag="x"
@@ -149,22 +155,21 @@ const Portfolio: React.FC<Props> = ({ projects }) => {
             </button>
           </>
         )}
-      </div>
-
-      {/* DOTS */}
-      <div className="flex justify-center gap-2">
-        {filteredProjects.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              setCurrentSlide(i);
-              setIsAutoPlaying(false);
-            }}
-            className={`w-3 h-3 rounded-full transition ${
-              i === currentSlide ? 'bg-blue-500' : 'bg-white/30'
-            }`}
-          />
-        ))}
+        {/* DOTS */}
+        <div className="flex justify-center gap-2">
+          {filteredProjects.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                setCurrentSlide(i);
+                setIsAutoPlaying(false);
+              }}
+              className={`w-3 h-3 rounded-full transition ${
+                i === currentSlide ? 'bg-blue-500' : 'bg-white/30'
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* MODAL */}
