@@ -26,12 +26,12 @@ import { skills } from '../data/skills';
     <MainLayout title="Моё Портфолио">
       <Header client:load />
       <About client:load />
-      <Portfolio client:visible projects={projects} />
-      <GithubSection client:visible />
-      <Timeline client:visible />
-      <Skills client:visible skillsArray={skills} />
-      <Achievements client:visible />
-      <Footer client:visible />
+      <Portfolio client:idle projects={projects} />
+      <GithubSection client:idle />
+      <Timeline client:load />
+      <Skills client:load skillsArray={skills} />
+      <Achievements client:load />
+      <Footer client:idle />
     </MainLayout>
   </body>
 </html>
