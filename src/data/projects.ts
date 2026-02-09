@@ -1,7 +1,7 @@
 export const projects = [
   {
     id: 1,
-    title: 'ЗАМЕНИ СКРИНШОТЫ И ВИДЕО Портфолио',
+    title: 'Портфолио',
     description:
       'Портфолио Frontend-разработчика: создание веб-приложений на React, TypeScript и Astro. Чистый код, адаптивная верстка и современный UX/UI. Мои проекты и технический стек',
     date: '2026-01-25',
@@ -29,7 +29,7 @@ export const projects = [
         name: 'Tailwind',
       },
     ],
-    isFeatured: false,
+    isFeatured: true,
     gitHubLink: 'https://github.com/Yogurt7v/portfolio',
     link: '',
   },

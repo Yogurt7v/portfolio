@@ -45,14 +45,14 @@ const TechFilters: React.FC<TechFiltersProps> = ({
   // Определяем размер кнопки по частоте
   const getSizeClass = (tech: string): keyof typeof sizeClasses => {
     const count = techFrequencies[tech];
-    if (count >= 5) return 'large'; // Очень частые
-    if (count >= 2) return 'medium'; // Средние
-    return 'small'; // Редкие
+    if (count >= 5) return 'large';
+    if (count >= 2) return 'medium';
+    return 'small';
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 120 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
       className="relative"

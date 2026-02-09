@@ -2,19 +2,12 @@ import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion';
 import ProjectCard, { type Project } from './ProjectCard';
 import TechFilters from './TechFilters';
+import { projects } from '../data/projects';
 import Modal from './Modal';
-
-interface Tech {
-  name: string;
-}
-
-interface Props {
-  projects: Project[];
-}
 
 const SLIDE_WIDTH = 410; // ширина карточки + gap (ОК оставить const)
 
-const Portfolio: React.FC<Props> = ({ projects }) => {
+const Portfolio: React.FC = () => {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [previewProject, setPreviewProject] = useState<Project | null>(null);

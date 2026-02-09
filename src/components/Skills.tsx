@@ -1,26 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { getSkillColor } from '../data/skills';
+import { skills } from '../data/skills';
 
-interface Skill {
-  name: string;
-  level: string;
-}
-
-interface SkillsProps {
-  title?: string;
-  skillsArray?: Skill[];
-}
-
-const Skills: React.FC<SkillsProps> = ({ title = 'Stack', skillsArray = [] }) => {
+const Skills: React.FC = () => {
   return (
     <section className="py-8 px-4 max-w-6xl mx-auto">
       <h2 className="text-4xl font-bold mb-16 text-center italic uppercase">
-        {title}
+        Stack
         <span className="text-blue-500">.</span>
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {skillsArray.map((skill, i) => (
+        {skills.map((skill, i) => (
           <motion.div
             key={`${skill.name}-${i}`}
             initial={{ opacity: 0, scale: 0.9 }}

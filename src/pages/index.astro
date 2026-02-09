@@ -10,8 +10,6 @@ import {
   GithubSection,
   Achievements,
 } from '../components';
-import { projects } from '../data/projects';
-import { skills } from '../data/skills';
 ---
 
 <html lang="ru">
@@ -26,10 +24,10 @@ import { skills } from '../data/skills';
     <MainLayout title="Моё Портфолио">
       <Header client:load />
       <About client:load />
-      <Portfolio client:visible projects={projects} />
+      <Portfolio client:visible />
       <GithubSection client:visible />
       <Timeline client:visible />
-      <Skills client:visible skillsArray={skills} />
+      <Skills client:visible />
       <Achievements client:visible />
       <Footer client:idle />
     </MainLayout>
