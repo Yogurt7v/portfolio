@@ -51,18 +51,23 @@ const TechFilters: React.FC<TechFiltersProps> = ({
   };
 
   return (
-    <div className="relative">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, ease: 'easeOut' }}
+      className="relative"
+    >
       {/* Фоновый градиентный блик */}
       <div
-        className="absolute inset-0 bg-linear-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 
-                   rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 
+        className="absolute inset-0 bg-linear-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10
+                   rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500
                    pointer-events-none -z-10"
       />
 
       <div
-        className="flex flex-wrap items-center justify-center gap-3 mb-12 p-6 
+        className="flex flex-wrap items-center justify-center gap-3 mb-12 p-6
                    bg-linear-to-r from-slate-900/60 via-slate-800/30 to-slate-900/60
-                   backdrop-blur-2xl border border-white/10 
+                   backdrop-blur-2xl border border-white/10
                    rounded-3xl shadow-2xl shadow-black/50
                    relative overflow-hidden group"
       >
@@ -171,7 +176,7 @@ const TechFilters: React.FC<TechFiltersProps> = ({
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
