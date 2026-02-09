@@ -3,7 +3,17 @@ import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  integrations: [react()],
+  site: 'https://es-portfolio.ru',
+  output: 'static',
+  build: {
+    format: 'directory',
+  },
+  integrations: [
+    react(),
+    image({
+      serviceEntryPoint: '@astrojs/image/sharp',
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
