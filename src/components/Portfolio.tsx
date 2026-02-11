@@ -1,9 +1,19 @@
-import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
+import React, {
+  useState,
+  useMemo,
+  useEffect,
+  useRef,
+  useCallback,
+  Suspense,
+  lazy,
+} from 'react';
 import { motion } from 'framer-motion';
-import ProjectCard, { type Project } from './ProjectCard';
+const ProjectCard = lazy(() => import('./ProjectCard'));
+import { type Project } from './ProjectCard';
 import TechFilters from './TechFilters';
 import { projects } from '../data/projects';
 import Modal from './Modal';
+import SkeletonCard from './SkeletonCard';
 
 const SLIDE_WIDTH = 410; // ширина карточки + gap (ОК оставить const)
 
@@ -121,12 +131,14 @@ const Portfolio: React.FC = () => {
               }}
               transition={{ duration: 0.3 }}
             >
-              <ProjectCard
-                project={project}
-                isActive={index === currentSlide}
-                onClick={(p) => setPreviewProject(p)}
-                onHoverOpen={(p) => setPreviewProject(p)}
-              />
+              <Suspense fallback={<SkeletonCard />}>
+                <ProjectCard
+                  project={project}
+                  isActive={index === currentSlide}
+                  onClick={(p) => setPreviewProject(p)}
+                  // onHoverOpen={(p) => setPreviewProject(p)}
+                />
+              </Suspense>
             </motion.div>
           ))}
         </motion.div>

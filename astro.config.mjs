@@ -8,12 +8,7 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
-  integrations: [
-    react(),
-    image({
-      serviceEntryPoint: '@astrojs/image/sharp',
-    }),
-  ],
+  integrations: [react()],
   vite: {
     plugins: [tailwindcss()],
   },

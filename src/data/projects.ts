@@ -11,7 +11,7 @@ export const projects = [
       '/images/portfolio/3.webp',
       '/images/portfolio/4.webp',
     ],
-    videoUrl: '/images/portfolio/portfolio.mp4',
+    videoUrl: '/videos/portfolio.mp4',
     techStack: [
       {
         name: 'Astro JS',
@@ -45,7 +45,7 @@ export const projects = [
       '/images/check/ch3.webp',
       '/images/check/ch4.webp',
     ],
-    videoUrl: '/images/check/CheckRepeat.mp4',
+    videoUrl: '/videos/CheckRepeat.mp4',
     techStack: [
       {
         name: 'Vite',
@@ -68,7 +68,7 @@ export const projects = [
       'Веб-чат для  обмена сообщениями в реальном времени с поддержкой PWA. Регистрацию пользователей, приватные беседы, push-уведомления, онлайн-статусы, пересылку файлов и drag-and-drop организацию чатов. Построенный на React 19 и Firebase с интеграцией Supabase, адаптивный дизайн для всех устройств с темной темой .',
     date: '2025-12-31',
     screenshots: ['/images/quick/1.webp', '/images/quick/2.webp', '/images/quick/3.webp'],
-    videoUrl: '/images/quick/quick.mp4',
+    videoUrl: '/videos/quick.mp4',
     techStack: [
       {
         name: 'Vite',
@@ -109,7 +109,7 @@ export const projects = [
       '/images/cook/4.webp',
       '/images/cook/5.webp',
     ],
-    videoUrl: '/images/cook/cook.mp4',
+    videoUrl: '/videos/cook.mp4',
     techStack: [
       {
         name: 'Next',
@@ -150,7 +150,7 @@ export const projects = [
       'Пройденная практика Astro. Проект представляет собой персональный блог, созданный с использованием фреймворка Astro. Блог посвящен изучению и экспериментам с Astro, а также публикации записей о веб-разработке.',
     date: '2025-11-04',
     screenshots: ['/images/astro/1.webp', '/images/astro/2.webp', '/images/astro/3.webp'],
-    videoUrl: '/images/astro/astro.mp4',
+    videoUrl: '/videos/astro.mp4',
     techStack: [
       {
         name: 'Astro JS',
@@ -182,7 +182,7 @@ export const projects = [
       '/images/forms/4.webp',
       '/images/forms/5.webp',
     ],
-    videoUrl: '/images/forms/forms.mp4',
+    videoUrl: '/videos/forms.mp4',
     techStack: [
       {
         name: 'Jest',
@@ -284,7 +284,7 @@ export const projects = [
       '/images/todo-redux/3.webp',
       '/images/todo-redux/4.webp',
     ],
-    videoUrl: '/images/todo-redux/todo-redux.mp4',
+    videoUrl: '/videos/todo-redux.mp4',
     techStack: [
       {
         name: 'Vite',
@@ -319,7 +319,7 @@ export const projects = [
       'Проект ArtGenDeploy - это деплоймент-система для веб-приложения генератора искусства. Проект написан на чистом JavaScript  и демонстрации интеграции CI/CD, Docker-контейнеризации и автоматизации развертывания веб-приложений.',
     date: '2024-10-31',
     screenshots: ['/images/art/1.webp', '/images/art/2.webp', '/images/art/3.webp'],
-    videoUrl: '/images/art/art.mp4',
+    videoUrl: '/videos/art.mp4',
     techStack: [
       {
         name: 'JavaScript',
@@ -355,7 +355,7 @@ export const projects = [
       '/images/yandex/2.webp',
       '/images/yandex/3.webp',
     ],
-    videoUrl: '/images/yandex/yandex.mp4',
+    videoUrl: '/videos/yandex.mp4',
     techStack: [
       {
         name: 'React',
@@ -381,7 +381,7 @@ export const projects = [
       '/images/quiz/3.webp',
       '/images/quiz/4.webp',
     ],
-    videoUrl: '/images/quiz/quiz.mp4',
+    videoUrl: '/videos/quiz.mp4',
     techStack: [
       {
         name: 'React',
@@ -413,7 +413,7 @@ export const projects = [
       '/images/meet/3.webp',
       '/images/meet/4.webp',
     ],
-    videoUrl: '/images/meet/meet.mp4',
+    videoUrl: '/videos/meet.mp4',
     techStack: [
       {
         name: 'React',
@@ -456,7 +456,7 @@ export const projects = [
       '/images/contacts/3.webp',
       '/images/contacts/4.webp',
     ],
-    videoUrl: '/images/contacts/contacts.mp4',
+    videoUrl: '/videos/contacts.mp4',
     techStack: [
       {
         name: 'React',
@@ -496,7 +496,7 @@ export const projects = [
       '/images/rick/3.webp',
       '/images/rick/4.webp',
     ],
-    videoUrl: '/images/rick/rick.mp4',
+    videoUrl: '/videos/rick.mp4',
     techStack: [
       {
         name: 'React',
@@ -527,7 +527,7 @@ export const projects = [
       '/images/weather/3.webp',
       '/images/weather/4.webp',
     ],
-    videoUrl: '/images/weather/weather.mp4',
+    videoUrl: '/videos/weather.mp4',
     techStack: [
       {
         name: 'TypeScript',
@@ -554,7 +554,7 @@ export const projects = [
       '/images/todo-tanstack/2.webp',
       '/images/todo-tanstack/3.webp',
     ],
-    videoUrl: '/images/todo-tanstack/todo.mp4',
+    videoUrl: '/videos/todo2.mp4',
     techStack: [
       {
         name: 'Vite',
@@ -607,7 +607,7 @@ export const projects = [
       '/images/next-tutorial/3.webp',
       '/images/next-tutorial/4.webp',
     ],
-    videoUrl: '/images/next-tutorial/next.mp4',
+    videoUrl: '/videos/next.mp4',
     techStack: [
       {
         name: 'Next',
@@ -646,7 +646,7 @@ export const projects = [
       '/images/burger/8.webp',
       '/images/burger/9.webp',
     ],
-    videoUrl: '/images/burger/burger.mp4',
+    videoUrl: '/videos/burger.mp4',
     techStack: [
       {
         name: 'Node.js',
@@ -678,7 +678,7 @@ export const projects = [
       'Небольшое учебное приложение-блог на React/Redux со стилями на `styled-components`. В качестве бэкенда используется `json-server` на порту 3004.',
     date: '2024-03-01',
     screenshots: ['/images/blog/1.webp', '/images/blog/2.webp', '/images/blog/3.webp'],
-    videoUrl: '/images/blog/blog.mp4',
+    videoUrl: '/videos/blog.mp4',
     techStack: [
       {
         name: 'React',
@@ -711,7 +711,7 @@ export const projects = [
       '/images/captcha/2.webp',
       '/images/captcha/3.webp',
     ],
-    videoUrl: '/images/captcha/captcha.mp4',
+    videoUrl: '/videos/captcha.mp4',
     techStack: [
       {
         name: 'HTML5',
@@ -767,7 +767,7 @@ export const projects = [
       '/images/firebase-todo/2.webp',
       '/images/firebase-todo/3.webp',
     ],
-    videoUrl: '/images/firebase-todo/todo.mp4',
+    videoUrl: '/videos/todo.mp4',
     techStack: [
       {
         name: 'React',
@@ -793,7 +793,7 @@ export const projects = [
     description: 'Простая игра «Крестики‑Нолики» на React с Redux и Tailwind CSS.',
     date: '2023-09-17',
     screenshots: ['/images/xoxo/1.webp', '/images/xoxo/2.webp', '/images/xoxo/3.webp'],
-    videoUrl: '/images/xoxo/xoxo.mp4',
+    videoUrl: '/videos/xoxo.mp4',
     techStack: [
       {
         name: 'React',
@@ -816,7 +816,7 @@ export const projects = [
       'Это только фронтенд‑шаблон. Подключите его к вашему бэкенду или провайдеру аутентификации при необходимости.',
     date: '2023-09-21',
     screenshots: ['/images/login/1.webp', '/images/login/2.webp'],
-    videoUrl: '/images/login/login.mp4',
+    videoUrl: '/videos/login.mp4',
     techStack: [
       {
         name: 'HTML',
@@ -843,7 +843,7 @@ export const projects = [
       '/images/simple/2.webp',
       '/images/simple/3.webp',
     ],
-    videoUrl: '/images/simple/simple.mp4',
+    videoUrl: '/videos/simple.mp4',
     techStack: [
       {
         name: 'HTML',
@@ -865,7 +865,7 @@ export const projects = [
     description: 'Простой веб-проект для шифрования и дешифрования данных в браузере.',
     date: '2023-10-25',
     screenshots: ['/images/encryptor/1.webp', '/images/encryptor/2.webp'],
-    videoUrl: '/images/encryptor/encryptor.mp4',
+    videoUrl: '/videos/encryptor.mp4',
     techStack: [
       {
         name: 'HTML',

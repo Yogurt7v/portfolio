@@ -23,14 +23,14 @@ interface ProjectCardProps {
   project: Project;
   isActive: boolean;
   onClick: (project: Project) => void;
-  onHoverOpen: (project: Project) => void;
+  // onHoverOpen: (project: Project) => void;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
   project,
   isActive,
   onClick,
-  onHoverOpen,
+  // onHoverOpen,
 }) => {
   const [currentImg, setCurrentImg] = useState(0);
   const hoverTimer = useRef<NodeJS.Timeout | null>(null);
@@ -46,20 +46,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     return () => clearInterval(interval);
   }, [isActive, project.screenshots.length]);
 
-  const handleMouseEnter = () => {
-    hoverTimer.current = setTimeout(() => {
-      onHoverOpen(project);
-    }, MOUSE_TIMER);
-  };
+  // const handleMouseEnter = () => {
+  //   hoverTimer.current = setTimeout(() => {
+  //     onHoverOpen(project);
+  //   }, MOUSE_TIMER);
+  // };
 
-  const handleMouseLeave = () => {
-    if (hoverTimer.current) clearTimeout(hoverTimer.current);
-  };
+  // const handleMouseLeave = () => {
+  //   if (hoverTimer.current) clearTimeout(hoverTimer.current);
+  // };
 
   return (
     <motion.div
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      // onMouseEnter={handleMouseEnter}
+      // onMouseLeave={handleMouseLeave}
       layout
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{
