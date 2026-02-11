@@ -21,9 +21,9 @@ const getTechFrequencies = (techs: string[]) => {
 
 // Классы размеров
 const sizeClasses = {
-  small: 'px-2 py-1 text-xs',
-  medium: 'px-3 py-2 text-sm',
-  large: 'px-5 py-3 text-base',
+  small: 'px-2 py-1 text-sm',
+  medium: 'px-3 py-2 text-base',
+  large: 'px-5 py-3 text-large',
 };
 
 const TechFilters: React.FC<TechFiltersProps> = ({

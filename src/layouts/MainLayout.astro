@@ -18,7 +18,9 @@ const { title = 'Портфолио' } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
-  <body class="bg-slate-900 text-white selection:bg-brand-light/30 min-h-screen overflow-x-hidden">
+  <body
+    class="bg-slate-900 text-white selection:bg-brand-light/30 min-h-screen overflow-x-hidden custom-scrollbar"
+  >
     <BackgroundGradient client:only="react" />
     <main class="mx-auto px-4 py-8 grid place-items-center w-full max-w-full md:mx-auto">
       <slot />
