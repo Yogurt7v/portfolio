@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy": "npm run build && rsync -avz dist/ deployer@94.183.233.48:/var/www/portfolio/",
+    "deploy:auto": "pm2 restart portfolio",
     "astro": "astro"
   },
   "dependencies": {
