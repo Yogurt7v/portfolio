@@ -28,6 +28,9 @@ export const projects = [
       {
         name: 'Tailwind',
       },
+      {
+        name: 'Certbot',
+      },
     ],
     isFeatured: true,
     gitHubLink: 'https://github.com/Yogurt7v/portfolio',

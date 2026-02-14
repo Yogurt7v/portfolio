@@ -1,4 +1,4 @@
-export const certificates = [
+let base = [
   {
     id: 1,
     name: 'HTML',
@@ -33,11 +33,20 @@ export const certificates = [
     issuer: 'Result University',
     date: '08-07-2025',
   },
-  {
-    id: 6,
-    name: 'Разработчик',
-    source: '/сertificate/noname.webp',
-    issuer: '',
-    date: 'Скоро',
-  },
 ];
+
+let added = {
+  id: 6,
+  name: 'В процессе',
+  source: '/сertificate/noname.webp',
+  issuer: '',
+  date: 'Скоро',
+};
+
+export let certificates;
+
+if (base.length % 2 === 0) {
+  certificates = base;
+} else {
+  certificates = [...base, added];
+}

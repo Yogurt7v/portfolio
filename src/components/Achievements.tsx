@@ -28,13 +28,13 @@ const Achievements: React.FC = () => {
       </div>
 
       {/* Сетка: 2 колонки на мобилках, 3 на планшетах, 5 на десктопе */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-6">
         {certificates.map((cert) => (
           <motion.div
             key={cert.id}
             layoutId={`cert-container-${cert.id}`}
             onClick={() => setSelectedCert(cert)}
-            className="group relative aspect-[3/4] sm:aspect-4/3 cursor-pointer overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-slate-900 shadow-lg"
+            className="group relative aspect-3/4 sm:aspect-4/3 cursor-pointer overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-slate-900 shadow-lg"
             whileHover={{ y: -8, transition: { duration: 0.3 } }}
             whileTap={{ scale: 0.96 }}
           >
@@ -61,7 +61,7 @@ const Achievements: React.FC = () => {
       {/* Модальное окно */}
       <AnimatePresence>
         {selectedCert && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="fixed inset-0 z-100 flex items-center justify-center p-3 sm:p-6 overflow-hidden">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
