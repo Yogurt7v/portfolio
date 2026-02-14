@@ -82,7 +82,10 @@ const Header: React.FC = () => {
             </ul>
 
             {/* RIGHT */}
-            <div className="flex justify-end items-center gap-3">
+            <div
+              className="flex justify-end items-center gap-3"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <a
                 href="https://www.hh.ru"
                 target="_blank"
@@ -93,10 +96,7 @@ const Header: React.FC = () => {
               </a>
 
               {/* Burger */}
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden flex flex-col gap-1.5 p-2"
-              >
+              <button className="md:hidden flex flex-col gap-1.5 p-2">
                 <span
                   className={`w-6 h-0.5 bg-white transition ${isOpen && 'rotate-45 translate-y-1.5'}`}
                 />

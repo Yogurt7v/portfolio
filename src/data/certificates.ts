@@ -33,4 +33,11 @@ export const certificates = [
     issuer: 'Result University',
     date: '08-07-2025',
   },
+  {
+    id: 6,
+    name: 'Разработчик',
+    source: '/сertificate/noname.webp',
+    issuer: '',
+    date: 'Скоро',
+  },
 ];
