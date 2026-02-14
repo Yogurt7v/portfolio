@@ -29,7 +29,7 @@ const Achievements: React.FC = () => {
 
       {/* Сетка: 2 колонки на мобилках, 3 на планшетах, 5 на десктопе */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-6">
-        {certificates.map((cert) => (
+        {certificates.map((cert: any) => (
           <motion.div
             key={cert.id}
             layoutId={`cert-container-${cert.id}`}
