@@ -14,7 +14,7 @@ import { projects } from '../data/projects';
 import Modal from './Modal';
 import SkeletonCard from './SkeletonCard';
 
-export type Project = {};
+export type Project = any;
 
 const Portfolio: React.FC = () => {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
@@ -30,8 +30,10 @@ const Portfolio: React.FC = () => {
   const updateWidth = useCallback(() => {
     if (containerRef.current) {
       const parentWidth = containerRef.current.offsetWidth;
+      // На мобилках вычитаем паддинги контейнера (sm:p-8 = 64px, p-4 = 32px), чтобы карточка влезала
+      const padding = window.innerWidth < 640 ? 32 : 64;
       if (window.innerWidth < 768) {
-        setSlideWidth(parentWidth * 0.9);
+        setSlideWidth(parentWidth - padding);
       } else {
         setSlideWidth(410);
       }
@@ -64,23 +66,29 @@ const Portfolio: React.FC = () => {
     [filteredProjects.length],
   );
 
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+    if (isAutoPlaying && !previewProject) {
+      interval = setInterval(() => {
+        next();
+      }, 3000);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isAutoPlaying, next, previewProject]);
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 'some' }}
       transition={{ duration: 0.5 }}
+      className="w-full overflow-hidden" // Защита от горизонтального скролла всей страницы
     >
-      <section
-        id="projects"
-        className="py-12 max-w-6xl mx-auto w-full px-4 overflow-hidden"
-      >
-        {/* Обертка для смены порядка:
-          На мобилках (flex-col) порядок будет 1 -> 2.
-          Используя order-x, мы явно говорим, кто где стоит.
-      */}
-        <div className="flex flex-col gap-12">
-          {/* ФИЛЬТРЫ: На мобильном order-2 (внизу), на десктопе md:order-1 (вверху) */}
+      <section id="projects" className="py-12 max-w-6xl mx-auto w-full px-4">
+        <div className="flex flex-col gap-8 md:gap-12">
+          {/* Блок фильтров: на мобилках убираем жесткий order, чтобы они не перекрывали логику свайпа */}
           <div className="order-2 md:order-1">
             <TechFilters
               bestFilter={() => {
@@ -90,7 +98,7 @@ const Portfolio: React.FC = () => {
               }}
               isBestMode={isFeatured}
               allTechs={Array.from(
-                projects.flatMap((p) => p.techStack.map((t) => t.name)),
+                new Set(projects.flatMap((p) => p.techStack.map((t) => t.name))),
               )}
               selectedTechs={selectedTechs}
               onToggle={(tech) => {
@@ -104,20 +112,51 @@ const Portfolio: React.FC = () => {
             />
           </div>
 
-          {/* СЛАЙДЕР: На мобильном order-1 (вверху), на десктопе md:order-2 (внизу) */}
           <div
             ref={containerRef}
-            className="order-1 md:order-2 relative p-4 sm:p-8 bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden"
+            className="order-1 md:order-2 relative p-4 sm:p-8 bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-4xl md:rounded-[2.5rem] shadow-2xl overflow-hidden"
           >
+            {/* КНОПКА PLAY/PAUSE: Уменьшена для мобилок */}
+            <button
+              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+              className="absolute bottom-4 right-4 md:bottom-6 md:right-8 z-10 p-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors"
+              title={isAutoPlaying ? 'Pause' : 'Play'}
+            >
+              {isAutoPlaying ? (
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="md:w-5 md:h-5"
+                >
+                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                </svg>
+              ) : (
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="md:w-5 md:h-5"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              )}
+            </button>
+
             <motion.div
               className="flex gap-6 cursor-grab active:cursor-grabbing pb-8"
               drag="x"
               dragConstraints={{
+                // Динамический расчет границ для любого экрана
                 left: -(filteredProjects.length - 1) * effectiveWidth,
                 right: 0,
               }}
+              onDragStart={() => setIsAutoPlaying(false)}
               onDragEnd={(_, info) => {
-                const threshold = slideWidth * 0.15;
+                // На мобилках порог срабатывания меньше для легкости свайпа
+                const threshold = window.innerWidth < 768 ? 50 : slideWidth * 0.15;
                 if (info.offset.x < -threshold) next();
                 else if (info.offset.x > threshold) prev();
               }}
@@ -130,7 +169,8 @@ const Portfolio: React.FC = () => {
                   className="shrink-0"
                   style={{ width: slideWidth }}
                   animate={{
-                    scale: index === currentSlide ? 1 : 0.9,
+                    scale:
+                      index === currentSlide ? 1 : window.innerWidth < 768 ? 0.95 : 0.9,
                     opacity: index === currentSlide ? 1 : 0.6,
                   }}
                   transition={{ duration: 0.4 }}
@@ -139,15 +179,16 @@ const Portfolio: React.FC = () => {
                     <ProjectCard
                       project={project}
                       isActive={index === currentSlide}
-                      onClick={setPreviewProject}
+                      open={setPreviewProject}
+                      isAutoPlaying={isAutoPlaying}
                     />
                   </Suspense>
                 </motion.div>
               ))}
             </motion.div>
 
-            {/* Пагинация (точки) */}
-            <div className="flex justify-center gap-2 mt-2">
+            {/* ИНДИКАТОРЫ: Перенос на новую строку, если проектов много */}
+            <div className="flex justify-center flex-wrap gap-2 mt-2 px-10">
               {filteredProjects.map((_, i) => (
                 <button
                   key={i}
@@ -156,7 +197,9 @@ const Portfolio: React.FC = () => {
                     setIsAutoPlaying(false);
                   }}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === currentSlide ? 'bg-blue-500 w-8' : 'bg-white/20 w-2'
+                    i === currentSlide
+                      ? 'bg-blue-500 w-6 md:w-8'
+                      : 'bg-white/20 w-1.5 md:w-2'
                   }`}
                 />
               ))}

@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const ProjectCard: React.FC<any> = ({ project, isActive, onClick }) => {
+const ProjectCard: React.FC<any> = ({ project, isActive, open, isAutoPlaying }) => {
   const [currentImg, setCurrentImg] = useState(0);
+
+  const DURATION = 3000;
 
   useEffect(() => {
     if (!isActive) return;
     const interval = setInterval(() => {
       setCurrentImg((prev) => (prev + 1) % project.screenshots.length);
-    }, 3500);
+    }, DURATION);
     return () => clearInterval(interval);
   }, [isActive, project.screenshots.length]);
 
   return (
     <motion.div
       layout
-      onClick={() => onClick(project)}
-      className={`group relative flex flex-col w-full h-full bg-slate-800/40 backdrop-blur-md border rounded-[2rem] overflow-hidden transition-all duration-500 shadow-xl ${
+      className={`group relative flex flex-col w-full h-full bg-slate-800/40 backdrop-blur-md border rounded-4xl overflow-hidden transition-all duration-500 shadow-xl ${
         isActive ? 'border-blue-500/50 shadow-blue-500/10' : 'border-white/5 opacity-80'
       }`}
       style={{ minHeight: '480px' }}
     >
       {/* Изображение проекта */}
-      <div className="aspect-video relative overflow-hidden shrink-0 bg-slate-950">
+      <div
+        className="aspect-video relative overflow-hidden shrink-0 bg-slate-950 cursor-zoom-in group/img hover:scale-105 scale-110 hover:blur-[2px] duration-[0.8s]"
+        onClick={() => open(project)}
+      >
         <AnimatePresence mode="wait">
           <motion.img
             key={currentImg}
@@ -36,12 +40,12 @@ const ProjectCard: React.FC<any> = ({ project, isActive, onClick }) => {
         </AnimatePresence>
 
         {/* Полоска прогресса для активного слайда */}
-        {isActive && (
+        {isActive && isAutoPlaying && (
           <motion.div
             className="absolute bottom-0 left-0 h-1 bg-linear-to-r from-blue-500 to-cyan-400 z-10"
             initial={{ width: 0 }}
             animate={{ width: '100%' }}
-            transition={{ duration: 3.5, ease: 'linear' }}
+            transition={{ duration: DURATION / 1000, ease: 'linear' }}
           />
         )}
       </div>

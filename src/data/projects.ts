@@ -34,10 +34,13 @@ export const projects = [
       {
         name: 'CI/CD',
       },
+      {
+        name: 'Deploy',
+      },
     ],
     isFeatured: true,
     gitHubLink: 'https://github.com/Yogurt7v/portfolio',
-    link: '',
+    link: 'https://es-portfolio.ru/',
   },
   {
     id: 2,
