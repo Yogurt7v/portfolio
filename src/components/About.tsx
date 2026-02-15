@@ -24,11 +24,11 @@ const About: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="md:col-span-4 order-1 md:order-2 flex flex-col items-center"
         >
-          <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
+          <div className="relative w-full max-w-70 sm:max-w-[320px] aspect-4/5 rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
             <img
               src={aboutMe.myPhoto}
               alt="Фото"
-              className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
             />
           </div>
 

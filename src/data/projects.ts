@@ -31,6 +31,9 @@ export const projects = [
       {
         name: 'Certbot',
       },
+      {
+        name: 'CI/CD',
+      },
     ],
     isFeatured: true,
     gitHubLink: 'https://github.com/Yogurt7v/portfolio',
