@@ -95,6 +95,9 @@ export const projects = [
         name: 'Markdown',
       },
       {
+        name: 'Service Worker',
+      },
+      {
         name: 'CI/CD',
       },
       {
@@ -515,6 +518,9 @@ export const projects = [
       },
       {
         name: 'Material UI',
+      },
+      {
+        name: 'Service Worker',
       },
       {
         name: 'PWA',

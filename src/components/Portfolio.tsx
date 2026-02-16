@@ -15,6 +15,7 @@ import Modal from './Modal';
 import SkeletonCard from './SkeletonCard';
 
 export type Project = any;
+export const TIMER_CHANGE_CARD = 5000;
 
 const Portfolio: React.FC = () => {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
@@ -22,6 +23,7 @@ const Portfolio: React.FC = () => {
   const [previewProject, setPreviewProject] = useState<Project | null>(null);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isFeatured, setIsFeatured] = useState(false);
+  const [isMobile, setIsMobile] = useState(false); // ← новое состояние
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [slideWidth, setSlideWidth] = useState(410);
@@ -30,13 +32,14 @@ const Portfolio: React.FC = () => {
   const updateWidth = useCallback(() => {
     if (containerRef.current) {
       const parentWidth = containerRef.current.offsetWidth;
-      // На мобилках вычитаем паддинги контейнера (sm:p-8 = 64px, p-4 = 32px), чтобы карточка влезала
-      const padding = window.innerWidth < 640 ? 32 : 64;
-      if (window.innerWidth < 768) {
+      const mobile = window.innerWidth < 768; // определяем мобильность
+      const padding = mobile ? 32 : 64; // паддинги контейнера
+      if (mobile) {
         setSlideWidth(parentWidth - padding);
       } else {
         setSlideWidth(410);
       }
+      setIsMobile(mobile); // обновляем состояние
     }
   }, []);
 
@@ -71,7 +74,7 @@ const Portfolio: React.FC = () => {
     if (isAutoPlaying && !previewProject) {
       interval = setInterval(() => {
         next();
-      }, 3000);
+      }, TIMER_CHANGE_CARD);
     }
     return () => {
       if (interval) clearInterval(interval);
@@ -84,11 +87,11 @@ const Portfolio: React.FC = () => {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 'some' }}
       transition={{ duration: 0.5 }}
-      className="w-full overflow-hidden" // Защита от горизонтального скролла всей страницы
+      className="w-full overflow-hidden"
     >
       <section id="projects" className="py-12 max-w-6xl mx-auto w-full px-4">
         <div className="flex flex-col gap-8 md:gap-12">
-          {/* Блок фильтров: на мобилках убираем жесткий order, чтобы они не перекрывали логику свайпа */}
+          {/* Блок фильтров */}
           <div className="order-2 md:order-1">
             <TechFilters
               bestFilter={() => {
@@ -116,7 +119,7 @@ const Portfolio: React.FC = () => {
             ref={containerRef}
             className="order-1 md:order-2 relative p-4 sm:p-8 bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-4xl md:rounded-[2.5rem] shadow-2xl overflow-hidden"
           >
-            {/* КНОПКА PLAY/PAUSE: Уменьшена для мобилок */}
+            {/* Кнопка Play/Pause */}
             <button
               onClick={() => setIsAutoPlaying(!isAutoPlaying)}
               className="absolute bottom-4 right-4 md:bottom-6 md:right-8 z-10 p-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors"
@@ -149,13 +152,11 @@ const Portfolio: React.FC = () => {
               className="flex gap-6 cursor-grab active:cursor-grabbing pb-8"
               drag="x"
               dragConstraints={{
-                // Динамический расчет границ для любого экрана
                 left: -(filteredProjects.length - 1) * effectiveWidth,
                 right: 0,
               }}
               onDragStart={() => setIsAutoPlaying(false)}
               onDragEnd={(_, info) => {
-                // На мобилках порог срабатывания меньше для легкости свайпа
                 const threshold = window.innerWidth < 768 ? 50 : slideWidth * 0.15;
                 if (info.offset.x < -threshold) next();
                 else if (info.offset.x > threshold) prev();
@@ -187,22 +188,47 @@ const Portfolio: React.FC = () => {
               ))}
             </motion.div>
 
-            {/* ИНДИКАТОРЫ: Перенос на новую строку, если проектов много */}
+            {/* ИНДИКАТОРЫ / КНОПКИ НАВИГАЦИИ */}
             <div className="flex justify-center flex-wrap gap-2 mt-2 px-10">
-              {filteredProjects.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => {
-                    setCurrentSlide(i);
-                    setIsAutoPlaying(false);
-                  }}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === currentSlide
-                      ? 'bg-blue-500 w-6 md:w-8'
-                      : 'bg-white/20 w-1.5 md:w-2'
-                  }`}
-                />
-              ))}
+              {isMobile ? (
+                // На мобильных устройствах показываем кнопки "Prev" и "Next"
+                <>
+                  <button
+                    onClick={() => {
+                      prev();
+                      setIsAutoPlaying(false);
+                    }}
+                    className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors flex items-center gap-1"
+                  >
+                    <span>←</span> Prev
+                  </button>
+                  <button
+                    onClick={() => {
+                      next();
+                      setIsAutoPlaying(false);
+                    }}
+                    className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors flex items-center gap-1"
+                  >
+                    Next <span>→</span>
+                  </button>
+                </>
+              ) : (
+                // На десктопе — точки
+                filteredProjects.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      setCurrentSlide(i);
+                      setIsAutoPlaying(false);
+                    }}
+                    className={`h-2 rounded-full transition-all duration-300 hover:cursor-pointer ${
+                      i === currentSlide
+                        ? 'bg-blue-500 w-6 md:w-18'
+                        : 'bg-white/20 w-1.5 md:w-2'
+                    }`}
+                  />
+                ))
+              )}
             </div>
           </div>
         </div>

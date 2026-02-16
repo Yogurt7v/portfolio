@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { TIMER_CHANGE_CARD } from './Portfolio';
 
 const ProjectCard: React.FC<any> = ({ project, isActive, open, isAutoPlaying }) => {
   const [currentImg, setCurrentImg] = useState(0);
-
-  const DURATION = 3000;
 
   useEffect(() => {
     if (!isActive) return;
     const interval = setInterval(() => {
       setCurrentImg((prev) => (prev + 1) % project.screenshots.length);
-    }, DURATION);
+    }, TIMER_CHANGE_CARD / 3);
     return () => clearInterval(interval);
   }, [isActive, project.screenshots.length]);
 
@@ -24,7 +23,7 @@ const ProjectCard: React.FC<any> = ({ project, isActive, open, isAutoPlaying }) 
     >
       {/* Изображение проекта */}
       <div
-        className="aspect-video relative overflow-hidden shrink-0 bg-slate-950 cursor-zoom-in group/img hover:scale-105 scale-110 hover:blur-[2px] duration-[0.8s]"
+        className="aspect-video relative overflow-hidden shrink-0 bg-slate-950 cursor-zoom-in group/img hover:scale-105  hover:blur-[2px] duration-[0.8s]"
         onClick={() => open(project)}
       >
         <AnimatePresence mode="wait">
@@ -45,7 +44,7 @@ const ProjectCard: React.FC<any> = ({ project, isActive, open, isAutoPlaying }) 
             className="absolute bottom-0 left-0 h-1 bg-linear-to-r from-blue-500 to-cyan-400 z-10"
             initial={{ width: 0 }}
             animate={{ width: '100%' }}
-            transition={{ duration: DURATION / 1000, ease: 'linear' }}
+            transition={{ duration: TIMER_CHANGE_CARD / 1000, ease: 'linear' }}
           />
         )}
       </div>
