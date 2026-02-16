@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { navLinks } from '../data/navLinks';
+import { aboutMe } from '../data/aboutMe';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -87,7 +88,7 @@ const Header: React.FC = () => {
               onClick={() => setIsOpen(!isOpen)}
             >
               <a
-                href="https://www.hh.ru"
+                href={aboutMe.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hidden md:inline-flex px-5 py-2 bg-white text-black text-xs font-black uppercase rounded-full hover:bg-blue-500 hover:text-white transition-all"

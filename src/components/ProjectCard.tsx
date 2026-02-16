@@ -31,10 +31,10 @@ const ProjectCard: React.FC<any> = ({ project, isActive, open, isAutoPlaying }) 
             key={currentImg}
             src={project.screenshots[currentImg]}
             className="w-full h-full object-cover"
-            initial={{ opacity: 0, scale: 1.1 }}
+            initial={{ opacity: 0.1, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            exit={{ opacity: 0.1 }}
+            transition={{ duration: 0.4 }}
           />
         </AnimatePresence>
 
