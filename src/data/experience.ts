@@ -8,50 +8,72 @@ export interface ExperienceItem {
 }
 
 export const CHANGE_YEAR_INTERVAL = 5000;
-
 export const YEAR_EXP = 3;
 
 export const experienceData: ExperienceItem[] = [
   {
     period: '2023 - Present',
-    company: 'Tech Innovations Inc.',
-    position: 'Senior Frontend Developer',
+    company: 'Result University',
+    position: 'Frontend-разработчик (по совместительству)',
     description:
-      'Leading frontend development for enterprise-level SaaS applications using React, TypeScript, and modern web technologies.',
+      'Разработка full-stack приложений, UI-компонентов и участие в хакатонах в рамках стажировки.',
     achievements: [
-      'Reduced application bundle size by 40% through code splitting and lazy loading',
-      'Implemented comprehensive testing strategy increasing coverage to 90%',
-      'Mentored 3 junior developers and established team best practices',
-      'Improved application performance scores from 65 to 95 in Lighthouse',
+      'Разработал full-stack приложение для доставки еды (React, Express, MongoDB): корзина, фильтрация, личный кабинет.',
+      'Настроил контейнеризацию бэкенда с Docker, упростив деплой и тестирование.',
+      'Оптимизировал производительность фронтенда (useMemo, lazy loading) — ускорил загрузку страницы на 20%.',
+      'Создал библиотеку переиспользуемых UI-компонентов, использованную в трёх проектах команды.',
+      'Разработал Telegram-бота для сбора обратной связи (Grammy.js) — обработал более 500 сообщений.',
+      'Участвовал в хакатонах; в одном выступил тимлидом команды из 4 человек — заняли 2-е место.',
     ],
-    tags: ['React', 'TypeScript', 'Next.js', 'GraphQL'],
+    tags: ['React', 'Redux', 'Express.js', 'MongoDB', 'Docker', 'Grammy.js', 'Node.js'],
   },
   {
-    period: '2021 - 2023',
-    company: 'Digital Solutions LLC',
-    position: 'Frontend Developer',
+    period: '2024 - Present',
+    company: 'Строительная компания',
+    position: ' Участник проектов внедрения / Бухгалтер (по совместительству)',
     description:
-      'Developed responsive web applications and collaborated with design teams to create seamless user experiences.',
+      'Участие во внедрении 1С:ERP и интеграции Битрикс24, параллельное ведение бухгалтерского учёта и оптимизация рутинных процессов.',
     achievements: [
-      'Built 10+ reusable component libraries used across multiple projects',
-      'Integrated real-time features using WebSockets and Socket.io',
-      'Optimized rendering performance reducing FCP by 60%',
-      'Collaborated with UX team to implement design system',
+      'Выступал Product manager со стороны заказчика при внедрении 1С:ERP: собирал требования, формализовал задачи для подрядчиков, участвовал в приёмке — проект завершён на 2 месяца раньше плана.',
+      'Организовал интеграцию Битрикс24: настроил CRM, создал объектную структуру, обучил сотрудников — время обработки заявок сократилось на 30%, улучшен документооборот.',
+      'Автоматизировал рутинные бухгалтерские операции с помощью скриптов (выгрузка данных из Excel в 1С).',
     ],
-    tags: ['React', 'Redux', 'Sass', 'WebSocket'],
+    tags: ['1С:ERP', 'Битрикс24', 'Управление требованиями', 'Excel', 'Автоматизация'],
   },
   {
-    period: '2019 - 2021',
-    company: 'Web Studio Creative',
-    position: 'Junior Web Developer',
+    period: '2024 - Present',
+    company: 'Фриланс',
+    position: 'Frontend-разработчик (Самозанятый)',
     description:
-      'Started my career building websites and small web applications for various clients.',
+      'Разработка веб-приложений для частных заказчиков и собственные проекты с использованием современного стека технологий.',
     achievements: [
-      'Developed 50+ responsive websites for small businesses',
-      'Implemented SEO best practices improving client rankings',
-      'Learned modern JavaScript frameworks and build tools',
-      'Contributed to open-source projects to improve skills',
+      'Создал Check Repeat — приложение для поиска дубликатов счетов-фактур (React, Vite, Material UI). Заказчик — бухгалтерская компания. Инструмент сокращает время проверки в 3 раза.',
+      'Разработал QuickChat — PWA-чат с офлайн-режимом (React, Firebase, Service Worker). Приложение установили более 200 пользователей за первый месяц.',
+      'Реализовал Forms Constructor — платформу для создания форм с аналитикой (Next.js, NestJS, PostgreSQL, Docker, GitLab CI). Заказчик — маркетинговое агентство.',
+      'Создал несколько Telegram-ботов на Grammy.js (один обработал более 500 сообщений за месяц), игры и виджеты.',
     ],
-    tags: ['JavaScript', 'HTML/CSS', 'WordPress', 'PHP'],
+    tags: [
+      'React',
+      'TypeScript',
+      'Next.js',
+      'NestJS',
+      'Firebase',
+      'Docker',
+      'PostgreSQL',
+      'Material UI',
+    ],
+  },
+  {
+    period: '2019 - 2024',
+    company: 'ООО НеоПроф',
+    position: 'Бухгалтер',
+    description:
+      'Ведение бухгалтерского и управленческого учёта в компании с оборотом более 1 млрд ₽/год.',
+    achievements: [
+      'Вёл полный цикл учёта, участвовал в налоговых и аудиторских проверках (все пройдены без замечаний).',
+      'Автоматизировал подготовку отчётности с помощью Excel и макросов — сократил время закрытия месяца с 3 дней до 6 часов.',
+      'Опыт работы с большими объёмами данных развил внимательность к деталям и системное мышление, применяемые теперь в разработке.',
+    ],
+    tags: ['Excel', 'Макросы', 'Аналитика данных', 'Бухгалтерия', 'Автоматизация'],
   },
 ];

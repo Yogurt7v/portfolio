@@ -28,7 +28,7 @@ let base = [
   },
   {
     id: 5,
-    name: 'Junior Middle-разработчик',
+    name: 'Middle-разработчик',
     source: '/сertificate/middle.webp',
     issuer: 'Result University',
     date: '08-07-2025',
