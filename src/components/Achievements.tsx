@@ -28,7 +28,7 @@ const Achievements: React.FC = () => {
       <section className="py-12 sm:py-24 px-4 max-w-6xl mx-auto" id="achievements">
         <div className="flex flex-col items-center mb-12 sm:mb-20">
           <h2 className="text-3xl sm:text-5xl font-black italic uppercase tracking-tighter text-white">
-            Certificates<span className="text-blue-500">.</span>
+            Мои сертификаты<span className="text-blue-500">.</span>
           </h2>
           <div className="h-1 w-12 bg-blue-600 mt-2 rounded-full" />
         </div>

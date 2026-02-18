@@ -89,7 +89,96 @@ const Portfolio: React.FC = () => {
       transition={{ duration: 0.5 }}
       className="w-full overflow-hidden"
     >
-      <section id="projects" className="py-12 max-w-6xl mx-auto w-full px-4">
+      <section id="projects" className="mt-10 py-12 max-w-6xl mx-auto w-full px-4">
+        <div className="text-center mb-20">
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-5xl font-black text-white italic uppercase tracking-tighter"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org"
+              className="mx-2 inline-block"
+            >
+              {/* Верхняя стрелка */}
+              <path
+                d="M7 13L12 18L17 13"
+                stroke="#3b82f6"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <animate
+                  attributeName="opacity"
+                  values="0;1;0"
+                  dur="1.5s"
+                  repeatCount="indefinite"
+                />
+              </path>
+
+              {/* Нижняя стрелка */}
+              <path
+                d="M7 7L12 12L17 7"
+                stroke="#3b82f6"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <animate
+                  attributeName="opacity"
+                  values="1;0;1"
+                  dur="1.5s"
+                  repeatCount="indefinite"
+                />
+              </path>
+            </svg>
+            Мои проекты
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org"
+              className="mx-2 inline-block"
+            >
+              {/* Верхняя стрелка */}
+              <path
+                d="M7 13L12 18L17 13"
+                stroke="#3b82f6"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <animate
+                  attributeName="opacity"
+                  values="0;1;0"
+                  dur="1.5s"
+                  repeatCount="indefinite"
+                />
+              </path>
+
+              {/* Нижняя стрелка */}
+              <path
+                d="M7 7L12 12L17 7"
+                stroke="#3b82f6"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <animate
+                  attributeName="opacity"
+                  values="1;0;1"
+                  dur="1.5s"
+                  repeatCount="indefinite"
+                />
+              </path>
+            </svg>
+          </motion.h2>
+        </div>
         <div className="flex flex-col gap-8 md:gap-12">
           {/* Блок фильтров */}
           <div className="order-2 md:order-1">

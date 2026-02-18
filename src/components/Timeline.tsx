@@ -22,13 +22,16 @@ const Timeline: React.FC = () => {
       className="relative max-w-6xl mx-auto py-8 px-4 overflow-visible"
     >
       <div className="text-center mb-32">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-6xl font-black text-white italic uppercase tracking-tighter"
-        >
-          Experience<span className="text-blue-500 mx-2">.</span>
-        </motion.h2>
+        <div className="flex flex-col items-center mb-12 sm:mb-20">
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-3xl sm:text-5xl font-black italic uppercase tracking-tighter text-white"
+          >
+            Мои опыт<span className="text-blue-500">.</span>
+          </motion.h2>
+          <div className="h-1 w-12 bg-blue-600 mt-2 rounded-full" />
+        </div>
       </div>
 
       <div className="relative">

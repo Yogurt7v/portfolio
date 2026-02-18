@@ -32,11 +32,12 @@ const itemVariants = {
 const Skills: React.FC = () => {
   return (
     <section className="py-8 px-4 max-w-6xl mx-auto">
-      <h2 className="text-4xl font-bold mb-16 text-center italic uppercase">
-        Stack
-        <span className="text-blue-500">.</span>
-      </h2>
-
+      <div className="flex flex-col items-center mb-12 sm:mb-20">
+        <h2 className="text-3xl sm:text-5xl font-black italic uppercase tracking-tighter text-white">
+          Стек технологий<span className="text-blue-500">.</span>
+        </h2>
+        <div className="h-1 w-12 bg-blue-600 mt-2 rounded-full" />
+      </div>
       {/* Контейнер с сеткой, управляющий анимацией дочерних элементов */}
       <motion.div
         className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
