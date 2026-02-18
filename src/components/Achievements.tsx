@@ -51,7 +51,6 @@ const Achievements: React.FC = () => {
                 className="w-full h-full object-cover"
               />
 
-              {/* Оверлей: на мобилках деликатный градиент всегда, на десктопе - при ховере */}
               <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 p-3 sm:p-4 flex flex-col justify-end">
                 <span className="text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-widest mb-1">
                   {cert.issuer}

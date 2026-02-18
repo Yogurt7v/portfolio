@@ -17,21 +17,53 @@ import SkeletonCard from './SkeletonCard';
 export type Project = any;
 export const TIMER_CHANGE_CARD = 5000;
 
-// Варианты для контейнера секции (управляет каскадным появлением)
+// Хук для определения мобильности (безопасный для SSR)
+const useMobile = (breakpoint = 768) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [breakpoint]);
+
+  return isMobile;
+};
+
+// Хук для вычисления ширины слайда (зависит от рефа контейнера)
+const useSlideWidth = (
+  containerRef: React.RefObject<HTMLElement>,
+  isMobile: boolean,
+  initialWidth = 410,
+) => {
+  const [slideWidth, setSlideWidth] = useState(initialWidth);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        const parentWidth = containerRef.current.offsetWidth;
+        const padding = isMobile ? 32 : 64;
+        setSlideWidth(isMobile ? parentWidth - padding : initialWidth);
+      }
+    };
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, [containerRef, isMobile, initialWidth]);
+
+  return slideWidth;
+};
+
+// Варианты анимации (оставляем без изменений)
 const sectionVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      delayChildren: 0.2,
-      staggerChildren: 0.1,
-    },
+    transition: { delayChildren: 0.2, staggerChildren: 0.1 },
   },
 };
 
-// Варианты для заголовка
-
-// Варианты для блока фильтров
 const filtersVariants = {
   hidden: { opacity: 0, x: -30 },
   visible: {
@@ -41,7 +73,6 @@ const filtersVariants = {
   },
 };
 
-// Варианты для контейнера слайдера
 const sliderVariants = {
   hidden: { opacity: 0, scale: 0.9 },
   visible: {
@@ -51,7 +82,6 @@ const sliderVariants = {
   },
 };
 
-// Варианты для каждой карточки (появление при монтировании)
 const cardItemVariants = {
   hidden: { opacity: 0, scale: 0.8, y: 30 },
   visible: {
@@ -68,32 +98,12 @@ const Portfolio: React.FC = () => {
   const [previewProject, setPreviewProject] = useState<Project | null>(null);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isFeatured, setIsFeatured] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const [slideWidth, setSlideWidth] = useState(410);
   const gap = 24;
 
-  const updateWidth = useCallback(() => {
-    if (containerRef.current) {
-      const parentWidth = containerRef.current.offsetWidth;
-      const mobile = window.innerWidth < 768;
-      const padding = mobile ? 32 : 64;
-      if (mobile) {
-        setSlideWidth(parentWidth - padding);
-      } else {
-        setSlideWidth(410);
-      }
-      setIsMobile(mobile);
-    }
-  }, []);
-
-  useEffect(() => {
-    updateWidth();
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
-  }, [updateWidth]);
-
+  const isMobile = useMobile(); // получаем флаг мобильности
+  const slideWidth = useSlideWidth(containerRef, isMobile, 410);
   const effectiveWidth = slideWidth + gap;
 
   const filteredProjects = useMemo(() => {
@@ -169,7 +179,7 @@ const Portfolio: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {/* Кнопка Play/Pause (без изменений) */}
+          {/* Кнопка Play/Pause */}
           <button
             onClick={() => setIsAutoPlaying(!isAutoPlaying)}
             className="absolute bottom-4 right-4 md:bottom-6 md:right-8 z-10 p-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors"
@@ -198,7 +208,7 @@ const Portfolio: React.FC = () => {
             )}
           </button>
 
-          {/* Контейнер карточек (drag-слайдер) */}
+          {/* Контейнер карточек */}
           <motion.div
             className="flex gap-6 cursor-grab active:cursor-grabbing pb-8"
             drag="x"
@@ -208,7 +218,7 @@ const Portfolio: React.FC = () => {
             }}
             onDragStart={() => setIsAutoPlaying(false)}
             onDragEnd={(_, info) => {
-              const threshold = window.innerWidth < 768 ? 50 : slideWidth * 0.15;
+              const threshold = isMobile ? 50 : slideWidth * 0.15;
               if (info.offset.x < -threshold) next();
               else if (info.offset.x > threshold) prev();
             }}
@@ -220,10 +230,9 @@ const Portfolio: React.FC = () => {
                 key={project.id}
                 className="shrink-0"
                 style={{ width: slideWidth }}
-                variants={cardItemVariants} // анимация появления карточки
+                variants={cardItemVariants}
                 animate={{
-                  scale:
-                    index === currentSlide ? 1 : window.innerWidth < 768 ? 0.95 : 0.9,
+                  scale: index === currentSlide ? 1 : isMobile ? 0.95 : 0.9,
                   opacity: index === currentSlide ? 1 : 0.6,
                 }}
                 transition={{ duration: 0.4 }}
@@ -240,7 +249,7 @@ const Portfolio: React.FC = () => {
             ))}
           </motion.div>
 
-          {/* Индикаторы / кнопки навигации (без изменений) */}
+          {/* Индикаторы / кнопки навигации */}
           <div className="flex justify-center flex-wrap gap-2 mt-2 px-10">
             {isMobile ? (
               <>

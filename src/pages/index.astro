@@ -13,23 +13,16 @@ import {
 ---
 
 <html lang="ru">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/fav.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Портфолио</title>
-  </head>
   <body>
     <MainLayout title="Портфолио">
       <Header client:load />
       <About client:load />
-      <Portfolio client:only="react" />
+      <Portfolio client:load />
       <GithubSection client:visible />
       <Timeline client:visible />
       <Skills client:visible />
       <Achievements client:visible />
-      <Footer client:idle />
+      <Footer client:visible />
     </MainLayout>
   </body>
 </html>
