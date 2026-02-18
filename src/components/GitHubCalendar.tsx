@@ -59,7 +59,7 @@ const GithubSection = () => {
       // Единые названия для всей ветки компонентов
       initial="initial"
       whileInView="animate"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.55 }}
     >
       <motion.div
         variants={variants}

@@ -17,13 +17,58 @@ import SkeletonCard from './SkeletonCard';
 export type Project = any;
 export const TIMER_CHANGE_CARD = 5000;
 
+// Варианты для контейнера секции (управляет каскадным появлением)
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.2,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+// Варианты для заголовка
+
+// Варианты для блока фильтров
+const filtersVariants = {
+  hidden: { opacity: 0, x: -30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { type: 'spring', damping: 15, stiffness: 300 },
+  },
+};
+
+// Варианты для контейнера слайдера
+const sliderVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { type: 'spring', damping: 20, stiffness: 200 },
+  },
+};
+
+// Варианты для каждой карточки (появление при монтировании)
+const cardItemVariants = {
+  hidden: { opacity: 0, scale: 0.8, y: 30 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { type: 'spring', damping: 15, stiffness: 250 },
+  },
+};
+
 const Portfolio: React.FC = () => {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [previewProject, setPreviewProject] = useState<Project | null>(null);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isFeatured, setIsFeatured] = useState(false);
-  const [isMobile, setIsMobile] = useState(false); // ← новое состояние
+  const [isMobile, setIsMobile] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [slideWidth, setSlideWidth] = useState(410);
@@ -32,14 +77,14 @@ const Portfolio: React.FC = () => {
   const updateWidth = useCallback(() => {
     if (containerRef.current) {
       const parentWidth = containerRef.current.offsetWidth;
-      const mobile = window.innerWidth < 768; // определяем мобильность
-      const padding = mobile ? 32 : 64; // паддинги контейнера
+      const mobile = window.innerWidth < 768;
+      const padding = mobile ? 32 : 64;
       if (mobile) {
         setSlideWidth(parentWidth - padding);
       } else {
         setSlideWidth(410);
       }
-      setIsMobile(mobile); // обновляем состояние
+      setIsMobile(mobile);
     }
   }, []);
 
@@ -82,249 +127,164 @@ const Portfolio: React.FC = () => {
   }, [isAutoPlaying, next, previewProject]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, amount: 'some' }}
-      transition={{ duration: 0.5 }}
-      className="w-full overflow-hidden"
+    <motion.section
+      className="w-full overflow-hidden py-12 max-w-6xl mx-auto px-4"
+      id="projects"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={sectionVariants}
     >
-      <section id="projects" className="mt-10 py-12 max-w-6xl mx-auto w-full px-4">
-        <div className="text-center mb-20">
-          <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-5xl font-black text-white italic uppercase tracking-tighter"
+      <div className="flex flex-col gap-8 md:gap-12">
+        {/* Фильтры */}
+        <motion.div className="order-2 md:order-1" variants={filtersVariants}>
+          <TechFilters
+            bestFilter={() => {
+              setIsFeatured(!isFeatured);
+              setSelectedTechs([]);
+              setCurrentSlide(0);
+            }}
+            isBestMode={isFeatured}
+            allTechs={Array.from(
+              new Set(projects.flatMap((p) => p.techStack.map((t) => t.name))),
+            )}
+            selectedTechs={selectedTechs}
+            onToggle={(tech) => {
+              setSelectedTechs((prev) =>
+                prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech],
+              );
+              setIsFeatured(false);
+              setCurrentSlide(0);
+            }}
+            onClear={() => setSelectedTechs([])}
+          />
+        </motion.div>
+
+        {/* Слайдер */}
+        <motion.div
+          ref={containerRef}
+          className="order-1 md:order-2 relative p-4 sm:p-8 bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-4xl md:rounded-[2.5rem] shadow-2xl overflow-hidden"
+          variants={sliderVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          {/* Кнопка Play/Pause (без изменений) */}
+          <button
+            onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+            className="absolute bottom-4 right-4 md:bottom-6 md:right-8 z-10 p-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors"
+            title={isAutoPlaying ? 'Pause' : 'Play'}
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org"
-              className="mx-2 inline-block"
-            >
-              {/* Верхняя стрелка */}
-              <path
-                d="M7 13L12 18L17 13"
-                stroke="#3b82f6"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            {isAutoPlaying ? (
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="md:w-5 md:h-5"
               >
-                <animate
-                  attributeName="opacity"
-                  values="0;1;0"
-                  dur="1.5s"
-                  repeatCount="indefinite"
-                />
-              </path>
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+            ) : (
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="md:w-5 md:h-5"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            )}
+          </button>
 
-              {/* Нижняя стрелка */}
-              <path
-                d="M7 7L12 12L17 7"
-                stroke="#3b82f6"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <animate
-                  attributeName="opacity"
-                  values="1;0;1"
-                  dur="1.5s"
-                  repeatCount="indefinite"
-                />
-              </path>
-            </svg>
-            Мои проекты
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org"
-              className="mx-2 inline-block"
-            >
-              {/* Верхняя стрелка */}
-              <path
-                d="M7 13L12 18L17 13"
-                stroke="#3b82f6"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <animate
-                  attributeName="opacity"
-                  values="0;1;0"
-                  dur="1.5s"
-                  repeatCount="indefinite"
-                />
-              </path>
-
-              {/* Нижняя стрелка */}
-              <path
-                d="M7 7L12 12L17 7"
-                stroke="#3b82f6"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <animate
-                  attributeName="opacity"
-                  values="1;0;1"
-                  dur="1.5s"
-                  repeatCount="indefinite"
-                />
-              </path>
-            </svg>
-          </motion.h2>
-        </div>
-        <div className="flex flex-col gap-8 md:gap-12">
-          {/* Блок фильтров */}
-          <div className="order-2 md:order-1">
-            <TechFilters
-              bestFilter={() => {
-                setIsFeatured(!isFeatured);
-                setSelectedTechs([]);
-                setCurrentSlide(0);
-              }}
-              isBestMode={isFeatured}
-              allTechs={Array.from(
-                new Set(projects.flatMap((p) => p.techStack.map((t) => t.name))),
-              )}
-              selectedTechs={selectedTechs}
-              onToggle={(tech) => {
-                setSelectedTechs((prev) =>
-                  prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech],
-                );
-                setIsFeatured(false);
-                setCurrentSlide(0);
-              }}
-              onClear={() => setSelectedTechs([])}
-            />
-          </div>
-
-          <div
-            ref={containerRef}
-            className="order-1 md:order-2 relative p-4 sm:p-8 bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-4xl md:rounded-[2.5rem] shadow-2xl overflow-hidden"
+          {/* Контейнер карточек (drag-слайдер) */}
+          <motion.div
+            className="flex gap-6 cursor-grab active:cursor-grabbing pb-8"
+            drag="x"
+            dragConstraints={{
+              left: -(filteredProjects.length - 1) * effectiveWidth,
+              right: 0,
+            }}
+            onDragStart={() => setIsAutoPlaying(false)}
+            onDragEnd={(_, info) => {
+              const threshold = window.innerWidth < 768 ? 50 : slideWidth * 0.15;
+              if (info.offset.x < -threshold) next();
+              else if (info.offset.x > threshold) prev();
+            }}
+            animate={{ x: -currentSlide * effectiveWidth }}
+            transition={{ type: 'spring', stiffness: 260, damping: 30 }}
           >
-            {/* Кнопка Play/Pause */}
-            <button
-              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-              className="absolute bottom-4 right-4 md:bottom-6 md:right-8 z-10 p-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors"
-              title={isAutoPlaying ? 'Pause' : 'Play'}
-            >
-              {isAutoPlaying ? (
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="md:w-5 md:h-5"
-                >
-                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-                </svg>
-              ) : (
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="md:w-5 md:h-5"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              )}
-            </button>
-
-            <motion.div
-              className="flex gap-6 cursor-grab active:cursor-grabbing pb-8"
-              drag="x"
-              dragConstraints={{
-                left: -(filteredProjects.length - 1) * effectiveWidth,
-                right: 0,
-              }}
-              onDragStart={() => setIsAutoPlaying(false)}
-              onDragEnd={(_, info) => {
-                const threshold = window.innerWidth < 768 ? 50 : slideWidth * 0.15;
-                if (info.offset.x < -threshold) next();
-                else if (info.offset.x > threshold) prev();
-              }}
-              animate={{ x: -currentSlide * effectiveWidth }}
-              transition={{ type: 'spring', stiffness: 260, damping: 30 }}
-            >
-              {filteredProjects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  className="shrink-0"
-                  style={{ width: slideWidth }}
-                  animate={{
-                    scale:
-                      index === currentSlide ? 1 : window.innerWidth < 768 ? 0.95 : 0.9,
-                    opacity: index === currentSlide ? 1 : 0.6,
-                  }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <Suspense fallback={<SkeletonCard />}>
-                    <ProjectCard
-                      project={project}
-                      isActive={index === currentSlide}
-                      open={setPreviewProject}
-                      isAutoPlaying={isAutoPlaying}
-                    />
-                  </Suspense>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* ИНДИКАТОРЫ / КНОПКИ НАВИГАЦИИ */}
-            <div className="flex justify-center flex-wrap gap-2 mt-2 px-10">
-              {isMobile ? (
-                // На мобильных устройствах показываем кнопки "Prev" и "Next"
-                <>
-                  <button
-                    onClick={() => {
-                      prev();
-                      setIsAutoPlaying(false);
-                    }}
-                    className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors flex items-center gap-1"
-                  >
-                    <span>←</span> Prev
-                  </button>
-                  <button
-                    onClick={() => {
-                      next();
-                      setIsAutoPlaying(false);
-                    }}
-                    className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors flex items-center gap-1"
-                  >
-                    Next <span>→</span>
-                  </button>
-                </>
-              ) : (
-                // На десктопе — точки
-                filteredProjects.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => {
-                      setCurrentSlide(i);
-                      setIsAutoPlaying(false);
-                    }}
-                    className={`h-2 rounded-full transition-all duration-300 hover:cursor-pointer ${
-                      i === currentSlide
-                        ? 'bg-blue-500 w-6 md:w-18'
-                        : 'bg-white/20 w-1.5 md:w-2'
-                    }`}
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                className="shrink-0"
+                style={{ width: slideWidth }}
+                variants={cardItemVariants} // анимация появления карточки
+                animate={{
+                  scale:
+                    index === currentSlide ? 1 : window.innerWidth < 768 ? 0.95 : 0.9,
+                  opacity: index === currentSlide ? 1 : 0.6,
+                }}
+                transition={{ duration: 0.4 }}
+              >
+                <Suspense fallback={<SkeletonCard />}>
+                  <ProjectCard
+                    project={project}
+                    isActive={index === currentSlide}
+                    open={setPreviewProject}
+                    isAutoPlaying={isAutoPlaying}
                   />
-                ))
-              )}
-            </div>
-          </div>
-        </div>
+                </Suspense>
+              </motion.div>
+            ))}
+          </motion.div>
 
-        <Modal previewProject={previewProject} setPreviewProject={setPreviewProject} />
-      </section>
-    </motion.div>
+          {/* Индикаторы / кнопки навигации (без изменений) */}
+          <div className="flex justify-center flex-wrap gap-2 mt-2 px-10">
+            {isMobile ? (
+              <>
+                <button
+                  onClick={() => {
+                    prev();
+                    setIsAutoPlaying(false);
+                  }}
+                  className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors flex items-center gap-1"
+                >
+                  <span>←</span> Prev
+                </button>
+                <button
+                  onClick={() => {
+                    next();
+                    setIsAutoPlaying(false);
+                  }}
+                  className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors flex items-center gap-1"
+                >
+                  Next <span>→</span>
+                </button>
+              </>
+            ) : (
+              filteredProjects.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    setCurrentSlide(i);
+                    setIsAutoPlaying(false);
+                  }}
+                  className={`h-2 rounded-full transition-all duration-300 hover:cursor-pointer ${
+                    i === currentSlide
+                      ? 'bg-blue-500 w-6 md:w-18'
+                      : 'bg-white/20 w-1.5 md:w-2'
+                  }`}
+                />
+              ))
+            )}
+          </div>
+        </motion.div>
+      </div>
+
+      <Modal previewProject={previewProject} setPreviewProject={setPreviewProject} />
+    </motion.section>
   );
 };
 

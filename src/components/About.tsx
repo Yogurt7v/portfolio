@@ -2,6 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { aboutMe } from '../data/aboutMe';
 
+const titleVariants = {
+  hidden: { opacity: 0, y: -30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', damping: 15, stiffness: 300 },
+  },
+};
+
 const About: React.FC = () => {
   return (
     <section
@@ -70,6 +79,92 @@ const About: React.FC = () => {
           </div>
         </motion.div>
       </div>
+      {/* Заголовок */}
+      <motion.div
+        className="text-center mt-20"
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        variants={titleVariants}
+      >
+        <h2 className="text-3xl sm:text-5xl font-black italic uppercase tracking-tighter text-white">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org"
+            className="mx-2 inline-block"
+          >
+            <path
+              d="M7 13L12 18L17 13"
+              stroke="#3b82f6"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <animate
+                attributeName="opacity"
+                values="0;1;0"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+            </path>
+            <path
+              d="M7 7L12 12L17 7"
+              stroke="#3b82f6"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0;1"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+            </path>
+          </svg>
+          Мои проекты
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org"
+            className="mx-2 inline-block"
+          >
+            <path
+              d="M7 13L12 18L17 13"
+              stroke="#3b82f6"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <animate
+                attributeName="opacity"
+                values="0;1;0"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+            </path>
+            <path
+              d="M7 7L12 12L17 7"
+              stroke="#3b82f6"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0;1"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+            </path>
+          </svg>
+        </h2>
+      </motion.div>
     </section>
   );
 };
