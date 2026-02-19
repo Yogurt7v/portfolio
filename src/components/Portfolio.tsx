@@ -10,52 +10,15 @@ import React, {
 import { motion } from 'framer-motion';
 const ProjectCard = lazy(() => import('./ProjectCard'));
 import TechFilters from './TechFilters';
-import { projects } from '../data/projects';
 import Modal from './Modal';
 import SkeletonCard from './SkeletonCard';
+import { useMobile } from '../hooks/useMobile';
+import { getProjects } from '../api/getProjects';
+import { useSlideWidth } from '../hooks/useSlideWidth';
 
-export type Project = any;
 export const TIMER_CHANGE_CARD = 5000;
 
-// Хук для определения мобильности (безопасный для SSR)
-const useMobile = (breakpoint = 768) => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, [breakpoint]);
-
-  return isMobile;
-};
-
-// Хук для вычисления ширины слайда (зависит от рефа контейнера)
-const useSlideWidth = (
-  containerRef: React.RefObject<HTMLElement>,
-  isMobile: boolean,
-  initialWidth = 410,
-) => {
-  const [slideWidth, setSlideWidth] = useState(initialWidth);
-
-  useEffect(() => {
-    const updateWidth = () => {
-      if (containerRef.current) {
-        const parentWidth = containerRef.current.offsetWidth;
-        const padding = isMobile ? 32 : 64;
-        setSlideWidth(isMobile ? parentWidth - padding : initialWidth);
-      }
-    };
-    updateWidth();
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
-  }, [containerRef, isMobile, initialWidth]);
-
-  return slideWidth;
-};
-
-// Варианты анимации (оставляем без изменений)
+// Варианты анимации
 const sectionVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -99,34 +62,43 @@ const Portfolio: React.FC = () => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isFeatured, setIsFeatured] = useState(false);
 
+  // Динамическая загрузка данных
+  const { projectsData, isProjectsLoading } = getProjects();
+
   const containerRef = useRef<HTMLDivElement>(null);
   const gap = 24;
 
-  const isMobile = useMobile(); // получаем флаг мобильности
+  const isMobile = useMobile();
   const slideWidth = useSlideWidth(containerRef, isMobile, 410);
   const effectiveWidth = slideWidth + gap;
 
+  // Мемоизация отфильтрованных проектов (используем projectsData)
   const filteredProjects = useMemo(() => {
+    // Пока данные грузятся, возвращаем пустой массив, чтобы избежать ошибок
+    if (isProjectsLoading) return [];
+
     if (selectedTechs.length > 0) {
-      return projects.filter((p) =>
+      return projectsData.filter((p: Project) =>
         p.techStack.some((t) => selectedTechs.includes(t.name)),
       );
     }
-    return isFeatured ? projects.filter((p) => p.isFeatured) : projects;
-  }, [selectedTechs, isFeatured]);
+    return isFeatured ? projectsData.filter((p: Project) => p.isFeatured) : projectsData;
+  }, [selectedTechs, isFeatured, projectsData, isProjectsLoading]);
 
   const next = useCallback(
     () => setCurrentSlide((p) => (p + 1) % filteredProjects.length),
     [filteredProjects.length],
   );
+
   const prev = useCallback(
     () => setCurrentSlide((p) => (p === 0 ? filteredProjects.length - 1 : p - 1)),
     [filteredProjects.length],
   );
 
+  // Автопереключение слайдов
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
-    if (isAutoPlaying && !previewProject) {
+    if (isAutoPlaying && !previewProject && filteredProjects.length > 0) {
       interval = setInterval(() => {
         next();
       }, TIMER_CHANGE_CARD);
@@ -134,7 +106,30 @@ const Portfolio: React.FC = () => {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isAutoPlaying, next, previewProject]);
+  }, [isAutoPlaying, next, previewProject, filteredProjects.length]);
+
+  // Если данные загружаются — показываем заглушки (например, несколько скелетонов)
+  if (isProjectsLoading) {
+    return (
+      <section className="w-full py-12 max-w-6xl mx-auto px-4" id="projects">
+        <div className="flex flex-col gap-8 md:gap-12">
+          <div className="order-2 md:order-1">
+            {/* Можно показать скелетон фильтров, но для простоты пропустим */}
+            <div className="h-12 bg-slate-800/50 rounded-full animate-pulse" />
+          </div>
+          <div className="order-1 md:order-2 relative p-4 sm:p-8 bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-4xl md:rounded-[2.5rem] shadow-2xl overflow-hidden">
+            <div className="flex gap-6 pb-8">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="shrink-0" style={{ width: slideWidth }}>
+                  <SkeletonCard />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <motion.section
@@ -156,7 +151,9 @@ const Portfolio: React.FC = () => {
             }}
             isBestMode={isFeatured}
             allTechs={Array.from(
-              new Set(projects.flatMap((p) => p.techStack.map((t) => t.name))),
+              new Set(
+                projectsData.flatMap((p: Project) => p.techStack.map((t) => t.name)),
+              ),
             )}
             selectedTechs={selectedTechs}
             onToggle={(tech) => {
@@ -239,7 +236,7 @@ const Portfolio: React.FC = () => {
               >
                 <Suspense fallback={<SkeletonCard />}>
                   <ProjectCard
-                    project={project}
+                    project={project} // ← теперь передаём конкретный проект
                     isActive={index === currentSlide}
                     open={setPreviewProject}
                     isAutoPlaying={isAutoPlaying}

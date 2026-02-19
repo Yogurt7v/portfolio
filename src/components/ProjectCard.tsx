@@ -28,6 +28,7 @@ const ProjectCard: React.FC<any> = ({ project, isActive, open, isAutoPlaying }) 
       >
         <AnimatePresence mode="wait">
           <motion.img
+            loading="lazy"
             key={currentImg}
             src={project.screenshots[currentImg]}
             className="w-full h-full object-cover"
