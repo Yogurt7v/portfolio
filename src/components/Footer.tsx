@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import ContactModal from './ContactModal';
+import { AccentButton } from '../ui/AccentButton';
+import { TelegramLogo } from '../icons/TelegramLogo';
+import { MailBox } from '../icons/MailBox';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [isContactOpen, setIsContactOpen] = useState(false);
+
+  const openLink = (url: string) => {
+    if (typeof window !== 'undefined') {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   return (
     <footer className="relative py-8 px-4 overflow-hidden max-w-5xl mx-auto" id="contact">
@@ -34,25 +43,20 @@ const Footer = () => {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="flex flex-wrap justify-center gap-6 mb-20"
           >
-            <button
+            <AccentButton
+              title={'Написать на почту'}
+              className=""
               onClick={() => setIsContactOpen(true)}
-              className="px-8 py-4 bg-blue-600 text-white rounded-full font-bold text-lg shadow-xl hover:bg-blue-700 hover:scale-105 transition-all duration-300 flex items-center gap-2"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-              </svg>
-              Написать на почту
-            </button>
-            <a
-              href="https://t.me/yogurt7v"
-              className="px-8 py-4 bg-slate-800 text-white rounded-full font-bold text-lg shadow-xl hover:bg-slate-700 hover:scale-105 transition-all duration-300 flex items-center gap-2"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M11.944 0C5.352 0 0 5.352 0 12s5.352 12 12 12 12-5.352 12-12S18.536 0 11.944 0zm5.832 8.333l-2.041 9.63c-.154.677-.554.843-1.12.525l-3.111-2.293-1.5 1.444c-.166.166-.307.307-.63.307l.222-3.159 5.75-5.194c.25-.222-.054-.346-.388-.124l-7.105 4.473-3.062-.957c-.667-.208-.68-.667.139-.986l11.972-4.611c.554-.208 1.04.124.864.925z" />
-              </svg>
-              Telegram
-            </a>
+              accent="main"
+              icon={<MailBox />}
+            />
+            <AccentButton
+              title={'Telegram'}
+              className=""
+              onClick={() => openLink('https://t.me/yogurt7v')}
+              accent="second"
+              icon={<TelegramLogo />}
+            />
           </motion.div>
         </div>
 

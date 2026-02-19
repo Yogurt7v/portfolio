@@ -1,4 +1,19 @@
-export const projects = [
+export interface Project {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+  screenshots: string[];
+  videoUrl: string;
+  techStack: {
+    name: string;
+  }[];
+  isFeatured: boolean;
+  gitHubLink: string;
+  link: string;
+}
+
+export const projects: Project[] = [
   {
     id: 1,
     title: 'Портфолио',
