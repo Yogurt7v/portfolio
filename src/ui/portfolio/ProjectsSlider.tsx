@@ -6,7 +6,7 @@ import { useSlideWidth } from '../../hooks/useSlideWidth';
 import { GAP } from '../../utils/constants';
 import { useVisibleIndexes } from '../../hooks/useVisibleIndexes';
 import { cardItemVariants, sliderVariants } from '../../utils/animations';
-import SkeletonCard from '../../components/SkeletonCard';
+import SkeletonCard from './SkeletonCard';
 import PlayPauseButton from './PlayPauseButton';
 import SliderControls from './SliderControls';
 

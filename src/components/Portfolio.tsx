@@ -6,8 +6,8 @@ import { getProjects } from '../api/getProjects';
 import type { Project } from '../data/projects';
 import { useAutoPlay } from '../hooks/useAutoPlay';
 import ProjectsSkeleton from '../ui/Portfolio/ProjectsSkeleton';
-import { filtersVariants, sectionVariants } from '../utils/animations';
 import ProjectsSlider from '../ui/Portfolio/ProjectsSlider';
+import { filtersVariants, sectionVariants } from '../utils/animations';
 
 const Portfolio: React.FC = () => {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
