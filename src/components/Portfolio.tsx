@@ -8,6 +8,7 @@ import { useAutoPlay } from '../hooks/useAutoPlay';
 import ProjectsSkeleton from './ProjectsSkeleton';
 import ProjectsSlider from '../ui/Portfolio/ProjectsSlider';
 import { filtersVariants, sectionVariants } from '../utils/animations';
+import { INITIAL_WIDTH } from '../utils/constants';
 
 const Portfolio: React.FC = () => {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
@@ -44,7 +45,7 @@ const Portfolio: React.FC = () => {
 
   // Показать скелетон во время загрузки
   if (isProjectsLoading) {
-    return <ProjectsSkeleton slideWidth={410} />;
+    return <ProjectsSkeleton slideWidth={INITIAL_WIDTH} />;
   }
 
   return (

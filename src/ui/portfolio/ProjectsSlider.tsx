@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import type { Project } from '../../data/projects';
 import { useMobile } from '../../hooks/useMobile';
 import { useSlideWidth } from '../../hooks/useSlideWidth';
-import { GAP } from '../../utils/constants';
+import { GAP, INITIAL_WIDTH } from '../../utils/constants';
 import { useVisibleIndexes } from '../../hooks/useVisibleIndexes';
 import { cardItemVariants, sliderVariants } from '../../utils/animations';
 import SkeletonCard from './SkeletonCard';
@@ -33,7 +33,7 @@ const ProjectsSlider: React.FC<ProjectsSliderProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useMobile();
-  const slideWidth = useSlideWidth(containerRef, isMobile, 410);
+  const slideWidth = useSlideWidth(containerRef, isMobile, INITIAL_WIDTH);
   const effectiveWidth = slideWidth + GAP;
 
   const visibleIndexes = useVisibleIndexes(currentSlide, projects.length);
@@ -72,7 +72,8 @@ const ProjectsSlider: React.FC<ProjectsSliderProps> = ({
       />
 
       <motion.div
-        className="flex gap-6 cursor-grab active:cursor-grabbing pt-8"
+        className="flex cursor-grab active:cursor-grabbing pt-8"
+        style={{ gap: GAP }}
         drag="x"
         dragConstraints={{
           left: -(projects.length - 1) * effectiveWidth,
@@ -80,7 +81,7 @@ const ProjectsSlider: React.FC<ProjectsSliderProps> = ({
         }}
         onDragStart={disableAutoPlay}
         onDragEnd={handleDragEnd}
-        animate={{ x: -currentSlide * effectiveWidth }}
+        animate={{ x: -currentSlide * (slideWidth + GAP) }}
         transition={{ type: 'spring', stiffness: 260, damping: 30 }}
       >
         {projects.map((project, index) => (

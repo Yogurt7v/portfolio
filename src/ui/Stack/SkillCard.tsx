@@ -13,7 +13,7 @@ const SkillCard: React.FC<SkillCardProps> = ({ name, level }) => {
     <motion.div
       variants={itemVariants}
       whileHover={{ y: -5, backgroundColor: 'rgba(255,255,255,0.05)' }}
-      className="p-4 rounded-2xl bg-white/3 border border-white/10 flex flex-col items-center justify-center gap-3 hover:bg-white/5 transition-all"
+      className="p-4 rounded-2xl bg-white/3 border border-white/10 flex flex-col items-center justify-center -3 hover:bg-white/5 transition-all"
     >
       <div
         className={`text-2xl font-black mb-2 transition-transform group-hover:scale-110 ${getSkillColor(name)}`}

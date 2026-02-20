@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { TIMER_CHANGE_CARD } from '../utils/constants';
 
 export const useAutoPlay = (
@@ -7,15 +7,19 @@ export const useAutoPlay = (
   totalItems: number,
   onNext: () => void,
 ) => {
+  const savedCallback = useRef(onNext);
+
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval>;
-    if (isAutoPlaying && !isPreviewOpen && totalItems > 0) {
-      interval = setInterval(() => {
-        onNext();
+    savedCallback.current = onNext;
+  }, [onNext]);
+
+  useEffect(() => {
+    if (isAutoPlaying && !isPreviewOpen && totalItems > 1) {
+      const interval = setInterval(() => {
+        savedCallback.current();
       }, TIMER_CHANGE_CARD);
+
+      return () => clearInterval(interval);
     }
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [isAutoPlaying, isPreviewOpen, totalItems, onNext]);
+  }, [isAutoPlaying, isPreviewOpen, totalItems]); // Убрали onNext из зависимостей
 };

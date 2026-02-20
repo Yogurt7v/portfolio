@@ -1,9 +1,10 @@
 import { useLayoutEffect, useState } from 'react';
+import { INITIAL_WIDTH } from '../utils/constants';
 
 export const useSlideWidth = (
   containerRef: React.RefObject<HTMLElement>,
   isMobile: boolean,
-  initialWidth = 410,
+  initialWidth = INITIAL_WIDTH,
 ) => {
   const [slideWidth, setSlideWidth] = useState(initialWidth);
 
