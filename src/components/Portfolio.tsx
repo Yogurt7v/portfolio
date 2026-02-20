@@ -236,7 +236,7 @@ const Portfolio: React.FC = () => {
               >
                 <Suspense fallback={<SkeletonCard />}>
                   <ProjectCard
-                    project={project} // ← теперь передаём конкретный проект
+                    project={project}
                     isActive={index === currentSlide}
                     open={setPreviewProject}
                     isAutoPlaying={isAutoPlaying}

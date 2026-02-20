@@ -65,7 +65,7 @@ const Footer = () => {
           <p>© {currentYear} Egorov Sergey. Все права защищены.</p>
           <div className="flex gap-8">
             <a
-              href="#"
+              href="./resume.pdf"
               target="_blank"
               download={'.resume.pdf'}
               className="hover:text-white transition-colors underline"

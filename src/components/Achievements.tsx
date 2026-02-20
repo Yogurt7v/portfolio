@@ -100,6 +100,7 @@ const Achievements: React.FC = () => {
 
                 <div className="p-1 bg-black/40 flex items-center justify-center min-h-[200px]">
                   <motion.img
+                    loading="lazy"
                     layoutId={`cert-img-${selectedCert.id}`}
                     src={selectedCert.source} // В модалке грузим нормальное изображение
                     alt={selectedCert.name}

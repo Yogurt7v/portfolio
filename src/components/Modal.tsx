@@ -153,7 +153,12 @@ const Modal: React.FC<ModalProps> = ({ previewProject, setPreviewProject }) => {
                     className="relative shrink-0 w-32 h-20 sm:w-40 sm:h-24 rounded-lg overflow-hidden border border-white/10 cursor-pointer"
                     onClick={() => openScreenshotModal(index)}
                   >
-                    <img src={screenshot} alt="" className="w-full h-full object-cover" />
+                    <img
+                      loading="lazy"
+                      src={screenshot}
+                      alt=""
+                      className="w-full h-full object-cover"
+                    />
                   </motion.div>
                 ))}
               </div>
