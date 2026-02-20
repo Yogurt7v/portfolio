@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 export const useSlideWidth = (
   containerRef: React.RefObject<HTMLElement>,
@@ -7,7 +7,7 @@ export const useSlideWidth = (
 ) => {
   const [slideWidth, setSlideWidth] = useState(initialWidth);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateWidth = () => {
       if (containerRef.current) {
         const parentWidth = containerRef.current.offsetWidth;

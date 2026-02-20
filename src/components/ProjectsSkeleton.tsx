@@ -1,5 +1,5 @@
 import React from 'react';
-import SkeletonCard from './SkeletonCard';
+import SkeletonCard from '../ui/Portfolio/SkeletonCard';
 
 interface ProjectsSkeletonProps {
   slideWidth: number;
