@@ -35,7 +35,7 @@ const Portfolio: React.FC = () => {
     setCurrentSlide(0);
   }, [filteredProjects]);
 
-  // Автопереключение
+  // Авто переключение
   const next = useCallback(() => {
     setCurrentSlide((p) => (p + 1) % filteredProjects.length);
   }, [filteredProjects.length]);
