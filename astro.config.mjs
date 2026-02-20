@@ -10,8 +10,12 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
+  compressHTML: true,
   integrations: [react(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      minify: 'esbuild', // Или 'terser' для более агрессивной минификации
+    },
   },
 });

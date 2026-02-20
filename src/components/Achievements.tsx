@@ -93,7 +93,7 @@ const Achievements: React.FC = () => {
               >
                 <button
                   onClick={() => setSelectedCert(null)}
-                  className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-white/10 text-white rounded-full backdrop-blur-xl border border-white/10 hover:bg-white hover:text-black transition-all"
+                  className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-white/10 text-black rounded-full backdrop-blur-xl border border-black hover:bg-white hover:text-black transition-all"
                 >
                   ✕
                 </button>

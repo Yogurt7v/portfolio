@@ -11,7 +11,6 @@ export const MainFoto = () => {
         <div className="absolute inset-0 z-20 pointer-events-none rounded-3xl shadow-[inset_0_0_8px_rgba(59,130,246,0.2)]" />
 
         <img
-          loading="lazy"
           src={aboutMe.myPhoto}
           alt="Фото"
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"

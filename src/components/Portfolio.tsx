@@ -15,8 +15,12 @@ import SkeletonCard from './SkeletonCard';
 import { useMobile } from '../hooks/useMobile';
 import { getProjects } from '../api/getProjects';
 import { useSlideWidth } from '../hooks/useSlideWidth';
+import type { Project } from '../data/projects';
 
 export const TIMER_CHANGE_CARD = 5000;
+
+// Сколько карточек слева и справа от текущей рендерить полностью
+const RENDER_BUFFER = 2;
 
 // Варианты анимации
 const sectionVariants = {
@@ -72,9 +76,8 @@ const Portfolio: React.FC = () => {
   const slideWidth = useSlideWidth(containerRef, isMobile, 410);
   const effectiveWidth = slideWidth + gap;
 
-  // Мемоизация отфильтрованных проектов (используем projectsData)
+  // Мемоизация отфильтрованных проектов
   const filteredProjects = useMemo(() => {
-    // Пока данные грузятся, возвращаем пустой массив, чтобы избежать ошибок
     if (isProjectsLoading) return [];
 
     if (selectedTechs.length > 0) {
@@ -85,15 +88,31 @@ const Portfolio: React.FC = () => {
     return isFeatured ? projectsData.filter((p: Project) => p.isFeatured) : projectsData;
   }, [selectedTechs, isFeatured, projectsData, isProjectsLoading]);
 
-  const next = useCallback(
-    () => setCurrentSlide((p) => (p + 1) % filteredProjects.length),
-    [filteredProjects.length],
-  );
+  // Множество индексов, которые должны рендериться полностью
+  const visibleIndexes = useMemo(() => {
+    if (filteredProjects.length === 0) return new Set<number>();
+    const start = Math.max(0, currentSlide - RENDER_BUFFER);
+    const end = Math.min(filteredProjects.length - 1, currentSlide + RENDER_BUFFER);
+    const indexes = [];
+    for (let i = start; i <= end; i++) {
+      indexes.push(i);
+    }
+    return new Set(indexes);
+  }, [currentSlide, filteredProjects.length]);
 
-  const prev = useCallback(
-    () => setCurrentSlide((p) => (p === 0 ? filteredProjects.length - 1 : p - 1)),
-    [filteredProjects.length],
-  );
+  // Сброс currentSlide при изменении фильтров
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [filteredProjects]);
+
+  // Навигация (по полному массиву)
+  const next = useCallback(() => {
+    setCurrentSlide((p) => (p + 1) % filteredProjects.length);
+  }, [filteredProjects.length]);
+
+  const prev = useCallback(() => {
+    setCurrentSlide((p) => (p === 0 ? filteredProjects.length - 1 : p - 1));
+  }, [filteredProjects.length]);
 
   // Автопереключение слайдов
   useEffect(() => {
@@ -108,13 +127,12 @@ const Portfolio: React.FC = () => {
     };
   }, [isAutoPlaying, next, previewProject, filteredProjects.length]);
 
-  // Если данные загружаются — показываем заглушки (например, несколько скелетонов)
+  // Состояние загрузки данных
   if (isProjectsLoading) {
     return (
       <section className="w-full py-12 max-w-6xl mx-auto px-4" id="projects">
         <div className="flex flex-col gap-8 md:gap-12">
           <div className="order-2 md:order-1">
-            {/* Можно показать скелетон фильтров, но для простоты пропустим */}
             <div className="h-12 bg-slate-800/50 rounded-full animate-pulse" />
           </div>
           <div className="order-1 md:order-2 relative p-4 sm:p-8 bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-4xl md:rounded-[2.5rem] shadow-2xl overflow-hidden">
@@ -141,7 +159,7 @@ const Portfolio: React.FC = () => {
       variants={sectionVariants}
     >
       <div className="flex flex-col gap-8 md:gap-12">
-        {/* Фильтры */}
+        {/* Фильтры (работают по всем проектам) */}
         <motion.div className="order-2 md:order-1" variants={filtersVariants}>
           <TechFilters
             bestFilter={() => {
@@ -170,7 +188,7 @@ const Portfolio: React.FC = () => {
         {/* Слайдер */}
         <motion.div
           ref={containerRef}
-          className="order-1 md:order-2 relative p-4 sm:p-8 bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-4xl md:rounded-[2.5rem] shadow-2xl overflow-hidden"
+          className="order-1 md:order-2 relative p-4 sm:px-8 py-0 bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-4xl md:rounded-[2.5rem] shadow-2xl overflow-hidden"
           variants={sliderVariants}
           initial="hidden"
           whileInView="visible"
@@ -178,6 +196,7 @@ const Portfolio: React.FC = () => {
         >
           {/* Кнопка Play/Pause */}
           <button
+            aria-label="Автозапуск"
             onClick={() => setIsAutoPlaying(!isAutoPlaying)}
             className="absolute bottom-4 right-4 md:bottom-6 md:right-8 z-10 p-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors"
             title={isAutoPlaying ? 'Pause' : 'Play'}
@@ -222,7 +241,7 @@ const Portfolio: React.FC = () => {
             animate={{ x: -currentSlide * effectiveWidth }}
             transition={{ type: 'spring', stiffness: 260, damping: 30 }}
           >
-            {filteredProjects.map((project, index) => (
+            {filteredProjects.map((project: Project, index) => (
               <motion.div
                 key={project.id}
                 className="shrink-0"
@@ -234,23 +253,30 @@ const Portfolio: React.FC = () => {
                 }}
                 transition={{ duration: 0.4 }}
               >
-                <Suspense fallback={<SkeletonCard />}>
-                  <ProjectCard
-                    project={project}
-                    isActive={index === currentSlide}
-                    open={setPreviewProject}
-                    isAutoPlaying={isAutoPlaying}
-                  />
-                </Suspense>
+                {visibleIndexes.has(index) ? (
+                  // Полноценная карточка с реальным содержимым
+                  <Suspense fallback={<SkeletonCard />}>
+                    <ProjectCard
+                      project={project}
+                      isActive={index === currentSlide}
+                      open={setPreviewProject}
+                      isAutoPlaying={isAutoPlaying}
+                    />
+                  </Suspense>
+                ) : (
+                  // Заглушка для ещё не загруженных карточек
+                  <SkeletonCard />
+                )}
               </motion.div>
             ))}
           </motion.div>
 
-          {/* Индикаторы / кнопки навигации */}
-          <div className="flex justify-center flex-wrap gap-2 mt-2 px-10">
+          {/* Индикаторы (отображают все проекты) */}
+          <div className="flex justify-center flex-wrap gap-2 mt-5 px-10 pb-6">
             {isMobile ? (
               <>
                 <button
+                  aria-label="Предыдущий проект"
                   onClick={() => {
                     prev();
                     setIsAutoPlaying(false);
@@ -260,6 +286,7 @@ const Portfolio: React.FC = () => {
                   <span>←</span> Prev
                 </button>
                 <button
+                  aria-label="Следующий проект"
                   onClick={() => {
                     next();
                     setIsAutoPlaying(false);
@@ -272,6 +299,7 @@ const Portfolio: React.FC = () => {
             ) : (
               filteredProjects.map((_, i) => (
                 <button
+                  aria-label="Просмотр проекта"
                   key={i}
                   onClick={() => {
                     setCurrentSlide(i);

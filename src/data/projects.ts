@@ -47,6 +47,9 @@ export const projects: Project[] = [
         name: 'Certbot',
       },
       {
+        name: 'Nginx',
+      },
+      {
         name: 'CI/CD',
       },
       {

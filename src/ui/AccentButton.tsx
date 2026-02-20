@@ -1,6 +1,4 @@
-import { a } from 'framer-motion/m';
 import type { ReactElement, ReactNode } from 'react';
-import type { JsxElement } from 'typescript';
 
 interface AccentButton {
   title: string;
