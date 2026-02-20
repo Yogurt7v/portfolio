@@ -74,3 +74,60 @@ export const modalVariants: Variants = {
   visible: { opacity: 1, scale: 1, y: 0 },
   exit: { opacity: 0, scale: 0.9, y: 20 },
 };
+
+export const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2, // задержка между появлениями дочерних элементов
+    },
+  },
+};
+
+export const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 30, rotateX: -15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: {
+      type: 'spring',
+      damping: 15,
+      stiffness: 150,
+      rotateX: { type: 'tween', duration: 0.4, ease: 'easeOut' }, // отдельная настройка для вращения
+    },
+  },
+};
+
+export const certContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+      delayChildren: 0.15,
+    },
+  },
+};
+
+export const certCardVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+    scale: 0.8,
+    rotate: -5,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotate: 0,
+    transition: {
+      type: 'spring',
+      damping: 12,
+      stiffness: 150,
+      mass: 0.6,
+    },
+  },
+};

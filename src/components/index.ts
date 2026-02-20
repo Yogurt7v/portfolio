@@ -1,10 +1,10 @@
 export { default as Portfolio } from './Portfolio';
 export { default as Experience } from './Experience';
 export { default as Footer } from './Footer';
-export { default as Skills } from './Skills';
+export { default as Stack } from './Stack';
 export { default as Header } from './Header';
 export { default as About } from './About';
 export { default as GithubSection } from './GitHubCalendar';
 export { default as BackgroundGradient } from './BackgroundGlow';
 export { default as Loader } from './Loader';
-export { default as Achievements } from './Achievements';
+export { default as MyCertificates } from './MyCertificates';

@@ -3,12 +3,12 @@ import MainLayout from '../layouts/MainLayout.astro';
 import {
   Portfolio,
   Footer,
-  Skills,
   Header,
   About,
   GithubSection,
-  Achievements,
   Experience,
+  Stack,
+  MyCertificates,
 } from '../components';
 import { AboutSite } from '../data/aboutSite';
 ---
@@ -50,8 +50,8 @@ import { AboutSite } from '../data/aboutSite';
       <Portfolio client:load />
       <GithubSection client:load />
       <Experience client:visible />
-      <Skills client:visible />
-      <Achievements client:visible />
+      <Stack client:visible />
+      <MyCertificates client:visible />
       <Footer client:visible />
     </MainLayout>
   </body>
