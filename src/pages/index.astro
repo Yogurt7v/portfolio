@@ -2,13 +2,13 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import {
   Portfolio,
-  Timeline,
   Footer,
   Skills,
   Header,
   About,
   GithubSection,
   Achievements,
+  Experience,
 } from '../components';
 import { AboutSite } from '../data/aboutSite';
 ---
@@ -49,7 +49,7 @@ import { AboutSite } from '../data/aboutSite';
       <About client:load />
       <Portfolio client:load />
       <GithubSection client:load />
-      <Timeline client:visible />
+      <Experience client:visible />
       <Skills client:visible />
       <Achievements client:visible />
       <Footer client:visible />

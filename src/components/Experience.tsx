@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { experienceData } from '../data/experience';
 
-const Timeline: React.FC = () => {
+const Experience: React.FC = () => {
   const containerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -129,4 +129,4 @@ const Timeline: React.FC = () => {
   );
 };
 
-export default Timeline;
+export default Experience;

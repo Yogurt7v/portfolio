@@ -5,9 +5,9 @@ import Modal from './Modal';
 import { getProjects } from '../api/getProjects';
 import type { Project } from '../data/projects';
 import { useAutoPlay } from '../hooks/useAutoPlay';
-import ProjectsSkeleton from '../ui/portfolio/ProjectsSkeleton';
+import ProjectsSkeleton from '../ui/Portfolio/ProjectsSkeleton';
 import { filtersVariants, sectionVariants } from '../utils/animations';
-import ProjectsSlider from '../ui/portfolio/ProjectsSlider';
+import ProjectsSlider from '../ui/Portfolio/ProjectsSlider';
 
 const Portfolio: React.FC = () => {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
@@ -90,7 +90,7 @@ const Portfolio: React.FC = () => {
           setCurrentSlide={setCurrentSlide}
           isAutoPlaying={isAutoPlaying}
           setIsAutoPlaying={setIsAutoPlaying}
-          openPreview={setPreviewProject}
+          onOpenPreview={setPreviewProject}
         />
       </div>
 

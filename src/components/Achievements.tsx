@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { certificates } from '../data/certificate'; // предполагаемый путь
 import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
 import type { Certificate } from '../types/certificate';
-import CertCard from '../ui/achievements/CertCard';
-import CertModal from '../ui/achievements/CertModal';
+import CertCard from '../ui/Achievements/CertCard';
+import CertModal from '../ui/Achievements/CertModal';
 
 // Анимация для контейнера с карточками (stagger)
 const containerVariants = {

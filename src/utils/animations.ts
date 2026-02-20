@@ -1,4 +1,6 @@
-export const sectionVariants = {
+import type { Variants } from 'framer-motion';
+
+export const sectionVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -6,7 +8,7 @@ export const sectionVariants = {
   },
 };
 
-export const filtersVariants = {
+export const filtersVariants: Variants = {
   hidden: { opacity: 0, x: -30 },
   visible: {
     opacity: 1,
@@ -15,7 +17,7 @@ export const filtersVariants = {
   },
 };
 
-export const sliderVariants = {
+export const sliderVariants: Variants = {
   hidden: { opacity: 0, scale: 0.9 },
   visible: {
     opacity: 1,
@@ -24,7 +26,7 @@ export const sliderVariants = {
   },
 };
 
-export const cardItemVariants = {
+export const cardItemVariants: Variants = {
   hidden: { opacity: 0, scale: 0.8, y: 30 },
   visible: {
     opacity: 1,
@@ -34,7 +36,7 @@ export const cardItemVariants = {
   },
 };
 
-export const gitVariants = {
+export const gitVariants: Variants = {
   initial: { opacity: 0, rotate: -2, scale: 0.95, x: -30 }, // Для заголовка добавил x
   animate: {
     opacity: 1,
@@ -51,7 +53,7 @@ export const gitVariants = {
   },
 };
 
-export const gitButtonVariants = {
+export const gitButtonVariants: Variants = {
   initial: { opacity: 0, scale: 0.5, y: 10 },
   animate: {
     opacity: 1,
@@ -59,4 +61,16 @@ export const gitButtonVariants = {
     y: 0,
     transition: { type: 'spring', damping: 12 },
   },
+};
+
+export const overlayVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
+export const modalVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.9, y: 20 },
+  visible: { opacity: 1, scale: 1, y: 0 },
+  exit: { opacity: 0, scale: 0.9, y: 20 },
 };

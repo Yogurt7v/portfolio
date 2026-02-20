@@ -1,15 +1,15 @@
 import React, { useRef, Suspense } from 'react';
 import { motion } from 'framer-motion';
-import PlayPauseButton from './PlayPauseButton';
-import SliderControls from './SliderControls';
 import type { Project } from '../../data/projects';
 import { useMobile } from '../../hooks/useMobile';
 import { useSlideWidth } from '../../hooks/useSlideWidth';
 import { GAP } from '../../utils/constants';
 import { useVisibleIndexes } from '../../hooks/useVisibleIndexes';
 import { sliderVariants } from '../../utils/animations';
-import { cardItemVariants } from '../achievements/CertCard';
+import { cardItemVariants } from '../Achievements/CertCard';
 import SkeletonCard from '../../components/SkeletonCard';
+import PlayPauseButton from './PlayPauseButton';
+import SliderControls from './SliderControls';
 
 const ProjectCard = React.lazy(() => import('../../components/ProjectCard'));
 
@@ -20,7 +20,7 @@ interface ProjectsSliderProps {
   isAutoPlaying: boolean;
   setIsAutoPlaying: (value: boolean) => void;
   onOpenPreview: (project: Project) => void;
-  previewProject: Project | null;
+  previewProject?: Project | null;
 }
 
 const ProjectsSlider: React.FC<ProjectsSliderProps> = ({
@@ -32,7 +32,7 @@ const ProjectsSlider: React.FC<ProjectsSliderProps> = ({
   onOpenPreview,
   previewProject,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useMobile();
   const slideWidth = useSlideWidth(containerRef, isMobile, 410);
   const effectiveWidth = slideWidth + GAP;
