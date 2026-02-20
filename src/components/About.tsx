@@ -6,13 +6,7 @@ import { MainFoto } from '../ui/MainFoto';
 import { AccentButton } from '../ui/AccentButton';
 import { MobileTitle } from '../ui/MobileTitle';
 import { MobileButton } from '../ui/MobileButton';
-
-const handleContactClick = () => {
-  const contactSection = document.getElementById('contact');
-  if (contactSection) {
-    contactSection.scrollIntoView({ behavior: 'smooth' });
-  }
-};
+import { scrollToContact } from '../utils/scrollHelpers';
 
 const About: React.FC = () => {
   return (
@@ -33,11 +27,12 @@ const About: React.FC = () => {
           className="md:col-span-4 order-1 md:order-2 flex flex-col items-center"
         >
           <MainFoto />
+
           {/* Кнопка для десктопа */}
           <AccentButton
             title={'Связаться со мной'}
             className={'hidden md:flex mt-10 w-full justify-center'}
-            onClick={handleContactClick}
+            onClick={scrollToContact}
             accent="main"
           />
         </motion.div>
@@ -62,6 +57,7 @@ const About: React.FC = () => {
           <MobileButton title={'Связаться со мной'} />
         </motion.div>
       </div>
+
       {/* Заголовок */}
       <MainTitle>Мои проекты</MainTitle>
     </section>

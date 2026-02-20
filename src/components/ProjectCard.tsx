@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { TIMER_CHANGE_CARD } from './Portfolio';
+import { TIMER_CHANGE_CARD } from '../utils/constants';
 
 const ProjectCard: React.FC<any> = ({ project, isActive, open, isAutoPlaying }) => {
   const [currentImg, setCurrentImg] = useState(0);

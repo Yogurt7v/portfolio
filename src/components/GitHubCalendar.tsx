@@ -1,40 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-// Исправлен импорт (убраны фигурные скобки)
 import { GitHubCalendar } from 'react-github-calendar';
 import { username } from '../data/aboutMe';
 import { CHANGE_YEAR_INTERVAL } from '../data/experience';
-
-const variants = {
-  initial: { opacity: 0, rotate: -2, scale: 0.95, x: -30 }, // Для заголовка добавил x
-  animate: {
-    opacity: 1,
-    rotate: 0,
-    scale: 1,
-    x: 0,
-    transition: {
-      type: 'spring',
-      damping: 20,
-      stiffness: 200,
-      delayChildren: 0.3,
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const buttonVariants = {
-  initial: { opacity: 0, scale: 0.5, y: 10 },
-  animate: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { type: 'spring', damping: 12 },
-  },
-};
+import { gitButtonVariants, gitVariants } from '../utils/animations';
+import { currentYear, yearsList } from '../utils/generateYearArray';
 
 const GithubSection = () => {
-  const currentYear = new Date().getFullYear();
-  const years = [2026, 2025, 2024, 2023];
   const [selectedYear, setSelectedYear] = useState(currentYear);
 
   const customTheme = {
@@ -44,9 +16,9 @@ const GithubSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setSelectedYear((prevYear) => {
-        const currentIndex = years.indexOf(prevYear);
-        const nextIndex = (currentIndex + 1) % years.length;
-        return years[nextIndex];
+        const currentIndex = yearsList.indexOf(prevYear);
+        const nextIndex = (currentIndex + 1) % yearsList.length;
+        return yearsList[nextIndex];
       });
     }, CHANGE_YEAR_INTERVAL);
     return () => clearInterval(interval);
@@ -54,30 +26,29 @@ const GithubSection = () => {
 
   return (
     <motion.section
-      className="hidden xl:grid max-w-6xl py-24 px-4 mx-auto"
+      className="hidden xl:grid  py-24 px-4 mx-auto"
       id="github"
-      // Единые названия для всей ветки компонентов
       initial="initial"
       whileInView="animate"
       viewport={{ once: true, amount: 0.55 }}
     >
       <motion.div
-        variants={variants}
-        className="bg-white/2 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-8 md:p-12 shadow-2xl relative overflow-hidden"
+        variants={gitVariants}
+        className="bg-white/2 backdrop-blur-3xl  border border-white/10 rounded-[3rem] p-8 md:p-12 shadow-2xl relative overflow-hidden"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <motion.h3
-            variants={variants} // Использует те же initial/animate от родителя
+            variants={gitVariants} // Использует те же initial/animate от родителя
             className="text-3xl font-bold text-white flex items-center gap-3"
           >
             GitHub Contributions
           </motion.h3>
 
           <div className="flex bg-white/5 p-1 rounded-2xl border border-white/10">
-            {years.map((year) => (
+            {yearsList.map((year) => (
               <motion.button
                 key={year}
-                variants={buttonVariants} // Появится с задержкой staggerChildren
+                variants={gitButtonVariants} // Появится с задержкой staggerChildren
                 onClick={() => setSelectedYear(year)}
                 className={`px-6 py-2 rounded-xl text-sm font-bold transition-all ${
                   selectedYear === year
