@@ -78,6 +78,7 @@ const GithubSection = () => {
             blockSize={13}
             blockMargin={5}
             showWeekdayLabels
+            showTotalCount={false}
           />
         </motion.div>
 
@@ -85,14 +86,11 @@ const GithubSection = () => {
             чтобы он сработал синхронно с появлением карточки */}
         <motion.div
           className="absolute inset-0 rounded-[3rem] pointer-events-none"
-          variants={{
-            initial: { opacity: 0 },
-            animate: {
-              opacity: [0, 0.2, 0],
-              transition: { duration: 3, repeat: Infinity, repeatDelay: 2 },
-            },
-          }}
+          initial={{ '--glare-opacity': 0 }}
+          animate={{ '--glare-opacity': [0, 0.2, 0] }}
+          transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
           style={{
+            opacity: 'var(--glare-opacity)',
             background:
               'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 70%)',
           }}
