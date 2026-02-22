@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import type { Project } from '../data/projects';
 
 export const getProjects = () => {
-  const [projectsData, setProjectsData] = useState([]);
+  const [projectsData, setProjectsData] = useState<Project[]>([]);
   const [isProjectsLoading, setIsProjectsLoading] = useState(true);
 
   useEffect(() => {

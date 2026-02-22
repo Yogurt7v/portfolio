@@ -1,14 +1,14 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
-import TechFilters from './TechFilters';
-import Modal from './Modal';
-import { getProjects } from '../api/getProjects';
-import type { Project } from '../data/projects';
+import { useCallback, useMemo, useState } from 'react';
 import { useAutoPlay } from '../hooks/useAutoPlay';
-import ProjectsSkeleton from './ProjectsSkeleton';
 import ProjectsSlider from '../ui/Portfolio/ProjectsSlider';
 import { filtersVariants, sectionVariants } from '../utils/animations';
 import { INITIAL_WIDTH } from '../utils/constants';
+import Modal from './Modal';
+import ProjectsSkeleton from './ProjectsSkeleton';
+import TechFilters from './TechFilters';
+import type { Project } from '../data/projects';
+import { getProjects } from '../api/getProjects';
+import { motion } from 'framer-motion';
 
 const Portfolio: React.FC = () => {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
@@ -19,34 +19,53 @@ const Portfolio: React.FC = () => {
 
   const { projectsData, isProjectsLoading } = getProjects();
 
-  // Мемоизация отфильтрованных проектов
-  const filteredProjects = useMemo(() => {
-    if (isProjectsLoading) return [];
+  // 1. Оптимизируем вычисление технологий
+  const allTechs = useMemo(() => {
+    if (!projectsData) return [];
+    const techs = new Set<string>();
+    projectsData.forEach((p) => p.techStack.forEach((t) => techs.add(t.name)));
+    return Array.from(techs);
+  }, [projectsData]);
 
+  // 2. Мемоизация фильтрации
+  const filteredProjects = useMemo(() => {
+    if (isProjectsLoading || !projectsData) return [];
+
+    let result = projectsData;
     if (selectedTechs.length > 0) {
-      return projectsData.filter((p: Project) =>
+      result = result.filter((p: Project) =>
         p.techStack.some((t) => selectedTechs.includes(t.name)),
       );
+    } else if (isFeatured) {
+      result = result.filter((p: Project) => p.isFeatured);
     }
-    return isFeatured ? projectsData.filter((p: Project) => p.isFeatured) : projectsData;
+    return result;
   }, [selectedTechs, isFeatured, projectsData, isProjectsLoading]);
 
-  // Сброс слайда при изменении фильтров
-  useEffect(() => {
+  // Колбэки для предотвращения лишних ререндеров дочерних компонентов
+  const handleToggleTech = useCallback((tech: string) => {
+    setSelectedTechs((prev) =>
+      prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech],
+    );
+    setIsFeatured(false);
     setCurrentSlide(0);
-  }, [filteredProjects]);
+  }, []);
 
-  // Авто переключение
+  const handleBestFilter = useCallback(() => {
+    setIsFeatured((prev) => !prev);
+    setSelectedTechs([]);
+    setCurrentSlide(0);
+  }, []);
+
   const next = useCallback(() => {
-    setCurrentSlide((p) => (p + 1) % filteredProjects.length);
+    if (filteredProjects.length > 0) {
+      setCurrentSlide((p) => (p + 1) % filteredProjects.length);
+    }
   }, [filteredProjects.length]);
 
   useAutoPlay(isAutoPlaying, !!previewProject, filteredProjects.length, next);
 
-  // Показать скелетон во время загрузки
-  if (isProjectsLoading) {
-    return <ProjectsSkeleton slideWidth={INITIAL_WIDTH} />;
-  }
+  if (isProjectsLoading) return <ProjectsSkeleton slideWidth={INITIAL_WIDTH} />;
 
   return (
     <motion.section
@@ -54,37 +73,21 @@ const Portfolio: React.FC = () => {
       id="projects"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.2 }} // Уменьшили amount для более раннего старта
       variants={sectionVariants}
     >
       <div className="flex flex-col gap-8 md:gap-12">
-        {/* Фильтры */}
         <motion.div className="order-2 md:order-1" variants={filtersVariants}>
           <TechFilters
-            bestFilter={() => {
-              setIsFeatured(!isFeatured);
-              setSelectedTechs([]);
-              setCurrentSlide(0);
-            }}
+            bestFilter={handleBestFilter}
             isBestMode={isFeatured}
-            allTechs={Array.from(
-              new Set(
-                projectsData.flatMap((p: Project) => p.techStack.map((t) => t.name)),
-              ),
-            )}
+            allTechs={allTechs}
             selectedTechs={selectedTechs}
-            onToggle={(tech) => {
-              setSelectedTechs((prev) =>
-                prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech],
-              );
-              setIsFeatured(false);
-              setCurrentSlide(0);
-            }}
+            onToggle={handleToggleTech}
             onClear={() => setSelectedTechs([])}
           />
         </motion.div>
 
-        {/* Слайдер */}
         <ProjectsSlider
           projects={filteredProjects}
           currentSlide={currentSlide}
@@ -95,7 +98,10 @@ const Portfolio: React.FC = () => {
         />
       </div>
 
-      <Modal previewProject={previewProject} setPreviewProject={setPreviewProject} />
+      {/* Рендерим модалку только когда она нужна */}
+      {previewProject && (
+        <Modal previewProject={previewProject} setPreviewProject={setPreviewProject} />
+      )}
     </motion.section>
   );
 };

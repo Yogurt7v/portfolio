@@ -22,6 +22,7 @@ npm -v
 
 # Создание папки для проекта
 
+sudo apt install nginx -y
 mkdir -p /var/www/portfolio
 chmod 755 /var/www/portfolio # чтобы nginx мог заходить в папку
 
@@ -54,6 +55,7 @@ systemctl reload nginx
 
 # Клонирование репозитория
 
+sudo apt install git -y
 cd /var/www/portfolio
 git clone https://github.com/Yogurt7v/portfolio.git .
 
