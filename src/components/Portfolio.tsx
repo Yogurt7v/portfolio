@@ -19,7 +19,6 @@ const Portfolio: React.FC = () => {
 
   const { projectsData, isProjectsLoading } = getProjects();
 
-  // 1. Оптимизируем вычисление технологий
   const allTechs = useMemo(() => {
     if (!projectsData) return [];
     const techs = new Set<string>();
@@ -27,7 +26,6 @@ const Portfolio: React.FC = () => {
     return Array.from(techs);
   }, [projectsData]);
 
-  // 2. Мемоизация фильтрации
   const filteredProjects = useMemo(() => {
     if (isProjectsLoading || !projectsData) return [];
 
@@ -42,7 +40,6 @@ const Portfolio: React.FC = () => {
     return result;
   }, [selectedTechs, isFeatured, projectsData, isProjectsLoading]);
 
-  // Колбэки для предотвращения лишних ререндеров дочерних компонентов
   const handleToggleTech = useCallback((tech: string) => {
     setSelectedTechs((prev) =>
       prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech],

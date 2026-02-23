@@ -61,7 +61,7 @@ const TechFilters: React.FC<TechFiltersProps> = ({
         className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 p-4 sm:p-6 mb-8
                    bg-linear-to-r from-slate-900/60 via-slate-800/30 to-slate-900/60
                    backdrop-blur-2xl border border-white/10
-                   rounded-[2rem] shadow-2xl shadow-black/50
+                   rounded-4xl shadow-2xl shadow-black/50
                    relative overflow-hidden group"
       >
         {/* 🔥 Кнопка "Лучшее" */}

@@ -112,17 +112,19 @@ const Header: React.FC = () => {
                   className="mt-4 p-6"
                 >
                   <ul className="flex flex-col items-center gap-6">
-                    {navLinks.map((link) => (
-                      <li key={link.name}>
-                        <a
-                          href={link.href}
-                          onClick={() => setIsOpen(false)}
-                          className="text-sm uppercase tracking-widest text-slate-300 hover:text-white font-bold"
-                        >
-                          {link.name}
-                        </a>
-                      </li>
-                    ))}
+                    {navLinks
+                      .filter((item) => item.name !== 'Github')
+                      .map((link) => (
+                        <li key={link.name}>
+                          <a
+                            href={link.href}
+                            onClick={() => setIsOpen(false)}
+                            className="text-sm uppercase tracking-widest text-slate-300 hover:text-white font-bold"
+                          >
+                            {link.name}
+                          </a>
+                        </li>
+                      ))}
                   </ul>
                 </motion.div>
               )}
