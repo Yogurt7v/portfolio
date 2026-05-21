@@ -13,9 +13,11 @@ export interface Project {
   link: string;
 }
 
+let count = 1;
+
 export const projects: Project[] = [
   {
-    id: 1,
+    id: count++,
     title: 'Портфолио',
     description:
       'Портфолио Frontend-разработчика: создание веб-приложений на React, TypeScript и Astro. Чистый код, адаптивная верстка и современный UX/UI. Мои проекты и технический стек',
@@ -61,7 +63,7 @@ export const projects: Project[] = [
     link: 'https://es-portfolio.ru/',
   },
   {
-    id: 2,
+    id: count++,
     title: 'Check Repeat',
     description:
       'Check Repeat — это приложение для проверок дубликатов счетов-фактур. Проверяются списки полученных/выданных счетов-фактур на совпадения по суммам, по датам, по номерам и по контрагентам. Выстраиваются таблицы совпадений с фильтром по контрагенту для удобства проверки.',
@@ -89,12 +91,18 @@ export const projects: Project[] = [
     link: 'https://check-repeat.vercel.app/',
   },
   {
-    id: 3,
+    id: count++,
     title: 'QuickChat',
     description:
-      'Веб-чат для  обмена сообщениями в реальном времени с поддержкой PWA. Регистрацию пользователей, приватные беседы, push-уведомления, онлайн-статусы, пересылку файлов и drag-and-drop организацию чатов. Построенный на React 19 и Firebase с интеграцией Supabase, адаптивный дизайн для всех устройств с темной темой .',
+      'Веб-чат для  обмена сообщениями в реальном времени с поддержкой PWA. Регистрацию пользователей, приватные беседы, push-уведомления на всех устройствах, онлайн-статусы, пересылку файлов и drag-and-drop организацию чатов. Построенный на React 19 и Firebase с интеграцией Supabase, адаптивный дизайн для всех устройств с темной темой и изменением размера шрифта.',
     date: '2025-12-31',
-    screenshots: ['/images/quick/1.webp', '/images/quick/2.webp', '/images/quick/3.webp'],
+    screenshots: [
+      '/images/quick/1.webp',
+      '/images/quick/2.webp',
+      '/images/quick/3.webp',
+      '/images/quick/4.webp',
+      '/images/quick/5.webp',
+    ],
     videoUrl: '/videos/quick.mp4',
     techStack: [
       {
@@ -127,7 +135,7 @@ export const projects: Project[] = [
     link: 'https://quickchat-fac82.web.app/',
   },
   {
-    id: 4,
+    id: count++,
     title: 'Cooking Book',
     description:
       'Простенькая практика книги рецептов с регистрацией и добавлением новых рецептов и ингредиентов',
@@ -174,7 +182,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 5,
+    id: count++,
     title: 'Astro tutorial',
     description:
       'Пройденная практика Astro. Проект представляет собой персональный блог, созданный с использованием фреймворка Astro. Блог посвящен изучению и экспериментам с Astro, а также публикации записей о веб-разработке.',
@@ -200,7 +208,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 6,
+    id: count++,
     title: 'Forms',
     description:
       'Полнофункциональная платформа для создания и управления формами с системой аутентификации пользователей. Backend реализован на NestJS с PostgreSQL и JWT-аутентификацией, Frontend — на Next.js с TypeScript и Tailwind CSS. Проект включает drag-and-drop конструктор форм, аналитику ответов, экспорт данных и поддерживает Google OAuth, полную контейнеризацию через Docker с CI/CD на GitLab.',
@@ -268,7 +276,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 7,
+    id: count++,
     title: 'Real Estate API',
     description:
       'Этот проект представляет собой REST API на базе NestJS для управления недвижимостью (real estate). Он позволяет пользователям регистрироваться, аутентифицироваться, создавать и управлять объявлениями о недвижимости, а также взаимодействовать с ними (лайки).',
@@ -303,7 +311,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 8,
+    id: count++,
     title: 'Todo Redux',
     description:
       'Современное приложение для управления задачами в стиле Material Design, созданное с использованием React и Redux. Отличается красивым градиентным фоном, адаптивным дизайном и постоянным хранением данных.',
@@ -343,7 +351,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 9,
+    id: count++,
     title: 'ArtGen',
     description:
       'Проект ArtGenDeploy - это деплоймент-система для веб-приложения генератора искусства. Проект написан на чистом JavaScript  и демонстрации интеграции CI/CD, Docker-контейнеризации и автоматизации развертывания веб-приложений.',
@@ -375,7 +383,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 10,
+    id: count++,
     title: 'Yandex Test',
     description:
       'Тестовое задание Яндекс. Необходимо сделать перемещение объектов с полки в корзину. ',
@@ -400,7 +408,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 11,
+    id: count++,
     title: 'Quiz Component',
     description:
       'Интерактивное приложение-викторина, созданное с использованием React, TypeScript и Material-UI. Поддерживает различные типы вопросов, включая вопросы с множественным выбором, текстовым вводом и чекбоксами, с таймером и отслеживанием прогресса.',
@@ -432,7 +440,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 12,
+    id: count++,
     title: 'Meet Hub',
     description:
       'Полнофункциональное веб-приложение для создания и управления мероприятиями, построенное с использованием современных технологий React.',
@@ -475,7 +483,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 13,
+    id: count++,
     title: 'Meet Hub',
     description:
       'React-приложение для управления контактами, построенное с использованием TypeScript, Redux и Bootstrap. Этот проект позволяет пользователям просматривать, фильтровать и организовывать контакты, включая группировку по категориям и ведение списка избранных. Наполнение рандомное',
@@ -515,7 +523,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 14,
+    id: count++,
     title: 'Rick and Morty PWA',
     description:
       'Это прогрессивное веб-приложение (PWA), созданное на React с использованием Vite, для изучения вселенной Rick and Morty.',
@@ -549,7 +557,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 15,
+    id: count++,
     title: 'Weather Sounds',
     description:
       'Weather Sounds — веб-приложение для прослушивания звуков погоды (лето, дождь, зима) с фоновыми картинками под каждый тип.',
@@ -577,7 +585,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 16,
+    id: count++,
     title: 'Todo Tanstack',
     description:
       'React Query Practice — учебное приложение на React для работы с серверным состоянием через TanStack React Query (ранее React Query).',
@@ -610,7 +618,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 17,
+    id: count++,
     title: 'Telegram Bot',
     description: 'Telegram-бот на Node.js и фреймворке Grammy. ',
     date: '2024-06-10',
@@ -629,7 +637,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 18,
+    id: count++,
     title: 'Next.js Dashboard',
     description:
       'Это учебный проект по созданию дашборда с использованием Next.js. Приложение включает аутентификацию, управление клиентами, счетами и дашборд с аналитикой.',
@@ -663,7 +671,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 19,
+    id: count++,
     title: 'Fast Burger Delivery',
     description:
       'Full-stack веб-приложение: интернет-магазин с панелью администратора, корзиной, заказами, отзывами и промокодами.',
@@ -705,7 +713,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 20,
+    id: count++,
     title: 'My Blog Practice App',
     description:
       'Небольшое учебное приложение-блог на React/Redux со стилями на `styled-components`. В качестве бэкенда используется `json-server` на порту 3004.',
@@ -734,7 +742,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 21,
+    id: count++,
     title: 'Captcha Generator',
     description:
       'Компонент генерации CAPTCHA из 6 символов, шум на canvas, проверка ввода, обновление по кнопке и после проверки.',
@@ -764,7 +772,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 22,
+    id: count++,
     title: 'Voice to Text',
     description:
       'Voice to Text - это одностраничное приложение, которое позволяет распознавать голос и выводить распознанный текст на экран. Пользователь может выбрать язык распознавания из списка (включая русский, английский и множество других), запустить запись, увидеть результат и сохранить его в текстовый файл.',
@@ -790,7 +798,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 23,
+    id: count++,
     title: 'Firebase Todo',
     description:
       'Небольшое приложение‑список дел на React 18 с синхронизацией через Firebase Realtime Database (модульный SDK v9).Добавление, редактирование и удаление задач. Онлайн‑синхронизация в реальном времени. Поиск и сортировка. Адаптивная верстка и улучшенные стили',
@@ -821,7 +829,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 24,
+    id: count++,
     title: 'XOXO',
     description: 'Простая игра «Крестики‑Нолики» на React с Redux и Tailwind CSS.',
     date: '2023-09-17',
@@ -843,7 +851,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 25,
+    id: count++,
     title: 'Login Page',
     description:
       'Это только фронтенд‑шаблон. Подключите его к вашему бэкенду или провайдеру аутентификации при необходимости.',
@@ -866,7 +874,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 26,
+    id: count++,
     title: 'Simple Game',
     description:
       'Небольшая браузерная игра: загадайте число от 1 до 100 и попытайтесь угадать его за 10 попыток. Игра подсказывает, больше или меньше было ваше предположение. По завершении появляется полноэкранный оверлей с большой кнопкой «Играем» для быстрого старта новой партии.',
@@ -893,7 +901,7 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 27,
+    id: count++,
     title: 'Encryptor',
     description: 'Простой веб-проект для шифрования и дешифрования данных в браузере.',
     date: '2023-10-25',
