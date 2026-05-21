@@ -18,6 +18,45 @@ let count = 1;
 export const projects: Project[] = [
   {
     id: count++,
+    title: 'Будь в курсе',
+    description:
+      'Веб-приложение для агрегации новостей из Telegram-каналов. Пользователи могут подписываться на каналы, группировать их в папки и читать новости в единой ленте с realtime обновлениями.',
+    date: '2026-04-11',
+    screenshots: [
+      '/images/news/1.webp',
+      '/images/news/2.webp',
+      '/images/news/3.webp',
+      '/images/news/4.webp',
+      '/images/news/5.webp',
+      '/images/news/6.webp',
+    ],
+    videoUrl: '/videos/news.mp4',
+    techStack: [
+      {
+        name: 'Next',
+      },
+      {
+        name: 'React',
+      },
+      {
+        name: 'PocketBase',
+      },
+      {
+        name: 'Telegram(@mtcute/node)',
+      },
+      {
+        name: 'Nginx',
+      },
+      {
+        name: 'Cron functions',
+      },
+    ],
+    isFeatured: true,
+    gitHubLink: 'https://github.com/Yogurt7v/News',
+    link: 'https://be-informed.ru/',
+  },
+  {
+    id: count++,
     title: 'Портфолио',
     description:
       'Портфолио Frontend-разработчика: создание веб-приложений на React, TypeScript и Astro. Чистый код, адаптивная верстка и современный UX/UI. Мои проекты и технический стек',
