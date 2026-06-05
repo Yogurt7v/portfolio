@@ -76,7 +76,7 @@ let base = [
 ];
 
 let added = {
-  id: 6,
+  id: id++,
   name: 'В процессе',
   source: '/certificate/noname.webp',
   preview: '/certificate/noname-mini.webp',
@@ -86,7 +86,7 @@ let added = {
 
 export let certificates: any;
 
-if (base.length % 2 === 0) {
+if (base.length % 3 === 0) {
   certificates = base;
 } else {
   certificates = [...base, added];
