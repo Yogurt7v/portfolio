@@ -1,6 +1,8 @@
+let id = 1;
+
 let base = [
   {
-    id: 1,
+    id: id++,
     name: 'HTML',
     source: '/certificate/html.webp',
     preview: '/certificate/html-mini.webp',
@@ -8,7 +10,7 @@ let base = [
     date: '06-07-2023',
   },
   {
-    id: 2,
+    id: id++,
     name: 'Angular',
     source: '/certificate/angular.webp',
     preview: '/certificate/angular-mini.webp',
@@ -16,7 +18,7 @@ let base = [
     date: '07-06-2024',
   },
   {
-    id: 3,
+    id: id++,
     name: 'JavaScrypt Intermediate',
     source: '/certificate/js-int.webp',
     preview: '/certificate/js-int-mini.webp',
@@ -24,7 +26,7 @@ let base = [
     date: '08-07-2024',
   },
   {
-    id: 4,
+    id: id++,
     name: 'Junior Fronted-разработчик',
     source: '/certificate/junior2.webp',
     preview: '/certificate/junior2-mini.webp',
@@ -32,12 +34,44 @@ let base = [
     date: '08-05-2024',
   },
   {
-    id: 5,
+    id: id++,
     name: 'Middle-разработчик',
     source: '/certificate/middle.webp',
     preview: '/certificate/middle-mini.webp',
     issuer: 'Result University',
     date: '08-07-2025',
+  },
+  {
+    id: id++,
+    name: 'HTML средний уровень',
+    source: '/certificate/MC-HTML.webp',
+    preview: '/certificate/MC-HTML-mini.webp',
+    issuer: 'Минцифры',
+    date: '04-06-2026',
+  },
+  {
+    id: id++,
+    name: 'CSS средний уровень',
+    source: '/certificate/MC-CSS.webp',
+    preview: '/certificate/MC-CSS-mini.webp',
+    issuer: 'Минцифры',
+    date: '04-06-2026',
+  },
+  {
+    id: id++,
+    name: 'JS продвинутый уровень',
+    source: '/certificate/MC-JS.webp',
+    preview: '/certificate/MC-JS-mini.webp',
+    issuer: 'Минцифры',
+    date: '04-06-2026',
+  },
+  {
+    id: id++,
+    name: 'Docker начальный уровень',
+    source: '/certificate/MC-Docker.webp',
+    preview: '/certificate/MC-Docker-mini.webp',
+    issuer: 'Минцифры',
+    date: '05-06-2026',
   },
 ];
 
@@ -50,7 +84,7 @@ let added = {
   date: 'Скоро',
 };
 
-export let certificates;
+export let certificates: any;
 
 if (base.length % 2 === 0) {
   certificates = base;
