@@ -92,9 +92,10 @@ export const itemVariants: Variants = {
     rotateX: 0,
     transition: {
       type: 'spring',
-      damping: 15,
-      stiffness: 150,
-      rotateX: { type: 'tween', duration: 0.4, ease: 'easeOut' }, // отдельная настройка для вращения
+      damping: 25,
+      stiffness: 300,
+      mass: 0.8,
+      rotateX: { type: 'tween', duration: 0.4, ease: 'easeOut' },
     },
   },
 };

@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "deploy": "npm run build && rsync -avz dist/ deployer@94.183.233.48:/var/www/portfolio/",
     "deploy:auto": "pm2 restart portfolio",
+    "opt": "node scripts/optimize.mjs",
     "astro": "astro"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/typography": "^0.5.19"
+    "@tailwindcss/typography": "^0.5.19",
+    "sharp": "^0.34.5"
   }
 }

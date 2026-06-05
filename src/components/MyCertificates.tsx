@@ -10,11 +10,15 @@ import { certificates } from '../data/certificate';
 
 const MyCertificates: React.FC = () => {
   const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
+  const [resetKey, setResetKey] = useState(0);
 
   useLockBodyScroll(!!selectedCert);
 
   const handleSelectCert = (cert: Certificate) => setSelectedCert(cert);
-  const handleCloseModal = () => setSelectedCert(null);
+  const handleCloseModal = () => {
+    setSelectedCert(null);
+    setResetKey(k => k + 1);
+  };
 
   return (
     <motion.section
@@ -36,6 +40,7 @@ const MyCertificates: React.FC = () => {
             cert={cert}
             onSelect={handleSelectCert}
             custom={index}
+            resetKey={resetKey}
           />
         ))}
       </motion.div>

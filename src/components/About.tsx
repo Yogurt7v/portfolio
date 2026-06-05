@@ -39,9 +39,9 @@ const About: React.FC = () => {
 
         {/* Текстовая колонка */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
+          // initial={{ opacity: 0, x: -30 }}
+          // whileInView={{ opacity: 1, x: 0 }}
+          // viewport={{ once: true, amount: 0.3 }}
           className="text-white md:col-span-8 order-2 md:order-1"
         >
           <h2 className="hidden md:block text-5xl font-extrabold mb-8 leading-tight">

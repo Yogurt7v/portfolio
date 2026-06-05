@@ -8,9 +8,10 @@ interface CertCardProps {
   cert: Certificate;
   onSelect: (cert: Certificate) => void;
   custom: number;
+  resetKey: number;
 }
 
-const CertCard: React.FC<CertCardProps> = memo(({ cert, onSelect, custom }) => {
+const CertCard: React.FC<CertCardProps> = memo(({ cert, onSelect, custom, resetKey }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const isMobile = useMobile();
 
@@ -26,6 +27,7 @@ const CertCard: React.FC<CertCardProps> = memo(({ cert, onSelect, custom }) => {
     >
       {/* Изображение */}
       <motion.img
+        key={`${cert.id}-${resetKey}`}
         layoutId={`cert-img-${cert.id}`}
         src={cert.preview}
         alt={cert.name}

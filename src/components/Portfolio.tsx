@@ -14,7 +14,7 @@ const Portfolio: React.FC = () => {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [previewProject, setPreviewProject] = useState<Project | null>(null);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
   const [isFeatured, setIsFeatured] = useState(false);
 
   const { projectsData, isProjectsLoading } = getProjects();

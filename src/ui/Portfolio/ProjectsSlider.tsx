@@ -65,6 +65,7 @@ const ProjectsSlider: React.FC<ProjectsSliderProps> = ({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
+      onViewportEnter={() => setIsAutoPlaying(true)}
     >
       <PlayPauseButton
         isAutoPlaying={isAutoPlaying}
