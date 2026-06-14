@@ -73,6 +73,22 @@ let base = [
     issuer: 'Минцифры',
     date: '05-06-2026',
   },
+  {
+    id: id++,
+    name: 'API теория средний уровень',
+    source: '/certificate/API2.webp',
+    preview: '/certificate/API2-mini.webp',
+    issuer: 'Минцифры',
+    date: '05-06-2026',
+  },
+  {
+    id: id++,
+    name: 'PostgreSQL теория средний уровень',
+    source: '/certificate/PostgreSQL.webp',
+    preview: '/certificate/PostgreSQL-mini.webp',
+    issuer: 'Минцифры',
+    date: '14-06-2026',
+  },
 ];
 
 let added = {
